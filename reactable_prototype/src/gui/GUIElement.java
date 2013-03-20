@@ -33,8 +33,13 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package gui;
 
+import input.TuioInputListener;
+
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Shape;
+import java.awt.geom.AffineTransform;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -166,6 +171,21 @@ public abstract class GUIElement implements Observer {
 	 * @param g
 	 *            the Graphics reference to paint
 	 */
-	public abstract void draw(Graphics2D g);
+	public void draw(Graphics2D g, int width, int height) {
+		float Xpos = x*width;
+		float Ypos = y*height;
+		float scale = height/(float)TuioInputListener.table_size;
+
+		AffineTransform trans = new AffineTransform();
+		trans.translate(-x,-y);
+		trans.translate(Xpos,Ypos);
+		trans.scale(scale,scale);
+//		Shape s = trans.createTransformedShape(square);
+//	
+//		g.setPaint(Color.black);
+//		g.fill(s);
+//		g.setPaint(Color.white);
+//		g.drawString(symbol_id+"",Xpos-10,Ypos);
+	}
 
 }

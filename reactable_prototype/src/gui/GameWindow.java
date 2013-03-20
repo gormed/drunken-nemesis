@@ -2,6 +2,7 @@ package gui;
 
 import game.Entity;
 import game.Level;
+import game.Player;
 
 import input.TuioInputListener;
 import input.TuioInputObject;
@@ -12,12 +13,14 @@ import java.awt.Graphics2D;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Insets;
+import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.awt.geom.Point2D;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +30,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 
 import TUIO.TuioCursor;
+import TUIO.TuioObject;
 import TUIO.TuioPoint;
 
 import data.LevelData;
@@ -142,8 +146,9 @@ public class GameWindow extends JFrame {
 		// add text for lives
 		addElement(new TextElement("Hello World: ", 50, 100) {
 			@Override
-			public void draw(Graphics2D g) {
+			public void draw(Graphics2D g, int width, int height) {
 				if (isVisible) {
+					g.setColor(Color.black);
 					g.drawString(this.getText() + " ", x, y);
 				}
 			}
@@ -206,6 +211,14 @@ public class GameWindow extends JFrame {
 		entityList.remove(id).deleteObserver(drawnElementsList.remove(id));
 	}
 
+	public void connectPlayer(TuioObject object) {
+		Player p = new Player("Player" + level.getPlayers().size(),
+				new Point2D.Float(object.getX(), object.getY()));
+
+		level.addPlayer(object, p);
+
+	}
+
 	@SuppressWarnings("serial")
 	private class Canvas extends JComponent {
 
@@ -232,11 +245,11 @@ public class GameWindow extends JFrame {
 			g2.setColor(Color.black);
 			for (Map.Entry<Long, GUIElement> entry : drawnElementsList
 					.entrySet()) {
-				
-				entry.getValue().draw(g2);
+
+				entry.getValue().draw(g2, width, height);
 			}
 		}
-		
+
 		public void paint(Graphics g) {
 			update(g);
 		}
@@ -355,6 +368,13 @@ public class GameWindow extends JFrame {
 				exit = true;
 			}
 		}
+
+		@Override
+		public void addTuioObject(TuioObject tobj) {
+			// TODO Auto-generated method stub
+			super.addTuioObject(tobj);
+			connectPlayer(tobj);
+		}
 	}
 
 	/**
@@ -388,8 +408,8 @@ public class GameWindow extends JFrame {
 
 			}
 
-			//setVisible(true);
-			//repaint();
+			// setVisible(true);
+			// repaint();
 		}
 
 		/*

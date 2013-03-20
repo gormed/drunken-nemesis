@@ -81,7 +81,7 @@ public abstract class TextElement extends GUIElement {
 	 * @see com.arkaneud.gui.GUIElement#draw(java.awt.Graphics)
 	 */
 	@Override
-	public abstract void draw(Graphics2D g);
+	public abstract void draw(Graphics2D g, int width, int height);
 	
 	/* (non-Javadoc)
 	 * @see com.arkaneud.gui.GUIElement#update(java.util.Observable, java.lang.Object)

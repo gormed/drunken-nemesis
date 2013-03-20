@@ -33,8 +33,14 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package game;
 
+import input.TuioInputObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Observable;
+
+import TUIO.TuioObject;
 
 import data.LevelData;
 
@@ -63,7 +69,7 @@ public class Level extends Observable implements Updateable {
 	private LevelData levelData;
 
 	/** The local player list. */
-	private ArrayList<Player> playerList;
+	private HashMap<TuioObject, Player> playerList;
 
 	/**
 	 * Instantiates a new level.
@@ -100,7 +106,7 @@ public class Level extends Observable implements Updateable {
 		 * com.sun.security.auth.module.NTSystem(); localPlayer = new
 		 * Player(System.getProperty(NTSystem.getName()), this);
 		 */
-		playerList = new ArrayList<Player>();
+		playerList = new HashMap<TuioObject, Player>();
 
 		isInistialized = true;
 	}
@@ -125,9 +131,9 @@ public class Level extends Observable implements Updateable {
 	 */
 	@Override
 	public void update(float gap) {
-		for (Player p : playerList) {
-			p.updateObservers(gap);
-			if (p.hasLost() || p.hasWon())
+		for (Map.Entry<TuioObject, Player> p : playerList.entrySet()) {
+			p.getValue().updateObservers(gap);
+			if (p.getValue().hasLost() || p.getValue().hasWon())
 				isOver = true;
 		}
 	}
@@ -142,6 +148,14 @@ public class Level extends Observable implements Updateable {
 		update(gap);
 		setChanged();
 		notifyObservers(gap);
+	}
+	
+	public void addPlayer(TuioObject o, Player p) {
+		playerList.put(o, p);
+	}
+	
+	public void removePlayer(TuioObject o) {
+		playerList.remove(o);
 	}
 
 	/**
@@ -158,8 +172,8 @@ public class Level extends Observable implements Updateable {
 	 * 
 	 * @return the local player
 	 */
-	public ArrayList<Player> getLocalPlayer() {
-		return new ArrayList<Player>(playerList);
+	public HashMap<TuioObject, Player> getPlayers() {
+		return playerList;
 	}
 
 }

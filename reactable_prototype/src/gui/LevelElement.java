@@ -33,6 +33,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package gui;
 
+import java.awt.Shape;
+
 /**
  * The Class LevelElement defines a default and abstract element of the level,
  * could be a ball or paddle or brick.
@@ -44,6 +46,9 @@ public abstract class LevelElement extends GUIElement {
 
 	/** The height. */
 	int height;
+	
+	Shape visual;
+	Shape worldVisual;
 
 	/**
 	 * Instantiates a new level element.
