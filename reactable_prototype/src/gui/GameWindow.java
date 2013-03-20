@@ -24,6 +24,7 @@ import java.awt.event.WindowListener;
 import java.awt.geom.Point2D;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
 import java.util.Vector;
 
@@ -87,7 +88,7 @@ public class GameWindow extends JFrame {
 		if (instance != null)
 			return instance;
 		else
-			return new GameWindow();
+			return instance = new GameWindow();
 	}
 	/**
 	 * Instantiates a new game window.
@@ -236,14 +237,24 @@ public class GameWindow extends JFrame {
 		removeElements.put(id, g);
 		entityList.remove(id);
 	}
+	
+	public boolean getDebugFlag() {
+		return gameInputListener.debug;
+	}
+	
+	public Hashtable<Long,TuioCursor> getCursorList() {
+		return gameInputListener.getCursorList();
+	}
+	
+	public Hashtable<Long, TuioInputObject> getObjectList() {
+		return gameInputListener.getObjectList();
+	}
 
 	public void connectPlayer(TuioObject object) {
 		Player p = new Player("Player" + level.getPlayers().size(), object);
 
 		level.addPlayer(object, p);
 		addElement(new VisualAirport(p.getAirport()), p.getAirport());
-		
-
 	}
 
 	@SuppressWarnings("serial")
@@ -490,7 +501,7 @@ public class GameWindow extends JFrame {
 		 */
 		@Override
 		public void windowIconified(WindowEvent e) {
-
+			active = false;
 		}
 
 		/*
@@ -501,7 +512,7 @@ public class GameWindow extends JFrame {
 		 */
 		@Override
 		public void windowDeiconified(WindowEvent e) {
-
+			active = true;
 		}
 
 		/*
@@ -524,7 +535,7 @@ public class GameWindow extends JFrame {
 		 */
 		@Override
 		public void windowDeactivated(WindowEvent e) {
-			active = false;
+
 		}
 
 	}

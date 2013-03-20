@@ -32,14 +32,7 @@ public class VisualAirport extends LevelElement {
 			this.x = p.getXPos();
 			this.y = p.getYPos();
 			this.angle = p.getAngle();
-			float dx = p.getXPos() - x;
-			float dy = p.getYPos() - y;
 
-			if ((dx != 0) || (dy != 0)) {
-				AffineTransform trans = AffineTransform.getTranslateInstance(
-						dx, dy);
-				visual = trans.createTransformedShape(visual);
-			}
 		}
 	}
 
@@ -53,15 +46,16 @@ public class VisualAirport extends LevelElement {
 		trans.translate(-x, -y);
 		trans.translate(Xpos, Ypos);
 		trans.scale(scale, scale);
-		AffineTransform rot = AffineTransform.getRotateInstance(angle,
-				x, y);
+		AffineTransform rot = AffineTransform.getRotateInstance(angle, x, y);
 		worldVisual = rot.createTransformedShape(visual);
 		worldVisual = trans.createTransformedShape(worldVisual);
 
 		g.setPaint(Color.black);
 		g.fill(worldVisual);
-		g.setPaint(Color.red);
-		g.drawString(getName() + "", Xpos - 10, Ypos);
+		if (GameWindow.getInstance().getDebugFlag()) {
+			g.setPaint(Color.red);
+			g.drawString(getName() + "", Xpos - 10, Ypos);
+		}
 	}
 
 }

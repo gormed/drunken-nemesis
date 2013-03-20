@@ -33,6 +33,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package game;
 
+import java.awt.Shape;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.Observable;
@@ -55,7 +56,7 @@ public abstract class Entity extends Observable implements Updateable {
 	float angle = 0;
 
 	/** The collision rectangle of this entity. */
-	Rectangle2D.Float collision;
+	Shape collision;
 
 	/**
 	 * Instantiates a new entity.
@@ -68,14 +69,14 @@ public abstract class Entity extends Observable implements Updateable {
 	/**
 	 * Creates the collision rectangle for the entity.
 	 */
-	public abstract void createCollision();
+	public abstract void createCollision(Shape shape);
 
 	/**
 	 * Gets the collision of the entity.
 	 * 
 	 * @return the collision
 	 */
-	public Rectangle2D getCollision() {
+	public Shape getCollision() {
 		return collision;
 	}
 

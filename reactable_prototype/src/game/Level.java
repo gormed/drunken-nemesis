@@ -33,6 +33,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package game;
 
+import gui.GameWindow;
 import input.TuioInputObject;
 
 import java.util.ArrayList;
@@ -52,6 +53,10 @@ import data.LevelData;
  */
 public class Level extends Observable implements Updateable {
 
+	public enum LevelState {
+		PREPARE, STARTED, ENDED
+	}
+
 	/** The Constant LEVEL_HEIGHT. */
 	public static final int LEVEL_HEIGHT = 600;
 
@@ -66,6 +71,8 @@ public class Level extends Observable implements Updateable {
 
 	/** The is over flag, true if the player has won or lost. */
 	private boolean isOver = false;
+
+	private LevelState state = LevelState.PREPARE;
 
 	/** The levels data. */
 	private LevelData levelData;
@@ -103,6 +110,7 @@ public class Level extends Observable implements Updateable {
 			return;
 
 		levelData = data;
+		state = LevelState.PREPARE;
 		/*
 		 * This code works only on windows/not with the openJDK for linux
 		 * com.sun.security.auth.module.NTSystem NTSystem = new
@@ -123,6 +131,7 @@ public class Level extends Observable implements Updateable {
 
 		levelData = null;
 		playerList = null;
+		state = LevelState.ENDED;
 
 		isInistialized = false;
 	}
@@ -134,15 +143,23 @@ public class Level extends Observable implements Updateable {
 	 */
 	@Override
 	public void update(float gap) {
+		
+		if (state != LevelState.STARTED && GameWindow.getInstance().getCursorList().size() == 5) {
+			state = LevelState.STARTED;
+		}
 		updatePlayers(gap);
-
+		if (state == LevelState.STARTED) {
+			
+		}
 	}
 
 	private void updatePlayers(float gap) {
-		if (playerList.size() != players.size()) {
-			for (Map.Entry<TuioObject, Player> p : playerList.entrySet()) {
-				if (!players.contains(p.getValue())) {
-					players.add(p.getValue());
+		if (state != LevelState.STARTED) {
+			if (playerList.size() != players.size()) {
+				for (Map.Entry<TuioObject, Player> p : playerList.entrySet()) {
+					if (!players.contains(p.getValue())) {
+						players.add(p.getValue());
+					}
 				}
 			}
 		}
@@ -166,13 +183,13 @@ public class Level extends Observable implements Updateable {
 	}
 
 	public void addPlayer(TuioObject o, Player p) {
-
-		playerList.put(o, p);
+		if (state == LevelState.PREPARE)
+			playerList.put(o, p);
 	}
 
 	public void removePlayer(TuioObject o) {
-
-		playerList.remove(o);
+		if (state != LevelState.STARTED)
+			playerList.remove(o);
 	}
 
 	/**
@@ -182,6 +199,10 @@ public class Level extends Observable implements Updateable {
 	 */
 	public boolean isOver() {
 		return isOver;
+	}
+
+	public LevelState getState() {
+		return state;
 	}
 
 	/**
