@@ -64,7 +64,9 @@ public abstract class GUIElement implements Observer {
 	private String name = "element";
 
 	/** The x and y coordinate on the java awt surface. */
-	int x, y;
+	float x, y;
+	
+	float angle;
 
 	/** The visiblity flag. */
 	boolean isVisible;
@@ -112,7 +114,7 @@ public abstract class GUIElement implements Observer {
 	 * 
 	 * @return the elements x coordinate
 	 */
-	public int getX() {
+	public float getX() {
 		return x;
 	}
 
@@ -121,7 +123,7 @@ public abstract class GUIElement implements Observer {
 	 * 
 	 * @return the elements y coordinate
 	 */
-	public int getY() {
+	public float getY() {
 		return y;
 	}
 

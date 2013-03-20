@@ -33,9 +33,13 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package game;
 
+import gui.GameWindow;
+
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Observable;
+
+import TUIO.TuioObject;
 
 /**
  * The Class Player represents the player in simulation and holds the paddle as
@@ -57,8 +61,10 @@ public class Player extends Observable implements Updateable {
 
 	/** The points of the player. */
 	private int points = 0;
-	
+
 	private Airport airport;
+
+	private TuioObject playerTUIOObject;
 
 	/**
 	 * Instantiates a new player.
@@ -66,9 +72,11 @@ public class Player extends Observable implements Updateable {
 	 * @param name
 	 *            the name
 	 */
-	public Player(String name, Point2D.Float position) {
+	public Player(String name, TuioObject object) {
 		this.name = name;
-		this.airport = new Airport(this, position);
+		this.playerTUIOObject = object;
+		this.airport = new Airport(this, object);
+		
 	}
 
 	/*
@@ -81,7 +89,9 @@ public class Player extends Observable implements Updateable {
 		// dont do anything if the player has lost or won
 		if (hasWon || hasLost)
 			return;
-
+		if (playerTUIOObject != null) {
+			airport.updateObservers(gap);
+		}
 
 	}
 
@@ -116,6 +126,10 @@ public class Player extends Observable implements Updateable {
 	 */
 	public boolean hasLost() {
 		return hasLost;
+	}
+
+	public Airport getAirport() {
+		return this.airport;
 	}
 
 	/**

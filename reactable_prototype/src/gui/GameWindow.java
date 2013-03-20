@@ -1,5 +1,6 @@
 package gui;
 
+import game.Airport;
 import game.Entity;
 import game.Level;
 import game.Player;
@@ -26,6 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
 
+import javax.sql.rowset.spi.SyncResolver;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
@@ -45,6 +47,8 @@ public class GameWindow extends JFrame {
 
 	/** The drawn elements list. */
 	private HashMap<Long, GUIElement> drawnElementsList = new HashMap<Long, GUIElement>();
+	private HashMap<Long, GUIElement> addElements = new HashMap<Long, GUIElement>();
+	private HashMap<Long, GUIElement> removeElements = new HashMap<Long, GUIElement>();
 
 	/** The entity list. */
 	private HashMap<Long, Entity> entityList = new HashMap<Long, Entity>();
@@ -76,10 +80,19 @@ public class GameWindow extends JFrame {
 	 */
 	private boolean active = false;
 
+	
+	private static GameWindow instance;
+	
+	public static GameWindow getInstance() {
+		if (instance != null)
+			return instance;
+		else
+			return new GameWindow();
+	}
 	/**
 	 * Instantiates a new game window.
 	 */
-	public GameWindow() {
+	private GameWindow() {
 		// Frame setup
 		super("ReactPlane");
 		device = GraphicsEnvironment.getLocalGraphicsEnvironment()
@@ -91,7 +104,7 @@ public class GameWindow extends JFrame {
 		add(canvas = new Canvas());
 		canvas.setSize(Level.LEVEL_WIDTH, Level.LEVEL_HEIGHT);
 		// add the listeners for user input and exit handling
-		canvas.addKeyListener(gameInputListener = new GameInputListener());
+		addKeyListener(gameInputListener = new GameInputListener());
 		addWindowListener(windowListener = new GameWindowListener());
 		// create level from data
 		level = Level.getInstance();
@@ -172,7 +185,7 @@ public class GameWindow extends JFrame {
 		// add entity to list
 		entityList.put(element.getElementID(), entity);
 		// add the according gui element to draw list
-		return drawnElementsList.put(element.getElementID(), element);
+		return addElements.put(element.getElementID(), element);
 	}
 
 	/**
@@ -201,6 +214,14 @@ public class GameWindow extends JFrame {
 		return gameInputListener;
 	}
 
+	public int getCanvasWidth() {
+		return canvas.width;
+	}
+
+	public int getCanvasHeight() {
+		return canvas.height;
+	}
+
 	/**
 	 * Removes the gui element.
 	 * 
@@ -208,14 +229,20 @@ public class GameWindow extends JFrame {
 	 *            the id
 	 */
 	public void removeGUIElement(long id) {
-		entityList.remove(id).deleteObserver(drawnElementsList.remove(id));
+		Entity e = entityList.get(id);
+		GUIElement g = drawnElementsList.get(id);
+		e.deleteObserver(drawnElementsList.remove(id));
+
+		removeElements.put(id, g);
+		entityList.remove(id);
 	}
 
 	public void connectPlayer(TuioObject object) {
-		Player p = new Player("Player" + level.getPlayers().size(),
-				new Point2D.Float(object.getX(), object.getY()));
+		Player p = new Player("Player" + level.getPlayers().size(), object);
 
 		level.addPlayer(object, p);
+		addElement(new VisualAirport(p.getAirport()), p.getAirport());
+		
 
 	}
 
@@ -243,11 +270,23 @@ public class GameWindow extends JFrame {
 				drawDebug(g2);
 
 			g2.setColor(Color.black);
+			drawGUIElements(g2);
+		}
+
+		private void drawGUIElements(Graphics2D g2) {
+			for (Map.Entry<Long, GUIElement> entry : addElements.entrySet()) {
+				drawnElementsList.put(entry.getKey(), entry.getValue());
+			}
+			for (Map.Entry<Long, GUIElement> entry : removeElements.entrySet()) {
+				drawnElementsList.remove(entry.getKey());
+			}
 			for (Map.Entry<Long, GUIElement> entry : drawnElementsList
 					.entrySet()) {
 
 				entry.getValue().draw(g2, width, height);
 			}
+			addElements.clear();
+			removeElements.clear();
 		}
 
 		public void paint(Graphics g) {
@@ -312,7 +351,6 @@ public class GameWindow extends JFrame {
 	/**
 	 * The listener class for receiving key events.
 	 */
-	@SuppressWarnings("serial")
 	private class GameInputListener extends TuioInputListener implements
 			KeyListener {
 
@@ -371,9 +409,16 @@ public class GameWindow extends JFrame {
 
 		@Override
 		public void addTuioObject(TuioObject tobj) {
-			// TODO Auto-generated method stub
 			super.addTuioObject(tobj);
 			connectPlayer(tobj);
+		}
+		
+		@Override
+		public void updateTuioObject(TuioObject tobj) {
+			super.updateTuioObject(tobj);
+			if (level.getPlayers().containsKey(tobj)) {
+				level.getPlayers().get(tobj).getAirport().update(0);
+			}
 		}
 	}
 

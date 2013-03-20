@@ -26,7 +26,21 @@ public class VisualAirport extends LevelElement {
 
 	@Override
 	public void update(Observable o, Object arg) {
+		if (o instanceof Airport) {
+			Airport p = (Airport) o;
 
+			this.x = p.getXPos();
+			this.y = p.getYPos();
+			this.angle = p.getAngle();
+			float dx = p.getXPos() - x;
+			float dy = p.getYPos() - y;
+
+			if ((dx != 0) || (dy != 0)) {
+				AffineTransform trans = AffineTransform.getTranslateInstance(
+						dx, dy);
+				visual = trans.createTransformedShape(visual);
+			}
+		}
 	}
 
 	@Override
@@ -39,12 +53,15 @@ public class VisualAirport extends LevelElement {
 		trans.translate(-x, -y);
 		trans.translate(Xpos, Ypos);
 		trans.scale(scale, scale);
-		worldVisual = trans.createTransformedShape(visual);
+		AffineTransform rot = AffineTransform.getRotateInstance(angle,
+				x, y);
+		worldVisual = rot.createTransformedShape(visual);
+		worldVisual = trans.createTransformedShape(worldVisual);
 
 		g.setPaint(Color.black);
 		g.fill(worldVisual);
-		g.setPaint(Color.white);
-		g.drawString(getName()+"",Xpos-10,Ypos);
+		g.setPaint(Color.red);
+		g.drawString(getName() + "", Xpos - 10, Ypos);
 	}
 
 }

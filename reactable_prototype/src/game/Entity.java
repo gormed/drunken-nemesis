@@ -51,6 +51,8 @@ public abstract class Entity extends Observable implements Updateable {
 
 	/** The height of the entity. */
 	float height = 0;
+	
+	float angle = 0;
 
 	/** The collision rectangle of this entity. */
 	Rectangle2D.Float collision;
@@ -129,7 +131,11 @@ public abstract class Entity extends Observable implements Updateable {
 	 * @return the y pos
 	 */
 	public float getYPos() {
-		return Level.LEVEL_HEIGHT - position.y;
+		return position.y;
+	}
+
+	public float getAngle() {
+		return angle;
 	}
 
 	/**

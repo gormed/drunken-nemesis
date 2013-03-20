@@ -55,7 +55,7 @@ public class StartPrototype {
 	 */
 	public static void main(String[] args) {
 		// create a game window
-		GameWindow game = new GameWindow();
+		GameWindow game = GameWindow.getInstance();
 		
 		TuioClient client = null;
 		 

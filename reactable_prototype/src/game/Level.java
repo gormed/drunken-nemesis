@@ -40,6 +40,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 
+import javax.sql.rowset.spi.SyncResolver;
+
 import TUIO.TuioObject;
 
 import data.LevelData;
@@ -70,6 +72,7 @@ public class Level extends Observable implements Updateable {
 
 	/** The local player list. */
 	private HashMap<TuioObject, Player> playerList;
+	private ArrayList<Player> players = new ArrayList<Player>();
 
 	/**
 	 * Instantiates a new level.
@@ -131,9 +134,21 @@ public class Level extends Observable implements Updateable {
 	 */
 	@Override
 	public void update(float gap) {
-		for (Map.Entry<TuioObject, Player> p : playerList.entrySet()) {
-			p.getValue().updateObservers(gap);
-			if (p.getValue().hasLost() || p.getValue().hasWon())
+		updatePlayers(gap);
+
+	}
+
+	private void updatePlayers(float gap) {
+		if (playerList.size() != players.size()) {
+			for (Map.Entry<TuioObject, Player> p : playerList.entrySet()) {
+				if (!players.contains(p.getValue())) {
+					players.add(p.getValue());
+				}
+			}
+		}
+		for (Player p : players) {
+			p.updateObservers(gap);
+			if (p.hasLost() || p.hasWon())
 				isOver = true;
 		}
 	}
@@ -149,12 +164,14 @@ public class Level extends Observable implements Updateable {
 		setChanged();
 		notifyObservers(gap);
 	}
-	
+
 	public void addPlayer(TuioObject o, Player p) {
+
 		playerList.put(o, p);
 	}
-	
+
 	public void removePlayer(TuioObject o) {
+
 		playerList.remove(o);
 	}
 
