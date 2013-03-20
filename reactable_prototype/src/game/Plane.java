@@ -9,7 +9,8 @@ public class Plane extends Entity {
 	public static final int PLANE_HEIGHT = 50;
 	public static final int PLANE_WIDTH = 20;
 	Airport owner;
-	float velocity = 0.1f;
+	Airport carrier;
+	float velocity = 0.075f;
 
 	public Plane(Airport airport) {
 		this.owner = airport;
@@ -33,4 +34,15 @@ public class Plane extends Entity {
 		this.position.y += Math.sin(angle) * gap * velocity;
 	}
 
+	public Airport getOwner() {
+		return owner;
+	}
+
+	public void setCarrier(Airport carrier) {
+		this.carrier = carrier;
+	}
+
+	public Airport getCarrier() {
+		return carrier;
+	}
 }

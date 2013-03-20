@@ -143,26 +143,26 @@ public class Level extends Observable implements Updateable {
 	 */
 	@Override
 	public void update(float gap) {
-		
-		if (state != LevelState.STARTED && GameWindow.getInstance().getCursorList().size() == 5) {
-			state = LevelState.STARTED;
-		}
+
 		updatePlayers(gap);
 		if (state == LevelState.STARTED) {
-			
+
+		}
+		if (state != LevelState.STARTED
+				&& GameWindow.getInstance().getCursorList().size() == 5) {
+			state = LevelState.STARTED;
 		}
 	}
 
 	private void updatePlayers(float gap) {
-		if (state != LevelState.STARTED) {
-			if (playerList.size() != players.size()) {
-				for (Map.Entry<TuioObject, Player> p : playerList.entrySet()) {
-					if (!players.contains(p.getValue())) {
-						players.add(p.getValue());
-					}
+		if (playerList.size() != players.size()) {
+			for (Map.Entry<TuioObject, Player> p : playerList.entrySet()) {
+				if (!players.contains(p.getValue())) {
+					players.add(p.getValue());
 				}
 			}
 		}
+
 		for (Player p : players) {
 			p.updateObservers(gap);
 			if (p.hasLost() || p.hasWon())
@@ -190,6 +190,10 @@ public class Level extends Observable implements Updateable {
 	public void removePlayer(TuioObject o) {
 		if (state != LevelState.STARTED)
 			playerList.remove(o);
+	}
+
+	public ArrayList<Player> getPlayerList() {
+		return players;
 	}
 
 	/**

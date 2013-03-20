@@ -46,8 +46,7 @@ public class VisualPlane extends LevelElement {
 		trans.translate(Xpos, Ypos);
 		trans.scale(scale, scale);
 		AffineTransform rot = AffineTransform.getRotateInstance(angle, x, y);
-		worldVisual = rot.createTransformedShape(visual);
-		worldVisual = trans.createTransformedShape(worldVisual);
+		worldVisual = trans.createTransformedShape(rot.createTransformedShape(visual));
 
 		g.setPaint(Color.black);
 		g.fill(worldVisual);
@@ -56,5 +55,4 @@ public class VisualPlane extends LevelElement {
 			g.drawString(getName() + "", Xpos - 10, Ypos);
 		}
 	}
-
 }

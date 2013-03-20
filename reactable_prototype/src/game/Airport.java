@@ -43,7 +43,7 @@ public class Airport extends Entity {
 
 	@Override
 	public void update(float gap) {
-		
+
 		if (tuioReference != null
 				&& Level.getInstance().getState() != LevelState.STARTED) {
 			this.position.x = tuioReference.getX();
@@ -64,5 +64,13 @@ public class Airport extends Entity {
 			produce = 0;
 		}
 
+	}
+
+	public Player getOwner() {
+		return owner;
+	}
+	
+	ArrayList<Plane> getPlanesList() {
+		return planesList;
 	}
 }

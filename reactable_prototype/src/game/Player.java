@@ -33,9 +33,12 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package game;
 
+import game.Level.LevelState;
 import gui.GameWindow;
 
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.awt.geom.Rectangle2D.Float;
 import java.util.ArrayList;
 import java.util.Observable;
 
@@ -76,7 +79,7 @@ public class Player extends Observable implements Updateable {
 		this.name = name;
 		this.playerTUIOObject = object;
 		this.airport = new Airport(this, object);
-		
+
 	}
 
 	/*
@@ -91,6 +94,20 @@ public class Player extends Observable implements Updateable {
 			return;
 		if (playerTUIOObject != null) {
 			airport.updateObservers(gap);
+			if (Level.getInstance().getState() != LevelState.STARTED)
+				return;
+			ArrayList<Player> players = new ArrayList<Player>(Level
+					.getInstance().getPlayerList());
+			players.remove(this);
+			for (Player p : players) {
+				for (Plane plane : p.getAirport().getPlanesList()) {
+					if (plane != null && plane.getCollision().contains(
+							new Point2D.Float(playerTUIOObject.getX(),
+									playerTUIOObject.getY()))) {
+						plane.setCarrier(getAirport());
+					}
+				}
+			}
 		}
 
 	}
