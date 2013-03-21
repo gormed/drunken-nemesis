@@ -39,7 +39,6 @@ public class TuioInputListener  implements TuioListener {
 	public void addTuioObject(TuioObject tobj) {
 		TuioInputObject demo = new TuioInputObject(tobj);
 		objectList.put(tobj.getSessionID(),demo);
-
 		if (verbose) 
 			System.out.println("add obj "+tobj.getSymbolID()+" ("+tobj.getSessionID()+") "+tobj.getX()+" "+tobj.getY()+" "+tobj.getAngle());	
 	}

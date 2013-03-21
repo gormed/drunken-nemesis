@@ -68,6 +68,10 @@ public class Player extends Observable implements Updateable {
 	private Airport airport;
 
 	private TuioObject playerTUIOObject;
+	
+	private int tuioSymbolID = -1;
+	
+	private Plane directed;
 
 	/**
 	 * Instantiates a new player.
@@ -78,6 +82,7 @@ public class Player extends Observable implements Updateable {
 	public Player(String name, TuioObject object) {
 		this.name = name;
 		this.playerTUIOObject = object;
+		this.tuioSymbolID = object.getSymbolID();
 		this.airport = new Airport(this, object);
 
 	}
@@ -109,6 +114,7 @@ public class Player extends Observable implements Updateable {
 									new Point2D.Float(playerTUIOObject.getX(),
 											playerTUIOObject.getY()))) {
 						plane.carrier = airport;
+						this.directed = plane;
 						p.airport.removeList.add(plane);
 						airport.addList.add(plane);
 					}
@@ -179,6 +185,10 @@ public class Player extends Observable implements Updateable {
 	 */
 	public int getPoints() {
 		return points;
+	}
+	
+	public int getTuioSymbolID() {
+		return tuioSymbolID;
 	}
 
 	/**

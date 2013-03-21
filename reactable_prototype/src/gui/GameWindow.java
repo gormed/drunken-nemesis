@@ -421,16 +421,11 @@ public class GameWindow extends JFrame {
 		@Override
 		public void addTuioObject(TuioObject tobj) {
 			super.addTuioObject(tobj);
+			// conntect player TODO: add with symbol ID!
 			connectPlayer(tobj);
 		}
 		
-		@Override
-		public void updateTuioObject(TuioObject tobj) {
-			super.updateTuioObject(tobj);
-			if (level.getPlayers().containsKey(tobj)) {
-				level.getPlayers().get(tobj).getAirport().update(0);
-			}
-		}
+		
 	}
 
 	/**
