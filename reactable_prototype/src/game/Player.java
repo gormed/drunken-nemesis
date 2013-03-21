@@ -100,16 +100,21 @@ public class Player extends Observable implements Updateable {
 					.getInstance().getPlayerList());
 			players.remove(this);
 			for (Player p : players) {
-				for (Plane plane : p.getAirport().getPlanesList()) {
-					if (plane != null && plane.getCollision().contains(
-							new Point2D.Float(playerTUIOObject.getX(),
-									playerTUIOObject.getY()))) {
-						plane.setCarrier(getAirport());
+				if (p == null)
+					continue;
+				for (Plane plane : p.airport.planesList) {
+					if (plane != null
+							&& plane.carrier == null
+							&& plane.getCollision().contains(
+									new Point2D.Float(playerTUIOObject.getX(),
+											playerTUIOObject.getY()))) {
+						plane.carrier = airport;
+						p.airport.removeList.add(plane);
+						airport.addList.add(plane);
 					}
 				}
 			}
 		}
-
 	}
 
 	/*

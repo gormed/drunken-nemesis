@@ -21,7 +21,9 @@ public class Airport extends Entity {
 
 	TuioObject tuioReference;
 
-	private ArrayList<Plane> planesList = new ArrayList<Plane>();
+	ArrayList<Plane> addList = new ArrayList<Plane>();
+	ArrayList<Plane> removeList = new ArrayList<Plane>();
+	ArrayList<Plane> planesList = new ArrayList<Plane>();
 
 	private float produce;
 
@@ -50,6 +52,15 @@ public class Airport extends Entity {
 			this.position.y = tuioReference.getY();
 			this.angle = tuioReference.getAngle();
 		}
+		for (Plane p : removeList) {
+			planesList.remove(p);
+		}
+		removeList.clear();
+		for (Plane p : addList) {
+			if (!planesList.contains(p))
+				planesList.add(p);
+		}
+		addList.clear();
 		for (Plane p : planesList) {
 			p.updateObservers(gap);
 		}
@@ -68,9 +79,5 @@ public class Airport extends Entity {
 
 	public Player getOwner() {
 		return owner;
-	}
-	
-	ArrayList<Plane> getPlanesList() {
-		return planesList;
 	}
 }
