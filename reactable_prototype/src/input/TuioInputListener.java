@@ -29,7 +29,7 @@ public class TuioInputListener  implements TuioListener {
 	public static final int object_size = 60;
 	public static final int table_size = 760;
 	
-	private Hashtable<Long,TuioInputObject> objectList = new Hashtable<Long,TuioInputObject>();
+	private Hashtable<Integer,TuioInputObject> objectList = new Hashtable<Integer,TuioInputObject>();
 	private Hashtable<Long,TuioCursor> cursorList = new Hashtable<Long,TuioCursor>();
 
 
@@ -38,14 +38,14 @@ public class TuioInputListener  implements TuioListener {
 	
 	public void addTuioObject(TuioObject tobj) {
 		TuioInputObject demo = new TuioInputObject(tobj);
-		objectList.put(tobj.getSessionID(),demo);
+		objectList.put(tobj.getSymbolID(),demo);
 		if (verbose) 
 			System.out.println("add obj "+tobj.getSymbolID()+" ("+tobj.getSessionID()+") "+tobj.getX()+" "+tobj.getY()+" "+tobj.getAngle());	
 	}
 
 	public void updateTuioObject(TuioObject tobj) {
 
-		TuioInputObject demo = (TuioInputObject)objectList.get(tobj.getSessionID());
+		TuioInputObject demo = (TuioInputObject)objectList.get(tobj.getSymbolID());
 		demo.update(tobj);
 		
 		if (verbose) 
@@ -53,7 +53,7 @@ public class TuioInputListener  implements TuioListener {
 	}
 	
 	public void removeTuioObject(TuioObject tobj) {
-		objectList.remove(tobj.getSessionID());
+		objectList.remove(tobj.getSymbolID());
 		
 		if (verbose) 
 			System.out.println("del obj "+tobj.getSymbolID()+" ("+tobj.getSessionID()+")");	
@@ -90,7 +90,7 @@ public class TuioInputListener  implements TuioListener {
 		//repaint();
 	}
 
-	public Hashtable<Long, TuioInputObject> getObjectList() {
+	public Hashtable<Integer, TuioInputObject> getObjectList() {
 		return objectList;
 	}
 

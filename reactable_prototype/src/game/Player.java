@@ -67,11 +67,9 @@ public class Player extends Observable implements Updateable {
 
 	private Airport airport;
 
-	private TuioObject playerTUIOObject;
-	
 	private int tuioSymbolID = -1;
-	
-	private Plane directed;
+
+	private Plane directing;
 
 	/**
 	 * Instantiates a new player.
@@ -79,11 +77,10 @@ public class Player extends Observable implements Updateable {
 	 * @param name
 	 *            the name
 	 */
-	public Player(String name, TuioObject object) {
+	public Player(String name, Integer symbolID) {
 		this.name = name;
-		this.playerTUIOObject = object;
-		this.tuioSymbolID = object.getSymbolID();
-		this.airport = new Airport(this, object);
+		this.tuioSymbolID = symbolID;
+		this.airport = new Airport(this, symbolID);
 
 	}
 
@@ -97,27 +94,40 @@ public class Player extends Observable implements Updateable {
 		// dont do anything if the player has lost or won
 		if (hasWon || hasLost)
 			return;
-		if (playerTUIOObject != null) {
+		if (airport.tuioObject == null) {
+			airport.tuioObject = GameWindow.getInstance().getObjectList()
+					.get(tuioSymbolID);
+		}
+		if (airport.tuioObject != null) {
 			airport.updateObservers(gap);
 			if (Level.getInstance().getState() != LevelState.STARTED)
 				return;
-			ArrayList<Player> players = new ArrayList<Player>(Level
-					.getInstance().getPlayerList());
-			players.remove(this);
-			for (Player p : players) {
-				if (p == null)
-					continue;
-				for (Plane plane : p.airport.planesList) {
-					if (plane != null
-							&& plane.carrier == null
-							&& plane.getCollision().contains(
-									new Point2D.Float(playerTUIOObject.getX(),
-											playerTUIOObject.getY()))) {
-						plane.carrier = airport;
-						this.directed = plane;
-						p.airport.removeList.add(plane);
-						airport.addList.add(plane);
-					}
+			checkCollision();
+		} else {
+			if (directing != null) {
+				directing.carrier = null;
+				directing = null;
+			}
+		}
+	}
+
+	private void checkCollision() {
+		ArrayList<Player> players = new ArrayList<Player>(Level.getInstance()
+				.getPlayerList());
+		players.remove(this);
+		for (Player p : players) {
+			if (p == null)
+				continue;
+			for (Plane plane : p.airport.planesList) {
+				if (plane != null
+						&& plane.carrier == null
+						&& plane.getCollision().contains(
+								new Point2D.Float(airport.tuioObject.getX(),
+										airport.tuioObject.getY()))) {
+					plane.carrier = airport;
+					this.directing = plane;
+					p.airport.removeList.add(plane);
+					airport.addList.add(plane);
 				}
 			}
 		}
@@ -186,7 +196,7 @@ public class Player extends Observable implements Updateable {
 	public int getPoints() {
 		return points;
 	}
-	
+
 	public int getTuioSymbolID() {
 		return tuioSymbolID;
 	}

@@ -4,6 +4,7 @@ import game.Airport;
 import game.Entity;
 import game.Level;
 import game.Player;
+import game.Level.LevelState;
 
 import input.TuioInputListener;
 import input.TuioInputObject;
@@ -81,15 +82,15 @@ public class GameWindow extends JFrame {
 	 */
 	private boolean active = false;
 
-	
 	private static GameWindow instance;
-	
+
 	public static GameWindow getInstance() {
 		if (instance != null)
 			return instance;
 		else
 			return instance = new GameWindow();
 	}
+
 	/**
 	 * Instantiates a new game window.
 	 */
@@ -237,23 +238,24 @@ public class GameWindow extends JFrame {
 		removeElements.put(id, g);
 		entityList.remove(id);
 	}
-	
+
 	public boolean getDebugFlag() {
 		return gameInputListener.debug;
 	}
-	
-	public Hashtable<Long,TuioCursor> getCursorList() {
+
+	public Hashtable<Long, TuioCursor> getCursorList() {
 		return gameInputListener.getCursorList();
 	}
-	
-	public Hashtable<Long, TuioInputObject> getObjectList() {
+
+	public Hashtable<Integer, TuioInputObject> getObjectList() {
 		return gameInputListener.getObjectList();
 	}
 
 	public void connectPlayer(TuioObject object) {
-		Player p = new Player("Player" + level.getPlayers().size(), object);
+		Player p = new Player("Player" + level.getPlayers().size(),
+				object.getSymbolID());
 
-		level.addPlayer(object, p);
+		level.addPlayer(object.getSymbolID(), p);
 		addElement(new VisualAirport(p.getAirport()), p.getAirport());
 	}
 
@@ -421,11 +423,10 @@ public class GameWindow extends JFrame {
 		@Override
 		public void addTuioObject(TuioObject tobj) {
 			super.addTuioObject(tobj);
-			// conntect player TODO: add with symbol ID!
-			connectPlayer(tobj);
+			if (level.getState() == LevelState.PREPARE)
+				// conntect player TODO: add with symbol ID!
+				connectPlayer(tobj);
 		}
-		
-		
 	}
 
 	/**

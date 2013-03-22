@@ -19,7 +19,8 @@ public class Airport extends Entity {
 
 	Player owner;
 
-	TuioObject tuioReference;
+	int tuioSymbolID;
+	TuioObject tuioObject;
 
 	ArrayList<Plane> addList = new ArrayList<Plane>();
 	ArrayList<Plane> removeList = new ArrayList<Plane>();
@@ -27,11 +28,13 @@ public class Airport extends Entity {
 
 	private float produce;
 
-	public Airport(Player player, TuioObject object) {
-		this.tuioReference = object;
+	public Airport(Player player, Integer symbolID) {
+		this.tuioSymbolID = symbolID;
 		this.width = AIRPORT_WIDTH;
 		this.height = AIRPORT_HEIGHT;
-		this.position = new Point2D.Float(object.getX(), object.getY());
+		this.tuioObject = GameWindow.getInstance().getObjectList()
+				.get(symbolID);
+		this.position = new Point2D.Float(tuioObject.getX(), tuioObject.getY());
 		this.owner = player;
 		// for (int i = 0; i < 4; i++) {
 		// planesList.add(new Plane(this));
@@ -46,11 +49,11 @@ public class Airport extends Entity {
 	@Override
 	public void update(float gap) {
 
-		if (tuioReference != null
+		if (tuioObject != null
 				&& Level.getInstance().getState() != LevelState.STARTED) {
-			this.position.x = tuioReference.getX();
-			this.position.y = tuioReference.getY();
-			this.angle = tuioReference.getAngle();
+			this.position.x = tuioObject.getX();
+			this.position.y = tuioObject.getY();
+			this.angle = tuioObject.getAngle();
 		}
 		for (Plane p : removeList) {
 			planesList.remove(p);
