@@ -182,7 +182,7 @@ public class Level extends Observable implements Updateable {
 		notifyObservers(gap);
 	}
 
-	public void addPlayer(Integer o, Player p) {
+	public void addPlayer(int o, Player p) {
 		if (state == LevelState.PREPARE)
 			playerList.put(o, p);
 	}

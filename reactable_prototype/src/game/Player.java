@@ -77,7 +77,7 @@ public class Player extends Observable implements Updateable {
 	 * @param name
 	 *            the name
 	 */
-	public Player(String name, Integer symbolID) {
+	public Player(String name, int symbolID) {
 		this.name = name;
 		this.tuioSymbolID = symbolID;
 		this.airport = new Airport(this, symbolID);
@@ -95,7 +95,7 @@ public class Player extends Observable implements Updateable {
 		if (hasWon || hasLost)
 			return;
 		if (airport.tuioObject == null) {
-			airport.tuioObject = GameWindow.getInstance().getObjectList()
+			airport.tuioObject = GameWindow.getInstance().getSymbolList()
 					.get(tuioSymbolID);
 		}
 		if (airport.tuioObject != null) {
@@ -197,7 +197,7 @@ public class Player extends Observable implements Updateable {
 		return points;
 	}
 
-	public int getTuioSymbolID() {
+	public long getTuioSymbolID() {
 		return tuioSymbolID;
 	}
 

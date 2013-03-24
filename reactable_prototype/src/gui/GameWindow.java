@@ -247,16 +247,23 @@ public class GameWindow extends JFrame {
 		return gameInputListener.getCursorList();
 	}
 
-	public Hashtable<Integer, TuioInputObject> getObjectList() {
+	public Hashtable<Long, TuioInputObject> getObjectList() {
 		return gameInputListener.getObjectList();
 	}
 
+	public Hashtable<Integer, TuioObject> getSymbolList() {
+		return gameInputListener.symbolTable;
+	}
+
 	public void connectPlayer(TuioObject object) {
+		if (level.getPlayers().containsKey(object.getSymbolID()))
+			return;
 		Player p = new Player("Player" + level.getPlayers().size(),
 				object.getSymbolID());
 
 		level.addPlayer(object.getSymbolID(), p);
 		addElement(new VisualAirport(p.getAirport()), p.getAirport());
+
 	}
 
 	@SuppressWarnings("serial")
@@ -420,12 +427,24 @@ public class GameWindow extends JFrame {
 			}
 		}
 
+		Hashtable<Integer, TuioObject> symbolTable = new Hashtable<Integer, TuioObject>();
+
 		@Override
 		public void addTuioObject(TuioObject tobj) {
 			super.addTuioObject(tobj);
+			if (!symbolTable.containsKey(tobj.getSymbolID())) {
+				symbolTable.put(tobj.getSymbolID(), tobj);
+			}
 			if (level.getState() == LevelState.PREPARE)
 				// conntect player TODO: add with symbol ID!
 				connectPlayer(tobj);
+		}
+
+		@Override
+		public void removeTuioObject(TuioObject tobj) {
+			// TODO Auto-generated method stub
+			super.removeTuioObject(tobj);
+			symbolTable.remove(tobj.getSymbolID());
 		}
 	}
 

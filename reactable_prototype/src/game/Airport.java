@@ -28,11 +28,11 @@ public class Airport extends Entity {
 
 	private float produce;
 
-	public Airport(Player player, Integer symbolID) {
+	public Airport(Player player, int symbolID) {
 		this.tuioSymbolID = symbolID;
 		this.width = AIRPORT_WIDTH;
 		this.height = AIRPORT_HEIGHT;
-		this.tuioObject = GameWindow.getInstance().getObjectList()
+		this.tuioObject = GameWindow.getInstance().getSymbolList()
 				.get(symbolID);
 		this.position = new Point2D.Float(tuioObject.getX(), tuioObject.getY());
 		this.owner = player;
