@@ -1,5 +1,7 @@
 package com.reactplane.game;
 
+import java.awt.Shape;
+
 /**
  * @author Hans
  * @version 1.0
@@ -7,14 +9,22 @@ package com.reactplane.game;
  */
 public class Plane extends Entity {
 
-	public Level level;
-
+	Player owner;
+	
+	
 	public Plane(){
 
 	}
 
 	@Override
-	public void finalize() throws Throwable {
-		super.finalize();
+	public void createCollision(Shape shape) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(float gap) {
+		// TODO Auto-generated method stub
+		
 	}
 }//end Plane

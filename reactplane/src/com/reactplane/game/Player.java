@@ -7,16 +7,25 @@ package com.reactplane.game;
  */
 public class Player {
 
-	public Level level;
-	public Cursor cursor;
-	public Airport airport;
+	Cursor cursor;
+	Airport airport;
+	
+	String name;
 
-	public Player(){
-
+	public Player(String name){
+		this.name = name;
 	}
 
-	@Override
-	public void finalize() throws Throwable {
-
+	public Airport getAirport() {
+		return airport;
 	}
+	
+	public Cursor getCursor() {
+		return cursor;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
 }//end Player
