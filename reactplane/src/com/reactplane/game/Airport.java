@@ -10,7 +10,9 @@ import java.awt.Shape;
 public class Airport extends Entity {
 
 	public Airport(){
-
+		width = 50;
+		height = 50;
+		
 	}
 
 	@Override

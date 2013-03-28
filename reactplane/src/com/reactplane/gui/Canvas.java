@@ -4,12 +4,16 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
 import java.util.Vector;
 
 import javax.swing.JComponent;
+
+import com.reactplane.gui.elements.VisualElement;
 
 import TUIO.TuioCursor;
 import TUIO.TuioPoint;
@@ -22,11 +26,13 @@ import TUIO.TuioPoint;
  */
 public class Canvas extends JComponent {
 
+	private static final long serialVersionUID = 6284068760970498634L;
+
 	private GameWindow mainWindow;
 
-	private HashMap<Long, VisualElement> visualElements = new HashMap<Long, VisualElement>();
-	private HashMap<Long, VisualElement> addElements = new HashMap<Long, VisualElement>();
-	private HashMap<Long, VisualElement> removeElements = new HashMap<Long, VisualElement>();
+	private Hashtable<Long, VisualElement> visualElements = new Hashtable<Long, VisualElement>();
+	private ArrayList<VisualElement> addElements = new ArrayList<VisualElement>();
+	private ArrayList<Long> removeElements = new ArrayList<Long>();
 
 	public Canvas(GameWindow window) {
 		mainWindow = window;
@@ -57,11 +63,11 @@ public class Canvas extends JComponent {
 	}
 
 	private void drawGUIElements(Graphics2D g2) {
-		for (Map.Entry<Long, VisualElement> entry : addElements.entrySet()) {
-			visualElements.put(entry.getKey(), entry.getValue());
+		for (VisualElement element : addElements) {
+			visualElements.put(element.getId(), element);
 		}
-		for (Map.Entry<Long, VisualElement> entry : removeElements.entrySet()) {
-			visualElements.remove(entry.getKey());
+		for (Long id : removeElements) {
+			visualElements.remove(id);
 		}
 		for (Map.Entry<Long, VisualElement> entry : visualElements.entrySet()) {
 
@@ -74,7 +80,15 @@ public class Canvas extends JComponent {
 	public void paint(Graphics g) {
 		update(g);
 	}
-
+	
+	public void addElement(VisualElement element) {
+		addElements.add(element);
+	}
+	
+	public void removeElement(long id) {
+		removeElements.add(id);
+	}
+ 
 	// DEBUG
 
 	public int width;

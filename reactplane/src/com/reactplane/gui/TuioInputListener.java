@@ -18,32 +18,43 @@ public class TuioInputListener implements TuioListener {
 	public static final int object_size = 60;
 	public static final int table_size = 760;
 
-	private Hashtable<Long,TuioInputObject> objectList = new Hashtable<Long,TuioInputObject>();
-	private Hashtable<Long,TuioCursor> cursorList = new Hashtable<Long,TuioCursor>();
+	private Hashtable<Long, TuioInputObject> objectList = new Hashtable<Long, TuioInputObject>();
+	private Hashtable<Long, TuioCursor> cursorList = new Hashtable<Long, TuioCursor>();
+	private Hashtable<Integer, TuioObject> symbolList = new Hashtable<Integer, TuioObject>();
 
 	public boolean verbose = false;
 
 	public void addTuioObject(TuioObject tobj) {
 		TuioInputObject demo = new TuioInputObject(tobj);
-		objectList.put(tobj.getSessionID(),demo);
-		if (verbose) 
-			System.out.println("add obj "+tobj.getSymbolID()+" ("+tobj.getSessionID()+") "+tobj.getX()+" "+tobj.getY()+" "+tobj.getAngle());	
+		objectList.put(tobj.getSessionID(), demo);
+		symbolList.put(tobj.getSymbolID(), tobj);
+		if (verbose)
+			System.out.println("add obj " + tobj.getSymbolID() + " ("
+					+ tobj.getSessionID() + ") " + tobj.getX() + " "
+					+ tobj.getY() + " " + tobj.getAngle());
 	}
 
 	public void updateTuioObject(TuioObject tobj) {
 
-		TuioInputObject demo = (TuioInputObject)objectList.get(tobj.getSessionID());
+		TuioInputObject demo = (TuioInputObject) objectList.get(tobj
+				.getSessionID());
 		demo.update(tobj);
 
-		if (verbose) 
-			System.out.println("set obj "+tobj.getSymbolID()+" ("+tobj.getSessionID()+") "+tobj.getX()+" "+tobj.getY()+" "+tobj.getAngle()+" "+tobj.getMotionSpeed()+" "+tobj.getRotationSpeed()+" "+tobj.getMotionAccel()+" "+tobj.getRotationAccel()); 	
+		if (verbose)
+			System.out.println("set obj " + tobj.getSymbolID() + " ("
+					+ tobj.getSessionID() + ") " + tobj.getX() + " "
+					+ tobj.getY() + " " + tobj.getAngle() + " "
+					+ tobj.getMotionSpeed() + " " + tobj.getRotationSpeed()
+					+ " " + tobj.getMotionAccel() + " "
+					+ tobj.getRotationAccel());
 	}
 
 	public void removeTuioObject(TuioObject tobj) {
 		objectList.remove(tobj.getSessionID());
-
-		if (verbose) 
-			System.out.println("del obj "+tobj.getSymbolID()+" ("+tobj.getSessionID()+")");	
+		symbolList.remove(tobj.getSymbolID());
+		if (verbose)
+			System.out.println("del obj " + tobj.getSymbolID() + " ("
+					+ tobj.getSessionID() + ")");
 	}
 
 	public void addTuioCursor(TuioCursor tcur) {
@@ -53,28 +64,32 @@ public class TuioInputListener implements TuioListener {
 
 		}
 
-		if (verbose) 
-			System.out.println("add cur "+tcur.getCursorID()+" ("+tcur.getSessionID()+") "+tcur.getX()+" "+tcur.getY());	
+		if (verbose)
+			System.out.println("add cur " + tcur.getCursorID() + " ("
+					+ tcur.getSessionID() + ") " + tcur.getX() + " "
+					+ tcur.getY());
 	}
 
 	public void updateTuioCursor(TuioCursor tcur) {
 
-
-		if (verbose) 
-			System.out.println("set cur "+tcur.getCursorID()+" ("+tcur.getSessionID()+") "+tcur.getX()+" "+tcur.getY()+" "+tcur.getMotionSpeed()+" "+tcur.getMotionAccel()); 
+		if (verbose)
+			System.out.println("set cur " + tcur.getCursorID() + " ("
+					+ tcur.getSessionID() + ") " + tcur.getX() + " "
+					+ tcur.getY() + " " + tcur.getMotionSpeed() + " "
+					+ tcur.getMotionAccel());
 	}
 
 	public void removeTuioCursor(TuioCursor tcur) {
 
-		cursorList.remove(tcur.getSessionID());	
+		cursorList.remove(tcur.getSessionID());
 
-
-		if (verbose) 
-			System.out.println("del cur "+tcur.getCursorID()+" ("+tcur.getSessionID()+")"); 
+		if (verbose)
+			System.out.println("del cur " + tcur.getCursorID() + " ("
+					+ tcur.getSessionID() + ")");
 	}
 
 	public void refresh(TuioTime frameTime) {
-		//repaint();
+		// repaint();
 	}
 
 	public Hashtable<Long, TuioInputObject> getObjectList() {
@@ -85,5 +100,8 @@ public class TuioInputListener implements TuioListener {
 		return cursorList;
 	}
 
+	public Hashtable<Integer, TuioObject> getSymbolList() {
+		return symbolList;
+	}
 
 }

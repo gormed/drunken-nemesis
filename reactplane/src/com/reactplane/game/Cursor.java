@@ -1,5 +1,7 @@
 package com.reactplane.game;
 
+import com.reactplane.util.Vector2D;
+
 /**
  * @author Hans
  * @version 1.0
@@ -7,6 +9,8 @@ package com.reactplane.game;
  */
 public class Cursor {
 
+	Vector2D position = new Vector2D();
+	
 	public Cursor(){
 
 	}

@@ -91,6 +91,9 @@ public class Level implements Updateable {
 
 	@Override
 	public void update(float gap) {
+		for (Player p : players) {
+			p.update(gap);
+		}
 		for (Plane p : planes) {
 			p.updateObservers(gap);
 		}
