@@ -11,7 +11,22 @@ import com.reactplane.util.Vector2D;
  * @created 25-Mrz-2013 09:54:25
  */
 public abstract class Entity extends Observable implements Updateable {
+	
+	/** The unique element id. */
+	private static long uniqueEntityID = 0;
 
+	/**
+	 * Gets the id internally.
+	 * 
+	 * @return the id
+	 */
+	private static long getID() {
+		return uniqueEntityID++;
+	}
+
+	/** The id. */
+	private long id = getID();
+	
 	Vector2D position = new Vector2D();
 
 	float width = 0;
@@ -56,5 +71,9 @@ public abstract class Entity extends Observable implements Updateable {
 
 	public Vector2D getPosition() {
 		return position;
+	}
+	
+	public long getId() {
+		return id;
 	}
 }// end Entity

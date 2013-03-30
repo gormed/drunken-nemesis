@@ -1,6 +1,7 @@
 package com.reactplane.gui.elements;
 
 import java.awt.Graphics2D;
+import java.awt.Shape;
 import java.util.Observer;
 
 import com.reactplane.gui.Canvas;
@@ -27,32 +28,26 @@ public abstract class VisualElement implements Observer {
 		return uniqueElementID++;
 	}
 
-	/** The name of the element. */
-	private String name = "element";
+	protected String name = "element";
 
-	Vector2D position;
+	protected Vector2D position = new Vector2D();
+	
+	protected float width;
+	protected float height;
 
-	float angle;
+	protected float angle;	
+	
+	protected Shape visual;
+	protected Shape worldVisual;
 
-	/** The visiblity flag. */
-	boolean isVisible;
+	protected boolean isVisible;
 
-	/** The id. */
 	private long id = getID();
 
-	/**
-	 * Instantiates a new gUI element.
-	 * 
-	 * @param name
-	 *            the name
-	 */
 	public VisualElement(String name) {
 		this.name = name;
 	}
 
-	/**
-	 * Instantiates a new gUI element.
-	 */
 	public VisualElement() {
 		name = name + "_" + id;
 	}
@@ -67,6 +62,14 @@ public abstract class VisualElement implements Observer {
 	
 	public Vector2D getPosition() {
 		return position;
+	}
+	
+	public float getHeight() {
+		return height;
+	}
+	
+	public float getWidth() {
+		return width;
 	}
 	
 	public boolean isVisible() {

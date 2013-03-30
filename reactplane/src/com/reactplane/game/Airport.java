@@ -1,6 +1,7 @@
 package com.reactplane.game;
 
 import java.awt.Shape;
+import java.awt.geom.Rectangle2D;
 
 /**
  * @author Hans
@@ -9,21 +10,23 @@ import java.awt.Shape;
  */
 public class Airport extends Entity {
 
-	public Airport(){
-		width = 50;
-		height = 50;
-		
+	public static final int AIRPORT_HEIGHT = 40;
+	public static final int AIRPORT_WIDTH = 100;
+
+	public Airport() {
+		width = AIRPORT_WIDTH;
+		height = AIRPORT_HEIGHT;
+		createCollision(null);
 	}
 
 	@Override
 	public void createCollision(Shape shape) {
-		// TODO Auto-generated method stub
-		
+		collision = new Rectangle2D.Float(-width / 2, -height / 2, width,
+				height);
 	}
 
 	@Override
 	public void update(float gap) {
-		// TODO Auto-generated method stub
-		
+
 	}
-}//end Airport
+}// end Airport

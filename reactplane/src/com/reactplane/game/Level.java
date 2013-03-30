@@ -1,7 +1,12 @@
 package com.reactplane.game;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 
+import TUIO.TuioCursor;
+import TUIO.TuioObject;
+
+import com.reactplane.controller.GameController;
 import com.reactplane.data.LevelData;
 
 /**
@@ -12,6 +17,7 @@ import com.reactplane.data.LevelData;
 public class Level implements Updateable {
 
 	public Collision collision;
+
 	public enum LevelState {
 		PREPARE, STARTED, ENDED
 	}
@@ -29,11 +35,13 @@ public class Level implements Updateable {
 	private LevelState state = LevelState.PREPARE;
 
 	private LevelData levelData;
-	
+
 	private ArrayList<Player> players = new ArrayList<Player>();
-	
+
 	private ArrayList<Plane> planes = new ArrayList<Plane>();
-	
+
+	private Hashtable<Long, Entity> entityList = new Hashtable<Long, Entity>();
+
 	/**
 	 * Instantiates a new level.
 	 */
@@ -70,7 +78,7 @@ public class Level implements Updateable {
 		 * com.sun.security.auth.module.NTSystem(); localPlayer = new
 		 * Player(System.getProperty(NTSystem.getName()), this);
 		 */
-		//playerList = new HashMap<Integer, Player>();
+		// playerList = new HashMap<Integer, Player>();
 
 		isInistialized = true;
 	}
@@ -83,7 +91,7 @@ public class Level implements Updateable {
 			return;
 
 		levelData = null;
-		//playerList = null;
+		// playerList = null;
 		state = LevelState.ENDED;
 
 		isInistialized = false;
@@ -91,19 +99,42 @@ public class Level implements Updateable {
 
 	@Override
 	public void update(float gap) {
-		for (Player p : players) {
-			p.update(gap);
+		synchronized (players) {
+			for (Player p : players) {
+				if (p != null)
+					p.update(gap);
+			}
 		}
+		
 		for (Plane p : planes) {
 			p.updateObservers(gap);
+		}
+		switch (state) {
+		case PREPARE:
+
+			break;
+		case STARTED:
+
+			break;
+		case ENDED:
+
+			break;
+		default:
+			break;
 		}
 	}
 
 	@Override
 	public void updateObservers(float gap) {
 		// TODO Auto-generated method stub
-		
+
 	}
+
+	public void updateCursor(Hashtable<Long, TuioCursor> cursorList,
+			TuioCursor cursor) {
+
+	}
+
 	public boolean isOver() {
 		return isOver;
 	}
@@ -112,7 +143,16 @@ public class Level implements Updateable {
 		return state;
 	}
 	
+	public void setState(LevelState state) {
+		this.state = state;
+	}
+
 	public ArrayList<Player> getPlayers() {
 		return players;
 	}
-}//end Level
+
+	public Hashtable<Long, Entity> getEntityList() {
+		return entityList;
+	}
+
+}// end Level

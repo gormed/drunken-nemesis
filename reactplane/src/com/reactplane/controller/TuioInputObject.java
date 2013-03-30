@@ -1,4 +1,4 @@
-package com.reactplane.gui;
+package com.reactplane.controller;
 
 import java.awt.Color;
 import java.awt.Graphics2D;

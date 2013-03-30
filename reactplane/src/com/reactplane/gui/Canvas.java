@@ -6,13 +6,14 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.Vector;
 
 import javax.swing.JComponent;
 
+import com.reactplane.controller.TuioInputListener;
+import com.reactplane.controller.TuioInputObject;
 import com.reactplane.gui.elements.VisualElement;
 
 import TUIO.TuioCursor;

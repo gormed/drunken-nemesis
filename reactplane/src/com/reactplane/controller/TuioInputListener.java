@@ -1,6 +1,11 @@
-package com.reactplane.gui;
+package com.reactplane.controller;
 
 import java.util.Hashtable;
+
+import com.reactplane.game.Level;
+import com.reactplane.game.Player;
+import com.reactplane.gui.GameWindow;
+import com.reactplane.gui.elements.VisualCursor;
 
 import TUIO.TuioCursor;
 import TUIO.TuioListener;
@@ -28,6 +33,9 @@ public class TuioInputListener implements TuioListener {
 		TuioInputObject demo = new TuioInputObject(tobj);
 		objectList.put(tobj.getSessionID(), demo);
 		symbolList.put(tobj.getSymbolID(), tobj);
+
+		GameController.getInstance().addTuioObject(tobj);
+
 		if (verbose)
 			System.out.println("add obj " + tobj.getSymbolID() + " ("
 					+ tobj.getSessionID() + ") " + tobj.getX() + " "
@@ -39,6 +47,8 @@ public class TuioInputListener implements TuioListener {
 		TuioInputObject demo = (TuioInputObject) objectList.get(tobj
 				.getSessionID());
 		demo.update(tobj);
+
+		GameController.getInstance().updateTuioObjects(symbolList);
 
 		if (verbose)
 			System.out.println("set obj " + tobj.getSymbolID() + " ("
@@ -52,6 +62,9 @@ public class TuioInputListener implements TuioListener {
 	public void removeTuioObject(TuioObject tobj) {
 		objectList.remove(tobj.getSessionID());
 		symbolList.remove(tobj.getSymbolID());
+		
+		GameController.getInstance().removeTuioObject(tobj);
+		
 		if (verbose)
 			System.out.println("del obj " + tobj.getSymbolID() + " ("
 					+ tobj.getSessionID() + ")");
@@ -71,7 +84,7 @@ public class TuioInputListener implements TuioListener {
 	}
 
 	public void updateTuioCursor(TuioCursor tcur) {
-
+		GameController.getInstance().updateTuioCursors(cursorList, tcur);
 		if (verbose)
 			System.out.println("set cur " + tcur.getCursorID() + " ("
 					+ tcur.getSessionID() + ") " + tcur.getX() + " "
