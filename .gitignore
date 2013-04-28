@@ -1,3 +1,5 @@
 bin
 
 .DS_Store
+/opus/nbproject/private/
+/opus/build/
