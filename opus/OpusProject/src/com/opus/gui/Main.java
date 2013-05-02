@@ -7,6 +7,8 @@ import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Box;
+import com.jme3.texture.Texture;
+import com.opus.svgloader.SVGLoader;
 
 /**
  * test
@@ -25,7 +27,10 @@ public class Main extends SimpleApplication {
         Geometry geom = new Geometry("Box", b);
 
         Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        mat.setColor("Color", ColorRGBA.Blue);
+        assetManager.registerLoader(SVGLoader.class.getName(), "svg");
+        Texture textureOriginal = assetManager.loadTexture("assets/img/test.svg");
+        mat.setTexture("ColorMap", textureOriginal);
+        //mat.setColor("Color", ColorRGBA.Blue);
         geom.setMaterial(mat);
 
         rootNode.attachChild(geom);
