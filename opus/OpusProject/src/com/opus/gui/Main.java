@@ -7,6 +7,8 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.scene.Geometry;
+import com.jme3.scene.Node;
+import com.jme3.scene.control.BillboardControl;
 import com.jme3.scene.shape.Box;
 import com.opus.logic.Card;
 import com.opus.logic.User;
@@ -66,6 +68,7 @@ public class Main extends SimpleApplication {
 
     @Override
     public void simpleInitApp() {
+
         inputManager.setCursorVisible(true);
         
 //        Box b = new Box(Vector3f.ZERO, 1, 1, 1);
