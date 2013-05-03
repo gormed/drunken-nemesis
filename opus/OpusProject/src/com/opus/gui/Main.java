@@ -2,17 +2,9 @@ package com.opus.gui;
 
 import TUIO.TuioClient;
 import com.jme3.app.SimpleApplication;
-import com.jme3.app.state.AbstractAppState;
 import com.jme3.font.BitmapText;
-import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
-import com.jme3.math.Vector3f;
-import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.renderer.RenderManager;
-import com.jme3.scene.Geometry;
-import com.jme3.scene.Node;
-import com.jme3.scene.control.BillboardControl;
-import com.jme3.scene.shape.Box;
 import com.opus.logic.Card;
 import com.opus.logic.User;
 import com.opus.logic.UserManager;
@@ -82,23 +74,23 @@ public class Main extends SimpleApplication {
         viewPort.setBackgroundColor(ColorRGBA.Gray);
         Random randomGenerator = new Random();
         
-        int borderAngle = 360;
-        int innerAngle = 360;
-        //Circle 1
-        Color randomBorderColor = new Color(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));
-        Color randomInnerColor = new Color(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));       
-        Circle circle = new Circle(assetManager, 400, 10, randomBorderColor, borderAngle, randomInnerColor, innerAngle);
-        circle.setLocalTranslation(100, 100, 0);
-        guiNode.attachChild(circle);
-        // use z-axis to rotate
-        circle.rotate(90, 0,0);
+//        int borderAngle = 360;
+//        int innerAngle = 360;
+//        //Circle 1
+//        Color randomBorderColor = new Color(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));
+//        Color randomInnerColor = new Color(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));       
+//        Circle circle = new Circle(assetManager, 400, 10, randomBorderColor, borderAngle, randomInnerColor, innerAngle);
+//        circle.setLocalTranslation(100, 100, 0);
+//        guiNode.attachChild(circle);
+//        // use z-axis to rotate
+//        circle.rotate(90, 0,0);
            
-        //CIrcle 2
-        Color randomBorderColor2 = new Color(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));
-        Color randomInnerColor2 = new Color(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));     
-        Circle circle2 = new Circle(assetManager, 200, 10, randomBorderColor2, borderAngle, randomInnerColor2, innerAngle);
-        circle2.setLocalTranslation(100, 100, 0);
-        circle.attachChild(circle2);
+//        //CIrcle 2
+//        Color randomBorderColor2 = new Color(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));
+//        Color randomInnerColor2 = new Color(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));     
+//        Circle circle2 = new Circle(assetManager, 200, 10, randomBorderColor2, borderAngle, randomInnerColor2, innerAngle);
+//        circle2.setLocalTranslation(100, 100, 0);
+//        circle.attachChild(circle2);
         
         //Using BitmapText
         guiFont = assetManager.loadFont("Interface/Fonts/Default.fnt");

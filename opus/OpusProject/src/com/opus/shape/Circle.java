@@ -64,15 +64,17 @@ public class Circle extends Node {
  
     private void initSpatial() {
         generateImage();
-        Quad q = new Quad(10, 10);
+        Quad q = new Quad(1, 1);
         geometry = new Geometry("circle", q);
-        geometry.rotate(-3.1416f / 2, 0, 0);
+        geometry.rotate(0, 0, 0);
         geometry.setMaterial(material);
         this.attachChild(geometry);
     }
  
     private void updateSpatial() {
-        geometry.setLocalScale(radius / 10f, radius / 10f, radius / 10f);
+        geometry.setLocalScale(radius, radius, 1);
+        geometry.setLocalTranslation(-radius/2, -radius/2, 0);
+        
     }
  
     public void generateImage() {
