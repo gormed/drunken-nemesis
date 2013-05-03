@@ -2,9 +2,12 @@ package com.opus.gui;
 
 import TUIO.TuioClient;
 import com.jme3.app.SimpleApplication;
+import com.jme3.app.state.AbstractAppState;
+import com.jme3.font.BitmapText;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
+import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.renderer.RenderManager;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
@@ -13,9 +16,13 @@ import com.jme3.scene.shape.Box;
 import com.opus.logic.Card;
 import com.opus.logic.User;
 import com.opus.logic.UserManager;
+import com.opus.shape.Circle;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Map;
+import java.util.Random;
+
 
 /**
  * test
@@ -67,18 +74,41 @@ public class Main extends SimpleApplication {
 
     @Override
     public void simpleInitApp() {
+
         inputManager.setCursorVisible(true);
         setPauseOnLostFocus(false);
-//        Box b = new Box(Vector3f.ZERO, 1, 1, 1);
-//        Geometry geom = new Geometry("Box", b);
-//
-//        Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-//        mat.setColor("Color", ColorRGBA.Blue);
-//        geom.setMaterial(mat);
-//
-//        rootNode.attachChild(geom);
-    }
 
+        flyCam.setEnabled(false);
+        viewPort.setBackgroundColor(ColorRGBA.Gray);
+        Random randomGenerator = new Random();
+        
+        int borderAngle = 360;
+        int innerAngle = 360;
+        //Circle 1
+        Color randomBorderColor = new Color(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));
+        Color randomInnerColor = new Color(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));       
+        Circle circle = new Circle(assetManager, 400, 10, randomBorderColor, borderAngle, randomInnerColor, innerAngle);
+        circle.setLocalTranslation(100, 100, 0);
+        guiNode.attachChild(circle);
+        // use z-axis to rotate
+        circle.rotate(90, 0,0);
+           
+        //CIrcle 2
+        Color randomBorderColor2 = new Color(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));
+        Color randomInnerColor2 = new Color(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));     
+        Circle circle2 = new Circle(assetManager, 200, 10, randomBorderColor2, borderAngle, randomInnerColor2, innerAngle);
+        circle2.setLocalTranslation(100, 100, 0);
+        circle.attachChild(circle2);
+        
+        //Using BitmapText
+        guiFont = assetManager.loadFont("Interface/Fonts/Default.fnt");
+        BitmapText ch = new BitmapText(guiFont, false);
+        ch.setSize(guiFont.getCharSet().getRenderedSize());
+        ch.setText("OPUS Circle Test"); // crosshairs
+        ch.setColor(new ColorRGBA(1f, 0.8f, 0.1f, 1f));
+        ch.setLocalTranslation(settings.getWidth() * 0.3f, settings.getHeight() * 0.1f, 0);
+        guiNode.attachChild(ch);
+    }
     @Override
     public void simpleUpdate(float tpf) {
         //TODO: add update code
@@ -101,4 +131,6 @@ public class Main extends SimpleApplication {
         //TODO: add render code
         
     }
+
+
 }
