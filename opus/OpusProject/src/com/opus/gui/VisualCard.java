@@ -14,6 +14,7 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Box;
 import com.opus.controller.TuioInputListener;
 import com.opus.logic.Card;
+import org.lwjgl.Sys;
 
 /**
  *
@@ -38,16 +39,18 @@ public class VisualCard extends Geometry {
     }
     
     public void update(float tpf) {
-        float Xpos = card.getXposition() * SCREEN_WIDHT;
-        float Ypos = card.getYposition() * SCREEN_HEIGHT;
+        float Xpos = card.getX() * SCREEN_WIDHT;
+        float Ypos = card.getY() * SCREEN_HEIGHT;
         float scale = SCREEN_HEIGHT / (float) TuioInputListener.table_size;
 
         Transform trans = new Transform();
-        trans.setTranslation(-card.getXposition(), -card.getYposition(),0);
+        trans.setTranslation(-card.getX(), -card.getY(),0);
         trans.setTranslation(Xpos, Ypos,0);
         trans.setRotation(new Quaternion(0,0,1,card.getAngle()));
         trans.setScale(20* scale);
         
-        this.localTransform = trans;
+        this.setLocalTransform(trans);
+        //System.out.println(trans.toString());
+        //System.out.println("Updated " + card.getOwner().getTuioSymbolID());
     }
 }

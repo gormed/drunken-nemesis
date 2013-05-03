@@ -20,16 +20,17 @@ public class Card {
 
     public Card(User owner, TuioObject object) {
         this.owner = owner;
-        this.tuioObject = object;
-        update(tuioObject);
+        update(object);
     }
 
-    public void update(TuioObject object) {
+    void update(TuioObject object) {
         this.tuioObject = object;
         if (tuioObject != null) {
             xposition = tuioObject.getX();
-            yposition = tuioObject.getY();
+            yposition = 1 - tuioObject.getY();
             angle = tuioObject.getAngle();
+            //System.out.println("Pos: " + xposition + "/" + yposition + " Angle: " + angle);
+            //System.out.println("Updated TuioObject " + owner.getTuioSymbolID() + " for Card " + owner.userSessionID);
         } else {
             System.err.println("Tuio Object not set for card from user " + owner.userSessionID + " with SymbolID " + owner.tuioSymbolID);
         }
@@ -43,11 +44,11 @@ public class Card {
         return angle;
     }
 
-    public float getXposition() {
+    public float getX() {
         return xposition;
     }
 
-    public float getYposition() {
+    public float getY() {
         return yposition;
     }
     

@@ -63,14 +63,12 @@ public class Main extends SimpleApplication {
         Main app = new Main();
         app.start();
 
-
     }
 
     @Override
     public void simpleInitApp() {
-
         inputManager.setCursorVisible(true);
-        
+        setPauseOnLostFocus(false);
 //        Box b = new Box(Vector3f.ZERO, 1, 1, 1);
 //        Geometry geom = new Geometry("Box", b);
 //
@@ -92,7 +90,7 @@ public class Main extends SimpleApplication {
                 visualCards.put(u.getCard(), c);
             }
         }
-
+        
         for (Map.Entry<Card, VisualCard> entry : visualCards.entrySet()) {
             entry.getValue().update(tpf);
         }

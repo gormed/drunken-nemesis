@@ -12,7 +12,7 @@ import TUIO.TuioObject;
  */
 public class User {
     
-    private static int generalSessionID = -1;
+    private static int generalSessionID = 0;
     
     private static int getSessionID() {
         return generalSessionID++;
@@ -36,8 +36,8 @@ public class User {
         return tuioSymbolID;
     }
 
-    public static int getGeneralSessionID() {
-        return generalSessionID;
+    public int getUserSessionID() {
+        return userSessionID;
     }
 
     public Card getCard() {

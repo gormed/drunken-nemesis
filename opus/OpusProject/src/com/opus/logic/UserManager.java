@@ -8,6 +8,7 @@ import TUIO.TuioObject;
 import com.opus.controller.TuioInputListener;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.Map;
 
 /**
  *
@@ -41,8 +42,8 @@ public class UserManager {
     public void addUserSymbol(TuioObject object) {
         if (userSymbolList.containsKey(object.getSymbolID())) {
             User u = userSymbolList.get(object.getSymbolID());
-            userList.put(u.userSessionID, u);
-            newUsers.add(u);
+            userList.put(u.getUserSessionID(), u);
+            //newUsers.add(u);
         } else {
             User newUser = new User(object);
             userList.put(newUser.userSessionID, newUser);
@@ -50,6 +51,13 @@ public class UserManager {
             newUsers.add(newUser);
         }
     }
+//    
+//    public void updateCards() {
+//        for (Map.Entry<Integer, User> entry : userList.entrySet()) {
+//            TuioObject tuioObject = tuioInputListener.getSymbolList().get(entry.getValue().getTuioSymbolID());
+//            entry.getValue().update(tuioObject);
+//        }
+//    }
     
     public void updateUserSymbol(TuioObject object) {
         if (userSymbolList.containsKey(object.getSymbolID())) {
