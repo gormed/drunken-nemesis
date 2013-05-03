@@ -1,20 +1,32 @@
 package com.opus.gui;
 
 import com.jme3.app.SimpleApplication;
+import com.jme3.app.state.AbstractAppState;
+import com.jme3.font.BitmapText;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
+import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.queue.RenderQueue.Bucket;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.control.BillboardControl;
 import com.jme3.scene.shape.Box;
+import com.jme3.scene.shape.Cylinder;
 import com.jme3.scene.shape.Quad;
 import com.jme3.texture.Texture;
+import com.opus.shape.Circle;
 import com.opus.svgloader.SVGLoader;
 import com.opus.svgloader.SVGTextureKey;
+import de.lessvoid.nifty.Nifty;
+import de.lessvoid.nifty.screen.ScreenController;
+import de.lessvoid.nifty.sound.SoundSystem;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.util.HashMap;
+import java.util.Random;
+
 
 /**
  * test
@@ -22,7 +34,9 @@ import java.awt.Dimension;
  */
 public class Main extends SimpleApplication {
 
-    Node n, n2;
+        /** The app states. */
+    private HashMap<String, AbstractAppState> appStates =
+            new HashMap<String, AbstractAppState>();
     
     public static void main(String[] args) {
         Main app = new Main();
@@ -31,84 +45,49 @@ public class Main extends SimpleApplication {
 
     @Override
     public void simpleInitApp() {
-         flyCam.setMoveSpeed(10);
-         assetManager.registerLoader(SVGLoader.class.getName(), "svg");
-
-        Quad q = new Quad(2, 2);
-        Geometry g = new Geometry("Quad", q);
-        Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        mat.setColor("Color", ColorRGBA.Blue);
-        Texture texBackground = assetManager.loadTexture(new SVGTextureKey("assets/img/background.svg", new Dimension(800, 800)));
-        mat.setTexture("ColorMap", texBackground);
-        g.setMaterial(mat);
-
-        Quad q2 = new Quad(1, 1);
-        Geometry g3 = new Geometry("Quad2", q2);
-        Material mat2 = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        mat2.setColor("Color", ColorRGBA.Yellow);
-        Texture texUser = assetManager.loadTexture(new SVGTextureKey("assets/img/user.svg", new Dimension(400, 400)));
-        mat2.setTexture("ColorMap", texUser);
-        g3.setMaterial(mat2);
-        g3.setLocalTranslation(.5f, .5f, .01f);
-
-        Box b = new Box(new Vector3f(0, 0, 3), .25f, .5f, .25f);
-        Geometry g2 = new Geometry("Box", b);
-        g2.setMaterial(mat);
-
-        Node bb = new Node("billboard");
-
-        BillboardControl control=new BillboardControl();
+        flyCam.setEnabled(false);
+        viewPort.setBackgroundColor(ColorRGBA.Gray);
+        Random randomGenerator = new Random();
         
-        bb.addControl(control);
-        bb.attachChild(g);
-        bb.attachChild(g3);       
+        int borderAngle = 360;
+        int innerAngle = 360;
+        //Circle 1
+        Color randomBorderColor = new Color(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));
+        Color randomInnerColor = new Color(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));       
+        Circle circle = new Circle(assetManager, 400, 10, randomBorderColor, borderAngle, randomInnerColor, innerAngle);
+        circle.setLocalTranslation(100, 100, 0);
+        guiNode.attachChild(circle);
+        // use z-axis to rotate
+        circle.rotate(90, 0,0);
+           
+        //CIrcle 2
+        Color randomBorderColor2 = new Color(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));
+        Color randomInnerColor2 = new Color(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));     
+        Circle circle2 = new Circle(assetManager, 200, 10, randomBorderColor2, borderAngle, randomInnerColor2, innerAngle);
+        circle2.setLocalTranslation(100, 100, 0);
+        circle.attachChild(circle2);
         
+        //Using BitmapText
+        guiFont = assetManager.loadFont("Interface/Fonts/Default.fnt");
+        BitmapText ch = new BitmapText(guiFont, false);
+        ch.setSize(guiFont.getCharSet().getRenderedSize());
+        ch.setText("OPUS Circle Test"); // crosshairs
+        ch.setColor(new ColorRGBA(1f, 0.8f, 0.1f, 1f));
+        ch.setLocalTranslation(settings.getWidth() * 0.3f, settings.getHeight() * 0.1f, 0);
+        guiNode.attachChild(ch);
 
-        n=new Node("parent");
-        n.attachChild(g2);
-        n.attachChild(bb);
-        rootNode.attachChild(n);
 
-        n2=new Node("parentParent");
-        n2.setLocalTranslation(Vector3f.UNIT_X.mult(5));
-        n2.attachChild(n);
 
-        rootNode.attachChild(n2);
-
-//        Box bg = new Box(Vector3f.ZERO, 1, 1, 1);
-//        Box user = new Box(new Vector3f(0, 1, 1), 1,1, 1);
-//        Geometry bgGeom = new Geometry("Box", bg);
-//        
-//
-//        Geometry userGeom = new Geometry("Box", user);
-//        
-//        assetManager.registerLoader(SVGLoader.class.getName(), "svg");
-//
-//        Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-//        Texture texBackground = assetManager.loadTexture(new SVGTextureKey("assets/img/background.svg", new Dimension(800, 800)));
-//        mat.setTexture("ColorMap", texBackground);
-//        //mat.setColor("Color", ColorRGBA.Blue);
-//        bgGeom.setMaterial(mat);
-//        
-//        Material mat2 = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-//        Texture texUser = assetManager.loadTexture(new SVGTextureKey("assets/img/user.svg", new Dimension(400, 400)));
-//        mat2.setTexture("ColorMap", texUser);
-//        //mat.setColor("Color", ColorRGBA.Blue);
-//
-//        userGeom.setQueueBucket(Bucket.Transparent); 
-//        userGeom.setMaterial(mat2);
-//
-//        rootNode.attachChild(bgGeom);
-//        rootNode.attachChild(userGeom);
     }
-
     @Override
     public void simpleUpdate(float tpf) {
-        //TODO: add update code
+        //circle.generateImage();
     }
 
     @Override
     public void simpleRender(RenderManager rm) {
         //TODO: add render code
     }
+
+
 }
