@@ -4,13 +4,16 @@
  */
 package com.opus.gui;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Hans
  */
 public abstract class AbstractFrameMenu {
-    private AbstractUserFrame frame;
-
+    protected AbstractUserFrame frame;
+    protected ArrayList<AbstractFrameMenuEntry> frameMenuEntrys = new ArrayList<AbstractFrameMenuEntry>();
+    
     public AbstractFrameMenu(AbstractUserFrame frame) {
         this.frame = frame;
     }
