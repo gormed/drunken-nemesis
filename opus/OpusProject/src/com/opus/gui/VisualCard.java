@@ -27,6 +27,7 @@ public class VisualCard extends Node {
     static final int SCREEN_WIDHT = 1024;
     static final int SCREEN_HEIGHT = 768;
     
+    AbstractUserFrame frame;
     Card card;
     Geometry cardGeom;
     
@@ -41,22 +42,16 @@ public class VisualCard extends Node {
         cardGeom.setMaterial(mat);
         cardGeom.setLocalScale(10);
         
-        Random randomGenerator = new Random(System.currentTimeMillis());
-        int borderAngle = 360;
-        int innerAngle = 360;
-        
-        int diameter = 300;
-        //Circle 1
-        Color randomBorderColor = new Color(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));
-        Color randomInnerColor = new Color(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));       
-        Circle circle = new Circle(assetManager, diameter, 10, randomBorderColor, borderAngle, randomInnerColor, innerAngle);
-        circle.setLocalTranslation(0,-diameter/3,0);
-        //circle.setLocalTranslation(100, 100, 0);
-        // use z-axis to rotate
-        //circle.rotate(90, 0,0);
-        
-        this.attachChild(circle);
         this.attachChild(cardGeom);
+    }
+    
+    public void setFrame(AbstractUserFrame frame) {
+        if (this.frame != null) {
+            this.detachChild(this.frame);
+        }
+        this.frame = frame;
+        this.frame.createFrame();
+        this.attachChildAt(this.frame, 0);
     }
     
     public void update(float tpf) {
@@ -73,7 +68,7 @@ public class VisualCard extends Node {
         trans.setScale(scale);
         
         this.setLocalTransform(trans);
-        System.out.println(trans.toString());
-        //System.out.println("Updated " + card.getOwner().getTuioSymbolID());
+        // System.out.println(trans.toString());
+        // System.out.println("Updated " + card.getOwner().getTuioSymbolID());
     }
 }
