@@ -14,11 +14,11 @@ import com.opus.gui.OpusApplication;
 public class Heading extends BitmapText {
 
     public Heading(boolean rightToLeft, boolean arrayBased) {
-        super(OpusApplication.getInstance().getAssetManager().loadFont("NexaBold"), rightToLeft, arrayBased);
+        super(OpusApplication.getInstance().getAssetManager().loadFont("Interface/Fonts/NexaBold.fnt"), rightToLeft, arrayBased);
     }
 
     public Heading( boolean rightToLeft) {
-        super(OpusApplication.getInstance().getAssetManager().loadFont("NexaBold"), rightToLeft);
+        super(OpusApplication.getInstance().getAssetManager().loadFont("Interface/Fonts/NexaBold.fnt"), rightToLeft);
     }
     
 }

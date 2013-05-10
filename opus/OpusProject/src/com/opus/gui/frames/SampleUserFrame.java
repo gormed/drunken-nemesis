@@ -7,6 +7,7 @@ package com.opus.gui.frames;
 import com.jme3.math.Quaternion;
 import com.opus.gui.AbstractUserFrame;
 import com.opus.gui.OpusApplication;
+import com.opus.gui.elements.Heading;
 import com.opus.logic.Card;
 import com.opus.logic.User;
 import com.opus.shape.Circle;
@@ -39,8 +40,13 @@ public class SampleUserFrame extends AbstractUserFrame {
         // use z-axis to rotate
         float[] angles = {0,0,0};
         circle.setLocalRotation(new Quaternion(angles));
-        
         this.attachChild(circle);
+        
+        Heading h1 = new Heading(true);
+        h1.setText("My Text");
+        h1.setLocalTranslation(-50, -20, 0);
+        this.attachChild(h1);
+        
     }
     
 }

@@ -14,11 +14,11 @@ import com.opus.gui.OpusApplication;
 public class Text extends BitmapText {
 
     public Text(boolean rightToLeft) {
-        super(OpusApplication.getInstance().getAssetManager().loadFont("NexaLightText"), rightToLeft);
+        super(OpusApplication.getInstance().getAssetManager().loadFont("Interface/Fonts/NexaLightText.fnt"), rightToLeft);
     }
 
     public Text(boolean rightToLeft, boolean arrayBased) {
-        super(OpusApplication.getInstance().getAssetManager().loadFont("NexaLightText"), rightToLeft, arrayBased);
+        super(OpusApplication.getInstance().getAssetManager().loadFont("Interface/Fonts/NexaLightText.fnt"), rightToLeft, arrayBased);
     }
     
 }
