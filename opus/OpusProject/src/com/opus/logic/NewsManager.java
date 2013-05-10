@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
+import java.util.HashMap;
 
 /**
  *
@@ -20,19 +21,26 @@ import javax.swing.JTextPane;
 public class NewsManager {
 
     static String htmlCode = "";
-    static ArrayList<News> news = new ArrayList<News>(0);
     static ArrayList<String> titles = new ArrayList<String>(0);
     static ArrayList<String> links = new ArrayList<String>(0);
     static ArrayList<String> descriptions = new ArrayList<String>(0);
     static ArrayList<String> pubDates = new ArrayList<String>(0);
     static ArrayList<String> guides = new ArrayList<String>(0);
+    
+    static HashMap correlation = new HashMap();
 
     private NewsManager() {
         readAll();
-        createItem();
+        /*createItem();
         createInput();
         htmlToFile();
-        htmlInWindow2();
+        htmlInWindow2();*/
+    }
+    
+    public static void addUser(int ID){
+        ArrayList<News> news = new ArrayList<News>(0);
+        createItem(news);
+        correlation.put(ID, news);
     }
 
     public static void readAll() {
@@ -43,18 +51,17 @@ public class NewsManager {
         readGuid("http://www.hshl.de/news/rss");
     }
 
-    public static void createItem() {
-        //TO-DO CREATE ITEMS
+    public static void createItem(ArrayList<News> ar) {
         for (int i = 0; i < titles.size(); i++) {
             try {
-                news.add(new News(titles.get(i), links.get(i), descriptions.get(i), pubDates.get(i), guides.get(i)));
+                ar.add(new News(i, titles.get(i), links.get(i), descriptions.get(i), pubDates.get(i), guides.get(i)));
             } catch (Exception e) {
                 System.out.println();
             }
         }
     }
 
-    public static void createInput() {
+    /*public static void createInput() {
         String result = "";
         for (int i = 0; i < news.size(); i++) {
             result = result + "TITLE: " + "\t" + "\t" + news.get(i).getTitle() + "\n";
@@ -64,7 +71,7 @@ public class NewsManager {
             result = result + "GUIDE: " + "\t" + "\t" + news.get(i).getGuid() + "\n" + "\n" + "\n" + "\n";
         }
         htmlCode = result;
-    }
+    }*/
 
     public static void htmlToFile() {
         // File anlegen

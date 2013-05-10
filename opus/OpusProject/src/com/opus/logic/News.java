@@ -5,6 +5,7 @@ package com.opus.logic;
  * @author Senju
  */
 public class News {
+   int id = 0;
    String title = ""; 
    String link = "";
    String description = "";
@@ -13,7 +14,9 @@ public class News {
    
 // TO-DO  User-Datenfeld
    
-   public News(String t, String l, String d, String p, String g){
+   public News(int i, String t, String l, String d, String p, String g){
+       
+       setId(i);
        setTitle(t);
        setLink(l);
        setDescription(d);
@@ -21,6 +24,14 @@ public class News {
        setGuid(g);
    }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }   
+   
     public String getTitle() {
         return title;
     }
