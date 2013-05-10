@@ -9,6 +9,7 @@ import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Transform;
+import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
@@ -27,6 +28,7 @@ public class VisualCard extends Node {
     static final int SCREEN_WIDHT = 1024;
     static final int SCREEN_HEIGHT = 768;
     
+    AbstractUserFrame frame;
     Card card;
     Geometry cardGeom;
     
@@ -41,22 +43,16 @@ public class VisualCard extends Node {
         cardGeom.setMaterial(mat);
         cardGeom.setLocalScale(10);
         
-        Random randomGenerator = new Random(System.currentTimeMillis());
-        int borderAngle = 360;
-        int innerAngle = 360;
-        
-        int diameter = 300;
-        //Circle 1
-        Color randomBorderColor = new Color(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));
-        Color randomInnerColor = new Color(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));       
-        Circle circle = new Circle(assetManager, diameter, 10, randomBorderColor, borderAngle, randomInnerColor, innerAngle);
-        circle.setLocalTranslation(0,-diameter/3,0);
-        //circle.setLocalTranslation(100, 100, 0);
-        // use z-axis to rotate
-        //circle.rotate(90, 0,0);
-        
-        this.attachChild(circle);
         this.attachChild(cardGeom);
+    }
+    
+    public void setFrame(AbstractUserFrame frame) {
+        if (this.frame != null) {
+            this.detachChild(this.frame);
+        }
+        this.frame = frame;
+        this.frame.createFrame();
+        this.attachChildAt(this.frame, 0);
     }
     
     public void update(float tpf) {
@@ -65,15 +61,26 @@ public class VisualCard extends Node {
         float scale = SCREEN_HEIGHT / (float) TuioInputListener.table_size;
 
         Transform trans = new Transform();
-        trans.setTranslation(-card.getX(), -card.getY(),0);
-        trans.setTranslation(Xpos, Ypos,0);
+        trans.setTranslation(Xpos-card.getX(), Ypos-card.getY(),0);
         
-        float[] angles = { 0,0,card.getAngle() };
-        trans.setRotation(new Quaternion(angles));
+//        float[] angles = { 0,0,card.getAngle() };
+//        trans.setRotation(new Quaternion(angles));
+        
+        trans.setRotation(rotateUI(trans.getTranslation()));
+        
         trans.setScale(scale);
         
         this.setLocalTransform(trans);
-        System.out.println(trans.toString());
-        //System.out.println("Updated " + card.getOwner().getTuioSymbolID());
+        // System.out.println(trans.toString());
+        // System.out.println("Updated " + card.getOwner().getTuioSymbolID());
+    }
+    
+    private Quaternion rotateUI(Vector3f pos) {
+//        Vector3f middle = new Vector3f(SCREEN_WIDHT*0.5f, SCREEN_HEIGHT*0.5f, 0);
+        Vector2f mid = new Vector2f(SCREEN_WIDHT*0.5f, SCREEN_HEIGHT*0.5f);
+        Vector2f p = new Vector2f(pos.x, pos.y);
+        Vector2f midp = p.subtract(mid);
+        float[] angles = { 0, 0, midp.getAngle()+(float)Math.PI/2};
+        return new Quaternion(angles);
     }
 }
