@@ -19,34 +19,44 @@ import java.util.Random;
  * @author Hans
  */
 public class SampleUserFrame extends AbstractUserFrame {
+    public static final int diameter = 300;
 
     public SampleUserFrame(Card card) {
         super(card);
+        setMenu(new SampleFrameMenu(this));
+        setContent(new SampleFrameContent(this));
     }
     
     @Override
     public void createFrame() {
+        menu.createMenu();
+        content.createContent();
+        createSampleBackground();
+        
+        this.attachChild(background);
+        background.attachChild(content);
+        background.attachChild(menu);
+    }
+    
+    
+    private void createSampleBackground() {        
         Random randomGenerator = new Random(System.currentTimeMillis());
         int borderAngle = 360;
         int innerAngle = 360;
-        
-        int diameter = 300;
         //Circle 1
         Color randomBorderColor = new Color(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));
         Color randomInnerColor = new Color(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));       
-        Circle circle = new Circle(OpusApplication.getInstance().getAssetManager(), diameter, 10, randomBorderColor, borderAngle, randomInnerColor, innerAngle);
-        circle.setLocalTranslation(0,-diameter/3,0);
+        background = new Circle(OpusApplication.getInstance().getAssetManager(), diameter, 10, randomBorderColor, borderAngle, randomInnerColor, innerAngle);
+        background.setLocalTranslation(0,-diameter/3,0);
         //circle.setLocalTranslation(100, 100, 0);
         // use z-axis to rotate
-        float[] angles = {0,0,0};
-        circle.setLocalRotation(new Quaternion(angles));
-        this.attachChild(circle);
-        
-        Heading h1 = new Heading(true);
-        h1.setText("My Text");
-        h1.setLocalTranslation(-50, -20, 0);
-        this.attachChild(h1);
-        
+        float[] angles = {0,0,(float) Math.PI};
+        background.setLocalRotation(new Quaternion(angles));
     }
+
+    @Override
+    public void update(float tpf) {
+    }
+
     
 }

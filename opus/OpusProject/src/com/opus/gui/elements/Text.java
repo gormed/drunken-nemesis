@@ -4,7 +4,10 @@
  */
 package com.opus.gui.elements;
 
+import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
+import com.jme3.font.Rectangle;
+import com.jme3.math.Vector3f;
 import com.opus.gui.OpusApplication;
 
 /**
@@ -21,4 +24,8 @@ public class Text extends BitmapText {
         super(OpusApplication.getInstance().getAssetManager().loadFont("Interface/Fonts/NexaLightText.fnt"), rightToLeft, arrayBased);
     }
     
+    public void alignCenter() {
+        this.setBox(new Rectangle(0, 0, getLineWidth(), getLineHeight()));
+        setAlignment(BitmapFont.Align.Center);
+    }
 }
