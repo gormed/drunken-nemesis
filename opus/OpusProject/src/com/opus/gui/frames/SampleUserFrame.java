@@ -33,31 +33,13 @@ public class SampleUserFrame extends AbstractUserFrame {
         menu.createMenu();
         content.createContent();
         createSampleBackground();
-        createBorderMenu();
         
         this.attachChild(background);
-        this.attachChild(borderMenu);
         background.attachChild(content);
         background.attachChild(menu);
     }
     
-    private void createBorderMenu() {        
-        Random randomGenerator = new Random(System.currentTimeMillis());
-        int borderAngle = 22;
-        int innerAngle = 0;
-        //Circle 1
-        Color randomBorderColor =new Color(227, 179, 80);
-        Color innerColor = new Color(227, 179, 80);
-        float borderWidth= 30f;
-        //Color randomInnerColor = new Color(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));       
-        borderMenu = new Circle(OpusApplication.getInstance().getAssetManager(), diameter+(borderWidth), borderWidth, randomBorderColor, borderAngle, innerColor, innerAngle);
-        borderMenu.setLocalTranslation(0,-diameter/3,0);
-        
-        //circle.setLocalTranslation(100, 100, 0);
-        // use z-axis to rotate
-        float[] angles = {0,0, 1.25f*((float) Math.PI)};
-        borderMenu.setLocalRotation(new Quaternion(angles));
-    }
+   
     
     private void createSampleBackground() {        
         Random randomGenerator = new Random(System.currentTimeMillis());
@@ -79,6 +61,8 @@ public class SampleUserFrame extends AbstractUserFrame {
     @Override
     public void update(float tpf) {
     }
+    
+
 
     
 }
