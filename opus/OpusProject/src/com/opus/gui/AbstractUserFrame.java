@@ -18,6 +18,7 @@ public abstract class AbstractUserFrame extends Node implements Updateable {
     protected AbstractFrameContent content;
     protected AbstractFrameMenu menu;
     protected Node background;
+    protected Node borderMenu;
     
     public AbstractUserFrame(Card card) {
         super();

@@ -61,7 +61,7 @@ public class Circle extends Node {
         initSpatial();
         updateSpatial();
     }
- 
+    
     private void initSpatial() {
         generateImage();
         Quad q = new Quad(1, 1);
@@ -114,6 +114,10 @@ public class Circle extends Node {
     public void setResolution(int resolution) {
         this.heightResolution = resolution;
         this.widthResolution = resolution;
+    }
+    
+    public void setBorderAngle(int angle){
+        this.borderAngle = angle;
     }
  
 }

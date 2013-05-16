@@ -51,7 +51,7 @@ public class SampleFrameMenu extends AbstractFrameMenu {
 
     private BitmapText createRotated(AbstractFrameMenuEntry menuentry, float angle, String title) {
         Text entry = new Text(false);
-        entry.setColor(ColorRGBA.Black);
+        entry.setColor(new ColorRGBA(42f/255f, 101f/255f, 137f/255f,1f));
         entry.setText(title);
 
         float[] angles1 = {0, 0, (float) -(Math.PI / 2)};

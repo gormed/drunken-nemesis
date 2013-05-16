@@ -15,6 +15,7 @@ import com.opus.gui.frames.SampleFrameMenu;
 import com.opus.logic.Card;
 import com.opus.logic.User;
 import com.opus.logic.UserManager;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -70,7 +71,7 @@ public class OpusApplication extends SimpleApplication {
         setPauseOnLostFocus(false);
 
         flyCam.setEnabled(false);
-        viewPort.setBackgroundColor(ColorRGBA.Gray);
+        viewPort.setBackgroundColor(new ColorRGBA(42f/255f, 101f/255f, 137f/255f,1f));
         Random randomGenerator = new Random();
         
 //        int borderAngle = 360;
@@ -92,13 +93,13 @@ public class OpusApplication extends SimpleApplication {
 //        circle.attachChild(circle2);
         
         //Using BitmapText
-        guiFont = assetManager.loadFont("Interface/Fonts/Default.fnt");
-        BitmapText ch = new BitmapText(guiFont, false);
-        ch.setSize(guiFont.getCharSet().getRenderedSize());
-        ch.setText("OPUS Circle Test"); // crosshairs
-        ch.setColor(new ColorRGBA(1f, 0.8f, 0.1f, 1f));
-        ch.setLocalTranslation(settings.getWidth() * 0.3f, settings.getHeight() * 0.1f, 0);
-        guiNode.attachChild(ch);
+//        guiFont = assetManager.loadFont("Interface/Fonts/Default.fnt");
+//        BitmapText ch = new BitmapText(guiFont, false);
+//        ch.setSize(guiFont.getCharSet().getRenderedSize());
+//        ch.setText("OPUS Circle Test"); // crosshairs
+//        ch.setColor(new ColorRGBA(1f, 0.8f, 0.1f, 1f));
+//        ch.setLocalTranslation(settings.getWidth() * 0.3f, settings.getHeight() * 0.1f, 0);
+//        guiNode.attachChild(ch);
     }
     @Override
     public void simpleUpdate(float tpf) {
