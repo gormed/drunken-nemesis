@@ -41,9 +41,9 @@ public class FrameChooser extends Node implements Updateable {
     
     public void createFrameChooser(){
         //TODO Parameter anpassen
-        this.borderMenuCalendar = new BorderMenu(new Color(227, 179, 80),diameter, 1.25f); // yellow
-        this.borderMenuBoard = new BorderMenu(new Color(227, 179, 80),diameter, 1.75f); // yellow
-        this.borderMenuNews = new BorderMenu(new Color(227, 179, 80),diameter, 0.5f); // yellow
+        this.borderMenuCalendar = new BorderMenu(new Color(120, 168, 199),diameter, 0.5f, 60); // blue
+        this.borderMenuBoard = new BorderMenu(new Color(227, 179, 80),diameter, 1.75f, 60); // yellow
+        this.borderMenuNews = new BorderMenu(new Color(203, 75, 59),diameter, 1.25f, 60); // red
         addBorderMenu(borderMenuCalendar);
         addBorderMenu(borderMenuBoard); 
         addBorderMenu(borderMenuNews); 

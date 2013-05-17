@@ -15,6 +15,10 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.shape.Box;
 import com.opus.controller.TuioInputListener;
+import com.opus.gui.frames.SampleBoardUserFrame;
+import com.opus.gui.frames.SampleCalendarUserFrame;
+import com.opus.gui.frames.SampleNewsUserFrame;
+import com.opus.gui.frames.SampleUserFrame;
 import com.opus.logic.Card;
 import com.opus.shape.Circle;
 import java.awt.Color;
@@ -71,6 +75,17 @@ public class VisualCard extends Node implements Updateable {
         float[] angles = { 0,0,card.getAngle() };
         transFC.setTranslation(0,-100,0);
         transFC.setRotation(new Quaternion(angles));
+        System.out.println(card.getAngle());
+        if(card.getAngle()>=0f && card.getAngle()<((2f/3f)*(float)Math.PI)){
+            AbstractUserFrame frame = new SampleBoardUserFrame(card);
+            this.setFrame(frame);
+        } else if(card.getAngle()>=((2f/3f)*(float)Math.PI) && card.getAngle()<((1f+(1f/3f))*(float)Math.PI)){
+            AbstractUserFrame frame = new SampleNewsUserFrame(card);
+            this.setFrame(frame);
+        } else {
+            AbstractUserFrame frame = new SampleCalendarUserFrame(card);
+            this.setFrame(frame);
+        }
         
         trans.setRotation(rotateUI(trans.getTranslation()));
 

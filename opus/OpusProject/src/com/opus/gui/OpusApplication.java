@@ -108,8 +108,7 @@ public class OpusApplication extends SimpleApplication {
         if (!newUsers.isEmpty()) {
             for (User u : newUsers) {
                 VisualCard c = new VisualCard(u.getCard(), assetManager);
-                AbstractUserFrame frame = new SampleUserFrame(u.getCard());
-                c.setFrame(frame);
+                
                 guiNode.attachChild(c);
                 visualCards.put(u.getCard(), c);
             }

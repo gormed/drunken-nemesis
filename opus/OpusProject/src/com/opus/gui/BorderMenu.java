@@ -16,7 +16,7 @@ import java.util.Random;
  */
 public class BorderMenu extends Node implements Updateable {
 
-    private int borderAngle  = 22;
+    private int borderAngle;
     private int innerAngle = 0;
     private float borderWidth= 30f;
     private Color borderColor;
@@ -24,9 +24,10 @@ public class BorderMenu extends Node implements Updateable {
     private Circle circle;
     private int diameter;
     
-    protected BorderMenu(Color color, int diameter, float posFactor){
+    protected BorderMenu(Color color, int diameter, float posFactor, int borderAngle){
         super();
         this.diameter = diameter;
+        this.borderAngle  = borderAngle;
         borderColor = color;
         createBorderMenu(borderColor,posFactor);
     }

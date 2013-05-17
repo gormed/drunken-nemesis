@@ -39,6 +39,7 @@ public class UserManager {
     private ArrayList<User> newUsers = new ArrayList<User>();
     private ArrayList<User> removedUsers = new ArrayList<User>();
     
+    
     public void addUserSymbol(TuioObject object) {
         if (userSymbolList.containsKey(object.getSymbolID())) {
             User u = userSymbolList.get(object.getSymbolID());
