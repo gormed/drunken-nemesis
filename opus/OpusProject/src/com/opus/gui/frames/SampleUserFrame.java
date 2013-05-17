@@ -7,6 +7,7 @@ package com.opus.gui.frames;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Quaternion;
 import com.opus.gui.AbstractUserFrame;
+import com.opus.gui.FrameChooser;
 import com.opus.gui.OpusApplication;
 import com.opus.gui.elements.Heading;
 import com.opus.logic.Card;
@@ -21,6 +22,7 @@ import java.util.Random;
  */
 public class SampleUserFrame extends AbstractUserFrame {
     public static final int diameter = 300;
+   
 
     public SampleUserFrame(Card card) {
         super(card);
@@ -60,6 +62,11 @@ public class SampleUserFrame extends AbstractUserFrame {
 
     @Override
     public void update(float tpf) {
+    }
+
+    @Override
+    protected int getDiameter() {
+        return diameter;
     }
     
 

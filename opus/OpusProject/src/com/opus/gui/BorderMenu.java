@@ -19,28 +19,29 @@ public class BorderMenu extends Node implements Updateable {
     private int borderAngle  = 22;
     private int innerAngle = 0;
     private float borderWidth= 30f;
-    private Color borderColor =new Color(227, 179, 80);
-    private Color innerColor =new Color(227, 179, 80);
+    private Color borderColor;
+    private Color innerColor =new Color(255, 255, 255);
     private Circle circle;
     private int diameter;
-    private float posFactor = 1.25f;
     
-    protected BorderMenu(Color color, int diameter){
+    protected BorderMenu(Color color, int diameter, float posFactor){
         super();
         this.diameter = diameter;
-       
+        borderColor = color;
+        createBorderMenu(borderColor,posFactor);
     }
     
-     private void createBorderMenu(Color color) {        
+     private void createBorderMenu(Color color, float posFactor) {        
         
         //Color randomInnerColor = new Color(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));       
         circle = new Circle(OpusApplication.getInstance().getAssetManager(), diameter+(borderWidth), borderWidth, borderColor, borderAngle, innerColor, innerAngle);
-        circle.setLocalTranslation(0,-diameter/3,0);
+        //circle.setLocalTranslation(0,-diameter/3,0);
         
         //circle.setLocalTranslation(100, 100, 0);
         // use z-axis to rotate
         float[] angles = {0,0, posFactor*((float) Math.PI)};
         circle.setLocalRotation(new Quaternion(angles));
+        this.attachChild(circle);
     }
     
     @Override

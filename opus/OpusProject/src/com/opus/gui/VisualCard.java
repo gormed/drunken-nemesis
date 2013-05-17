@@ -31,6 +31,7 @@ public class VisualCard extends Node implements Updateable {
     AbstractUserFrame frame;
     Card card;
     Geometry cardGeom;
+     private FrameChooser frameChooser;
 
     public VisualCard(Card card, AssetManager assetManager) {
 
@@ -44,6 +45,8 @@ public class VisualCard extends Node implements Updateable {
         cardGeom.setLocalScale(10);
 
         this.attachChild(cardGeom);
+        frameChooser = new FrameChooser();
+        this.attachChild(frameChooser);
     }
 
     public void setFrame(AbstractUserFrame frame) {
@@ -62,16 +65,21 @@ public class VisualCard extends Node implements Updateable {
         float scale = SCREEN_HEIGHT / (float) TuioInputListener.table_size;
 
         Transform trans = new Transform();
+        Transform transFC = new Transform();
         trans.setTranslation(Xpos - card.getX(), Ypos - card.getY(), 0);
 
-//        float[] angles = { 0,0,card.getAngle() };
-//        trans.setRotation(new Quaternion(angles));
-
+        float[] angles = { 0,0,card.getAngle() };
+        transFC.setTranslation(0,-100,0);
+        transFC.setRotation(new Quaternion(angles));
+        
         trans.setRotation(rotateUI(trans.getTranslation()));
 
         trans.setScale(scale);
 
         this.setLocalTransform(trans);
+        for(BorderMenu bm : frameChooser.getBorderMenus()){
+            bm.setLocalTransform(transFC);
+         }
         if (frame != null) {
             frame.update(tpf);
         }
