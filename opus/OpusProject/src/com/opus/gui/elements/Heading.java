@@ -6,6 +6,7 @@ package com.opus.gui.elements;
 
 import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
+import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.opus.gui.OpusApplication;
 
@@ -22,6 +23,11 @@ public class Heading extends BitmapText {
     public Heading( boolean rightToLeft) {
         super(OpusApplication.getInstance().getAssetManager().loadFont("Interface/Fonts/NexaBold.fnt"), rightToLeft);
     }
+    
+    public Heading( boolean rightToLeft, ColorRGBA color) {
+        super(OpusApplication.getInstance().getAssetManager().loadFont("Interface/Fonts/NexaBold.fnt"), rightToLeft);
+        this.setColor(color);
+        }
     
     public void alignCenter() {
         setBoundRefresh();

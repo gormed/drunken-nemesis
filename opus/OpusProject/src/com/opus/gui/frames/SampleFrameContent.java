@@ -5,6 +5,7 @@
 package com.opus.gui.frames;
 
 import com.jme3.font.Rectangle;
+import com.jme3.math.ColorRGBA;
 import com.jme3.math.Quaternion;
 import com.opus.gui.AbstractFrameContent;
 import com.opus.gui.AbstractUserFrame;
@@ -27,11 +28,11 @@ public class SampleFrameContent extends AbstractFrameContent {
 
     @Override
     public void createContent() {
-        Heading h1 = new Heading(false);
+        Heading h1 = new Heading(false,  new ColorRGBA(42f/255f, 101f/255f, 137f/255f,1f));
         h1.setText("My Heading");
         h1.setLocalTranslation(-h1.getLineWidth()*0.5f, 100, 0);
         attachChild(h1);
-        Text message = new Text(false);
+        Text message = new Text(false, new ColorRGBA(42f/255f, 101f/255f, 137f/255f,1f));
         message.setBox(new Rectangle(-100, 60, 200, 200));
         message.setText("Lorem ipsum dolor sit amet, consetetur sadipscing elitr"
                 + ", sed diam nonumy eirmod tempor invidunt ut labore et dolore ");

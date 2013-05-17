@@ -7,6 +7,7 @@ package com.opus.gui.elements;
 import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
 import com.jme3.font.Rectangle;
+import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.opus.gui.OpusApplication;
 
@@ -19,7 +20,12 @@ public class Text extends BitmapText {
     public Text(boolean rightToLeft) {
         super(OpusApplication.getInstance().getAssetManager().loadFont("Interface/Fonts/NexaLightText.fnt"), rightToLeft);
     }
-
+    
+    public Text(boolean rightToLeft,ColorRGBA color) {
+        super(OpusApplication.getInstance().getAssetManager().loadFont("Interface/Fonts/NexaLightText.fnt"), rightToLeft);
+        this.setColor(color);
+    }
+    
     public Text(boolean rightToLeft, boolean arrayBased) {
         super(OpusApplication.getInstance().getAssetManager().loadFont("Interface/Fonts/NexaLightText.fnt"), rightToLeft, arrayBased);
     }
