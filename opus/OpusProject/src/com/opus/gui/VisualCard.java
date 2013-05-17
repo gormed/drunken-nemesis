@@ -68,14 +68,13 @@ public class VisualCard extends Node implements Updateable {
         float Ypos = card.getY() * SCREEN_HEIGHT;
         float scale = SCREEN_HEIGHT / (float) TuioInputListener.table_size;
 
-        Transform trans = new Transform();
         Transform transFC = new Transform();
-        trans.setTranslation(Xpos - card.getX(), Ypos - card.getY(), 0);
 
         float[] angles = { 0,0,card.getAngle() };
         transFC.setTranslation(0,-100,0);
         transFC.setRotation(new Quaternion(angles));
         System.out.println(card.getAngle());
+
         if(card.getAngle()>=0f && card.getAngle()<((2f/3f)*(float)Math.PI)){
             AbstractUserFrame frame = new SampleBoardUserFrame(card);
             this.setFrame(frame);
@@ -87,11 +86,7 @@ public class VisualCard extends Node implements Updateable {
             this.setFrame(frame);
         }
         
-        trans.setRotation(rotateUI(trans.getTranslation()));
-
-        trans.setScale(scale);
-
-        this.setLocalTransform(trans);
+        this.setLocalTransform(rotateUI(Xpos - card.getX(), Ypos - card.getY(), scale));
         for(BorderMenu bm : frameChooser.getBorderMenus()){
             bm.setLocalTransform(transFC);
          }
@@ -102,12 +97,19 @@ public class VisualCard extends Node implements Updateable {
         // System.out.println("Updated " + card.getOwner().getTuioSymbolID());
     }
 
-    private Quaternion rotateUI(Vector3f pos) {
+    private Transform rotateUI(float x, float y, float scale) {
 //        Vector3f middle = new Vector3f(SCREEN_WIDHT*0.5f, SCREEN_HEIGHT*0.5f, 0);
+        Transform trans = new Transform();
         Vector2f mid = new Vector2f(SCREEN_WIDHT * 0.5f, SCREEN_HEIGHT * 0.5f);
-        Vector2f p = new Vector2f(pos.x, pos.y);
+        Vector2f p = new Vector2f(x, y);
         Vector2f midp = p.subtract(mid);
         float[] angles = {0, 0, midp.getAngle() - (float) Math.PI / 2};
-        return new Quaternion(angles);
+        midp.normalizeLocal();
+        midp.multLocal(350);
+        midp.addLocal(mid);
+        trans.setTranslation(midp.x, midp.y, 0);
+        trans.setRotation(new Quaternion(angles));
+        trans.setScale(scale);
+        return trans;
     }
 }
