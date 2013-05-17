@@ -51,6 +51,9 @@ public abstract class AbstractUserFrame extends Node implements Updateable {
     protected void setContent(AbstractFrameContent content) {
         this.content = content;
     }
+    public Card getCard(){
+        return this.card;
+    }  
     
     protected abstract int getDiameter();
     
