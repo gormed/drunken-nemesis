@@ -19,6 +19,18 @@ import java.util.HashMap;
  * @author Senju
  */
 public class NewsManager {
+       
+    // Singleton    
+    public static NewsManager getInstance() {
+        return NewsManager.NewsManagerHolder.INSTANCE;
+    }
+    
+    private static class NewsManagerHolder {
+
+        private static final NewsManager INSTANCE = new NewsManager();
+    }
+    
+    // Class
 
     static String htmlCode = "";
     static ArrayList<String> titles = new ArrayList<String>(0);
@@ -41,6 +53,14 @@ public class NewsManager {
         ArrayList<News> news = new ArrayList<News>(0);
         createItem(news);
         correlation.put(ID, news);
+    }
+    
+    public static ArrayList<News> getUserNews(int ID){
+        ArrayList<News> result = null;                
+        if (correlation.containsKey(ID)){
+            result = (ArrayList<News>) correlation.get(ID);
+        }        
+        return result;
     }
 
     public static void readAll() {
@@ -239,14 +259,5 @@ public class NewsManager {
         } catch (IOException ee) {
             System.out.println("Probleme im BR");
         }
-    }
-
-    public static NewsManager getInstance() {
-        return NewsManagerHolder.INSTANCE;
-    }
-
-    private static class NewsManagerHolder {
-
-        private static final NewsManager INSTANCE = new NewsManager();
     }
 }

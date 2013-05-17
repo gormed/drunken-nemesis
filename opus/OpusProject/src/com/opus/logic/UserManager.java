@@ -47,6 +47,8 @@ public class UserManager {
         } else {
             User newUser = new User(object);
             userList.put(newUser.userSessionID, newUser);
+            //User an die Hashmap vom NewsManager
+            NewsManager.getInstance().addUser(newUser.userSessionID);
             userSymbolList.put(newUser.tuioSymbolID, newUser);
             newUsers.add(newUser);
         }
