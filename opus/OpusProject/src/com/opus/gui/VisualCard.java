@@ -32,17 +32,22 @@ public class VisualCard extends Node implements Updateable {
 
     static final int SCREEN_WIDHT = 1024;
     static final int SCREEN_HEIGHT = 768;
-    AbstractUserFrame frame;
+    AbstractUserFrame frame, boardUserFrame, newsUserFrame, calendarUserFrame;
     Card card;
     Geometry cardGeom;
      private FrameChooser frameChooser;
+    private boolean frameChanged;
 
     public VisualCard(Card card, AssetManager assetManager) {
 
         cardGeom = new Geometry("Card_" + card.getOwner().getTuioSymbolID(), new Box(Vector3f.ZERO, 1, 1, 1));
 
         this.card = card;
-
+        
+        boardUserFrame = new SampleBoardUserFrame(card);
+        newsUserFrame = new SampleNewsUserFrame(card);
+        calendarUserFrame = new SampleCalendarUserFrame(card);
+        this.setFrame(boardUserFrame);
         Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
         mat.setColor("Color", ColorRGBA.Blue);
         cardGeom.setMaterial(mat);
@@ -76,14 +81,14 @@ public class VisualCard extends Node implements Updateable {
         System.out.println(card.getAngle());
 
         if(card.getAngle()>=0f && card.getAngle()<((2f/3f)*(float)Math.PI)){
-            AbstractUserFrame frame = new SampleBoardUserFrame(card);
-            this.setFrame(frame);
+            if(!this.frame.equals(boardUserFrame))
+                this.setFrame(boardUserFrame);
         } else if(card.getAngle()>=((2f/3f)*(float)Math.PI) && card.getAngle()<((1f+(1f/3f))*(float)Math.PI)){
-            AbstractUserFrame frame = new SampleNewsUserFrame(card);
-            this.setFrame(frame);
+            if(!this.frame.equals(newsUserFrame))
+                this.setFrame(newsUserFrame);
         } else {
-            AbstractUserFrame frame = new SampleCalendarUserFrame(card);
-            this.setFrame(frame);
+            if(!this.frame.equals(calendarUserFrame))
+                this.setFrame(calendarUserFrame);
         }
         
         this.setLocalTransform(rotateUI(Xpos - card.getX(), Ypos - card.getY(), scale));
@@ -96,6 +101,7 @@ public class VisualCard extends Node implements Updateable {
         // System.out.println(trans.toString());
         // System.out.println("Updated " + card.getOwner().getTuioSymbolID());
     }
+ 
 
     private Transform rotateUI(float x, float y, float scale) {
 //        Vector3f middle = new Vector3f(SCREEN_WIDHT*0.5f, SCREEN_HEIGHT*0.5f, 0);
