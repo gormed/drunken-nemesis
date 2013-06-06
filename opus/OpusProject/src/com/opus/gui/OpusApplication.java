@@ -11,7 +11,8 @@ import com.jme3.font.BitmapText;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector2f;
 import com.jme3.renderer.RenderManager;
-import com.opus.gui.elements.Image;
+import com.jme3.scene.Node;
+import com.opus.controller.ScreenRayCast3D;
 import com.opus.gui.frames.SampleFrameContent;
 import com.opus.gui.frames.SampleFrameMenu;
 import com.opus.logic.Card;
@@ -48,7 +49,9 @@ public class OpusApplication extends SimpleApplication {
     
     static TuioClient client;
     static UserManager userManager;
+    static ScreenRayCast3D rayCast3D;
     HashMap<Card, VisualCard> visualCards = new HashMap<Card, VisualCard>();
+    static Node cardNode = new Node("Cards");
 
     @Override
     public void stop() {
@@ -62,6 +65,7 @@ public class OpusApplication extends SimpleApplication {
     public void initialize(TuioClient tc) {
         client = tc;   
         client.addTuioListener(userManager.getTuioInputListener());
+        client.addTuioListener(rayCast3D = ScreenRayCast3D.getInstance());
     }
 
     
@@ -75,7 +79,11 @@ public class OpusApplication extends SimpleApplication {
         flyCam.setEnabled(false);
         viewPort.setBackgroundColor(new ColorRGBA(42f/255f, 101f/255f, 137f/255f,1f));
         Random randomGenerator = new Random();
-
+	
+	guiNode.attachChild(cardNode);
+        
+	rayCast3D.initialize(getCamera(), cardNode);
+        
 //        int borderAngle = 360;
 //        int innerAngle = 360;
 //        //Circle 1
@@ -107,11 +115,14 @@ public class OpusApplication extends SimpleApplication {
     public void simpleUpdate(float tpf) {
         //TODO: add update code
         ArrayList<User> newUsers = userManager.getNewUsers();
+	
+	rayCast3D.update(tpf);
+	
         if (!newUsers.isEmpty()) {
             for (User u : newUsers) {
                 VisualCard c = new VisualCard(u.getCard(), assetManager);
-                      
-                guiNode.attachChild(c);
+                
+                cardNode.attachChild(c);
                 visualCards.put(u.getCard(), c);
             }
         }

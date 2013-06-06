@@ -5,7 +5,7 @@ import TUIO.TuioListener;
 import TUIO.TuioObject;
 import TUIO.TuioTime;
 import com.opus.logic.UserManager;
-import java.util.Hashtable;
+import java.util.HashMap;
 
 /**
  * @author Hans
@@ -17,9 +17,9 @@ public class TuioInputListener implements TuioListener {
     public static final int finger_size = 15;
     public static final int object_size = 60;
     public static final int table_size = 760;
-    private Hashtable<Long, TuioInputObject> objectList = new Hashtable<Long, TuioInputObject>();
-    private Hashtable<Long, TuioCursor> cursorList = new Hashtable<Long, TuioCursor>();
-    private Hashtable<Integer, TuioObject> symbolList = new Hashtable<Integer, TuioObject>();
+    private HashMap<Long, TuioInputObject> objectList = new HashMap<Long, TuioInputObject>();
+    private HashMap<Long, TuioCursor> cursorList = new HashMap<Long, TuioCursor>();
+    private HashMap<Integer, TuioObject> symbolList = new HashMap<Integer, TuioObject>();
     public boolean verbose = false;
 
     @Override
@@ -77,7 +77,6 @@ public class TuioInputListener implements TuioListener {
 
         if (!cursorList.containsKey(tcur.getSessionID())) {
             cursorList.put(tcur.getSessionID(), tcur);
-
         }
 
         if (verbose) {
@@ -102,7 +101,7 @@ public class TuioInputListener implements TuioListener {
     public void removeTuioCursor(TuioCursor tcur) {
 
         cursorList.remove(tcur.getSessionID());
-
+        
         if (verbose) {
             System.out.println("del cur " + tcur.getCursorID() + " ("
                     + tcur.getSessionID() + ")");
@@ -114,15 +113,15 @@ public class TuioInputListener implements TuioListener {
         // repaint();
     }
 
-    public Hashtable<Long, TuioInputObject> getObjectList() {
+    public HashMap<Long, TuioInputObject> getObjectList() {
         return objectList;
     }
 
-    public Hashtable<Long, TuioCursor> getCursorList() {
+    public HashMap<Long, TuioCursor> getCursorList() {
         return cursorList;
     }
 
-    public Hashtable<Integer, TuioObject> getSymbolList() {
+    public HashMap<Integer, TuioObject> getSymbolList() {
         return symbolList;
     }
 }

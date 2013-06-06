@@ -18,16 +18,16 @@ import com.opus.gui.OpusApplication;
 public class Text extends BitmapText {
 
     public Text(boolean rightToLeft) {
-        super(OpusApplication.getInstance().getAssetManager().loadFont("Interface/Fonts/NexaLightText.fnt"), rightToLeft);
+        super(OpusApplication.getInstance().getAssetManager().loadFont("Interface/Fonts/Avenir.fnt"), rightToLeft);
     }
     
     public Text(boolean rightToLeft,ColorRGBA color) {
-        super(OpusApplication.getInstance().getAssetManager().loadFont("Interface/Fonts/NexaLightText.fnt"), rightToLeft);
+        super(OpusApplication.getInstance().getAssetManager().loadFont("Interface/Fonts/Avenir.fnt"), rightToLeft);
         this.setColor(color);
     }
     
     public Text(boolean rightToLeft, boolean arrayBased) {
-        super(OpusApplication.getInstance().getAssetManager().loadFont("Interface/Fonts/NexaLightText.fnt"), rightToLeft, arrayBased);
+        super(OpusApplication.getInstance().getAssetManager().loadFont("Interface/Fonts/Avenir.fnt"), rightToLeft, arrayBased);
     }
     
     public void alignCenter() {
