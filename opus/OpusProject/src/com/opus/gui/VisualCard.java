@@ -18,11 +18,7 @@ import com.opus.controller.TuioInputListener;
 import com.opus.gui.frames.SampleBoardUserFrame;
 import com.opus.gui.frames.SampleCalendarUserFrame;
 import com.opus.gui.frames.SampleNewsUserFrame;
-import com.opus.gui.frames.SampleUserFrame;
 import com.opus.logic.Card;
-import com.opus.shape.Circle;
-import java.awt.Color;
-import java.util.Random;
 
 /**
  *
@@ -35,7 +31,7 @@ public class VisualCard extends Node implements Updateable {
     AbstractUserFrame frame, boardUserFrame, newsUserFrame, calendarUserFrame;
     Card card;
     Geometry cardGeom;
-     private FrameChooser frameChooser;
+    private FrameChooser frameChooser;
     private boolean frameChanged;
 
     public VisualCard(Card card, AssetManager assetManager) {
@@ -78,7 +74,7 @@ public class VisualCard extends Node implements Updateable {
         float[] angles = { 0,0,card.getAngle() };
         transFC.setTranslation(0,-100,0);
         transFC.setRotation(new Quaternion(angles));
-        System.out.println(card.getAngle());
+        //System.out.println(card.getAngle());
 
         if(card.getAngle()>=0f && card.getAngle()<((2f/3f)*(float)Math.PI)){
             if(!this.frame.equals(boardUserFrame))
