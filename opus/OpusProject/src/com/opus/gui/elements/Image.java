@@ -23,24 +23,23 @@ public class Image extends Node {
     Material material;
     
     public Image(String path, Vector2f pos) {
-	OpusApplication app = OpusApplication.getInstance();
-	material = new Material(app.getAssetManager(),
+	material = new Material(OpusApplication.getInstance().getAssetManager(),
                 "Common/MatDefs/Misc/Unshaded.j3md");
-	Texture t = app.getAssetManager().
+	Texture t = OpusApplication.getInstance().getAssetManager().
                 loadTexture(path);
 
         material.setTexture("ColorMap", t);
-        material.getAdditionalRenderState().setBlendMode(RenderState.BlendMode.Alpha);
+        //material.getAdditionalRenderState().setBlendMode(RenderState.BlendMode.Alpha);
 
         Quad q = new Quad(t.getImage().getWidth(), t.getImage().getHeight());
 	Geometry geometry = new Geometry("noname", q);
 	
 	geometry.setMaterial(material);
-        geometry.setCullHint(CullHint.Never);
-        geometry.setQueueBucket(RenderQueue.Bucket.Translucent);
+//        geometry.setCullHint(CullHint.Never);
+//        geometry.setQueueBucket(RenderQueue.Bucket.Translucent);
 	
 	this.attachChild(geometry);
-
+        this.setLocalTranslation(pos.x, pos.y, 0);
     }
     
 }

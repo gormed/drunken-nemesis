@@ -6,9 +6,11 @@ package com.opus.gui.frames;
 
 import com.jme3.font.Rectangle;
 import com.jme3.math.ColorRGBA;
+import com.jme3.math.Vector2f;
 import com.opus.gui.AbstractFrameContent;
 import com.opus.gui.AbstractUserFrame;
 import com.opus.gui.elements.Heading;
+import com.opus.gui.elements.Image;
 import com.opus.gui.elements.Text;
 import com.opus.logic.NewsManager;
 
@@ -47,7 +49,11 @@ public class NewsFrameContent extends AbstractFrameContent {
         text = text.substring(0, 150);
         message.setText(text + "..");
        // message.setLocalTranslation(-message.getLineWidth()*0.5f, -message.getLineHeight()*message.getLineCount()*0.5f, 0);
-        attachChild(message);
+        //attachChild(message);
+        
+        Vector2f vec = new Vector2f(-65f, -75f);
+        Image qrTest = new Image("img/test1.png", vec);
+        attachChild(qrTest);
     }
     
 }
