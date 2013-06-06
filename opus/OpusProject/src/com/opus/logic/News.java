@@ -11,11 +11,11 @@ public class News {
    String description = "";
    String pubDate = "";
    String guid = "";
-   //String qrSrc = "";
+   String qrSrc = "";
    
 // TO-DO  User-Datenfeld
    
-   public News(int i, String t, String l, String d, String p, String g){
+   public News(int i, String t, String l, String d, String p, String g, String q){
        
        setId(i);
        setTitle(t);
@@ -23,6 +23,7 @@ public class News {
        setDescription(d);
        setPubDate(p);
        setGuid(g);
+       setQrSrc(q);
    }
 
     public int getId() {
@@ -72,4 +73,13 @@ public class News {
     public void setGuid(String guid) {
         this.guid = guid;
     }  
+
+    public String getQrSrc() {
+        return qrSrc;
+    }
+
+    public void setQrSrc(String qrSrc) {
+        this.qrSrc = qrSrc;
+    }
+    
 }

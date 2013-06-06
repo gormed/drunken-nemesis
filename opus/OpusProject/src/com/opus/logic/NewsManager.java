@@ -38,6 +38,7 @@ public class NewsManager {
     static ArrayList<String> descriptions = new ArrayList<String>(0);
     static ArrayList<String> pubDates = new ArrayList<String>(0);
     static ArrayList<String> guides = new ArrayList<String>(0);
+    static ArrayList<String> qrcs = new ArrayList<String>(0);
     
     static HashMap correlation = new HashMap();
 
@@ -69,12 +70,13 @@ public class NewsManager {
         readDescription("http://www.hshl.de/news/rss");
         readPubDate("http://www.hshl.de/news/rss");
         readGuid("http://www.hshl.de/news/rss");
+        createQRCs("http://www.hshl.de/news/rss");
     }
 
     public static void createItem(ArrayList<News> ar) {
         for (int i = 0; i < titles.size(); i++) {
             try {
-                ar.add(new News(i, titles.get(i), links.get(i), descriptions.get(i), pubDates.get(i), guides.get(i)));
+                ar.add(new News(i, titles.get(i), links.get(i), descriptions.get(i), pubDates.get(i), guides.get(i), qrcs.get(i)));
             } catch (Exception e) {
                 System.out.println();
             }
@@ -259,5 +261,36 @@ public class NewsManager {
         } catch (IOException ee) {
             System.out.println("Probleme im BR");
         }
+    }
+    
+    public static void createQRCs(String url){
+       try {
+            URL rssUrl = new URL(url);
+            BufferedReader BR = new BufferedReader(new InputStreamReader(rssUrl.openStream()));
+            String result = "";
+            String oneLine;
+            //Solange Zeilen im SourceCode existieren
+            while ((oneLine = BR.readLine()) != null) {
+                if (oneLine.contains("<link>")) {
+                    int positionStart = oneLine.indexOf("<link>");
+                    String help = oneLine.substring(positionStart);
+                    help = help.replace("<link>", "");
+                    int positionEnd = help.indexOf("</link>");
+                    String path = help.replace("</link>", "");
+                    QRC.getInstance().createQR(path);
+                    String source = path.replaceAll("[^a-zA-Z]", "");
+                    qrcs.add(source);
+                }
+            }
+            BR.close();
+            //Probleme mit dem URL-Pfad
+        } catch (MalformedURLException e) {
+            System.out.println("URL inkorrekt!");
+
+        } catch (IOException ee) {
+            System.out.println("Probleme im BR");
+        }    
+        
+                 
     }
 }
