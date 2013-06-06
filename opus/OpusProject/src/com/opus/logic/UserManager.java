@@ -7,8 +7,7 @@ package com.opus.logic;
 import TUIO.TuioObject;
 import com.opus.controller.TuioInputListener;
 import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.Map;
+import java.util.HashMap;
 
 /**
  *
@@ -33,8 +32,8 @@ public class UserManager {
     
     private TuioInputListener tuioInputListener = new TuioInputListener();
     
-    private Hashtable<Integer, User> userList = new Hashtable<Integer, User>();
-    private Hashtable<Integer, User> userSymbolList = new Hashtable<Integer, User>();
+    private HashMap<Integer, User> userList = new HashMap<Integer, User>();
+    private HashMap<Integer, User> userSymbolList = new HashMap<Integer, User>();
     
     private ArrayList<User> newUsers = new ArrayList<User>();
     private ArrayList<User> removedUsers = new ArrayList<User>();
