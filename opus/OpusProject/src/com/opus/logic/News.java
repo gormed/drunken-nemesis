@@ -11,6 +11,7 @@ public class News {
    String description = "";
    String pubDate = "";
    String guid = "";
+   //String qrSrc = "";
    
 // TO-DO  User-Datenfeld
    
