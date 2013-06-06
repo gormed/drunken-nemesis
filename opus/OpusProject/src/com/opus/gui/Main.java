@@ -6,6 +6,7 @@ import com.jme3.font.BitmapText;
 import com.jme3.math.ColorRGBA;
 import com.jme3.renderer.RenderManager;
 import com.opus.logic.Card;
+import com.opus.logic.QRC;
 import com.opus.logic.User;
 import com.opus.logic.UserManager;
 import java.util.ArrayList;
@@ -56,6 +57,8 @@ public class Main  {
         
         
         app.start();
-
+        
+        QRC.getInstance().createQR("http://hshl.de/startseite/");
+        
     }
 }

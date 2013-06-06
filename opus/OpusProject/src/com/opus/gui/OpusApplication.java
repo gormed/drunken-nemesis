@@ -9,7 +9,9 @@ import TUIO.TuioClient;
 import com.jme3.app.SimpleApplication;
 import com.jme3.font.BitmapText;
 import com.jme3.math.ColorRGBA;
+import com.jme3.math.Vector2f;
 import com.jme3.renderer.RenderManager;
+import com.opus.gui.elements.Image;
 import com.opus.gui.frames.SampleFrameContent;
 import com.opus.gui.frames.SampleFrameMenu;
 import com.opus.logic.Card;
@@ -73,7 +75,7 @@ public class OpusApplication extends SimpleApplication {
         flyCam.setEnabled(false);
         viewPort.setBackgroundColor(new ColorRGBA(42f/255f, 101f/255f, 137f/255f,1f));
         Random randomGenerator = new Random();
-        
+
 //        int borderAngle = 360;
 //        int innerAngle = 360;
 //        //Circle 1
@@ -108,7 +110,7 @@ public class OpusApplication extends SimpleApplication {
         if (!newUsers.isEmpty()) {
             for (User u : newUsers) {
                 VisualCard c = new VisualCard(u.getCard(), assetManager);
-                
+                      
                 guiNode.attachChild(c);
                 visualCards.put(u.getCard(), c);
             }

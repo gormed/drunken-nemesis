@@ -78,7 +78,7 @@ public class VisualCard extends Node implements Updateable {
         float[] angles = { 0,0,card.getAngle() };
         transFC.setTranslation(0,-100,0);
         transFC.setRotation(new Quaternion(angles));
-        System.out.println(card.getAngle());
+        //System.out.println(card.getAngle());
 
         if(card.getAngle()>=0f && card.getAngle()<((2f/3f)*(float)Math.PI)){
             if(!this.frame.equals(boardUserFrame))
