@@ -16,11 +16,10 @@ import com.opus.gui.OpusApplication;
  */
 public class Ad extends Node{
  
-
+    
 
     public Ad() {
+        
     }
-    
-    
 
 }
