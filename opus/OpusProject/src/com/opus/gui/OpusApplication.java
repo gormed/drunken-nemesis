@@ -16,6 +16,7 @@ import com.opus.controller.ScreenRayCast3D;
 import com.opus.gui.frames.SampleFrameContent;
 import com.opus.gui.frames.SampleFrameMenu;
 import com.opus.logic.Card;
+import com.opus.logic.NewsManager;
 import com.opus.logic.User;
 import com.opus.logic.UserManager;
 import java.awt.Color;
@@ -35,7 +36,7 @@ public class OpusApplication extends SimpleApplication {
     private OpusApplication() {
         super();
         userManager = UserManager.getInstance();
-        
+        newsManager = NewsManager.getInstance();
     }
     
     public static OpusApplication getInstance() {
@@ -49,6 +50,7 @@ public class OpusApplication extends SimpleApplication {
     
     static TuioClient client;
     static UserManager userManager;
+    static NewsManager newsManager;
     static ScreenRayCast3D rayCast3D;
     HashMap<Card, VisualCard> visualCards = new HashMap<Card, VisualCard>();
     static Node cardNode = new Node("Cards");
