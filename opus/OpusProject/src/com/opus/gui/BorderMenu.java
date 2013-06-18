@@ -8,6 +8,7 @@ import com.jme3.collision.CollisionResult;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector2f;
 import com.opus.controller.Clickable3D;
+import com.opus.logic.UserManager;
 import com.opus.shape.Circle;
 import java.awt.Color;
 
@@ -55,6 +56,7 @@ public class BorderMenu extends Circle implements Updateable, Clickable3D {
             frameChooserMenu.currentActive = menuId;
             frameChooserMenu.desiredAngle = frameChooserMenu.menuStages[menuId];
             frameChooserMenu.animationSpeed = (frameChooserMenu.desiredAngle - frameChooserMenu.animationAngle);
+            
         }
     }
 

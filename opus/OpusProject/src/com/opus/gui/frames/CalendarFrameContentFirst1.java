@@ -16,9 +16,9 @@ import com.opus.gui.elements.Text;
  *
  * @author Hans
  */
-public class SampleCalendarFrameContent extends AbstractFrameContent {
+public class CalendarFrameContentFirst1 extends AbstractFrameContent {
 
-    public SampleCalendarFrameContent(AbstractUserFrame parent) {
+    public CalendarFrameContentFirst1(AbstractUserFrame parent) {
         super(parent);
     }
     
