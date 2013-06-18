@@ -23,7 +23,7 @@ public class FrameChooserMenu extends Node implements Updateable {
     BorderMenu borderMenuBoard;
     BorderMenu borderMenuNews;
     BorderMenu borderMenuCalendar;
-    float[] angleStages = {0, 0.333f, 0.666f};
+    float[] angleStages = {0.5f, 0.8333f , 0.1666f};
     float[] menuStages = {0, 0.666f, 0.333f};
     VisualCard visualCard;
     int currentActive = 0;
@@ -61,6 +61,7 @@ public class FrameChooserMenu extends Node implements Updateable {
             menuRotation.fromAngles(angles);
             setLocalRotation(menuRotation);
         }
+       
 
     }
 
