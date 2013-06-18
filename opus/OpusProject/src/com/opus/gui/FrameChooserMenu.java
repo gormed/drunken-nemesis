@@ -32,8 +32,8 @@ public class FrameChooserMenu extends Node implements Updateable {
     float animationSpeed = 1f;
     float animationTime = 0.4f;
     float currentAnimationTime;
-    float animationAngle;
-    float desiredAngle;
+    float animationAngle = 0.5f;
+    float desiredAngle = 1.5f;
     private Quaternion menuRotation;
 
     public FrameChooserMenu(VisualCard card) {

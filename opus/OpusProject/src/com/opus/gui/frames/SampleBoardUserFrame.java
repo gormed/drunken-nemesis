@@ -62,6 +62,19 @@ public class SampleBoardUserFrame extends AbstractUserFrame {
 
     @Override
     public void update(float tpf) {
+       
+        if (animate) {
+            currentAnimationTime += tpf;
+            animationAngle += tpf * (animationSpeed / animationTime);
+            
+            if (currentAnimationTime > animationTime) {
+                animate = false;
+                animationAngle = desiredAngle;
+                currentAnimationTime = 0;
+            }
+            float[] angles = {0, (animationAngle) * 2f * ((float) Math.PI), 0 };
+            setLocalRotation(new Quaternion(angles));
+        }
     }
 
     @Override

@@ -48,8 +48,9 @@ public class BorderMenu extends Circle implements Updateable, Clickable3D {
     @Override
     public void onRayCastClick(Vector2f mouse, CollisionResult result) {
         frameChooserMenu.animate = true;
-
         if (!frameChooserMenu.visualCard.frame.equals(accordingFrame)) {
+            accordingFrame.animate = true;
+            
             frameChooserMenu.visualCard.setFrame(accordingFrame);
             frameChooserMenu.currentActive = menuId;
             frameChooserMenu.desiredAngle = frameChooserMenu.menuStages[menuId];
