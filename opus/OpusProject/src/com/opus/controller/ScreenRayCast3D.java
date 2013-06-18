@@ -123,15 +123,15 @@ public class ScreenRayCast3D implements TuioListener {
     /**
      * The last clicked.
      */
-    private Clickable3D lastClicked = null;
+    private HashMap<Long, Clickable3D> lastClicked = null;
     /**
      * The last hovered.
      */
-    private Clickable3D lastHovered = null;
+    private HashMap<Long, Clickable3D> lastHovered = null;
     /**
      * The last world hit.
      */
-    private Vector3f lastWorldHit;
+    private HashMap<Long, Vector3f> lastWorldHit;
     /**
      * The cam.
      */
@@ -139,7 +139,7 @@ public class ScreenRayCast3D implements TuioListener {
     /**
      * The last mouse position.
      */
-    private Vector2f lastMousePosition = Vector2f.ZERO.clone();
+    private HashMap<Long, Vector2f> lastMousePosition = new HashMap<Long, Vector2f>();// Vector2f.ZERO.clone();
     /**
      * The initialized.
      */
@@ -185,7 +185,7 @@ public class ScreenRayCast3D implements TuioListener {
         clickable3D.detachAllChildren();
 //        game.getRootNode().detachChild(clickable3D);
         clickable3D = null;
-        lastMousePosition = Vector2f.ZERO.clone();
+        lastMousePosition = null;//Vector2f.ZERO.clone();
         initialized = false;
     }
 
@@ -196,52 +196,6 @@ public class ScreenRayCast3D implements TuioListener {
      */
     public boolean isInitialized() {
         return initialized;
-    }
-
-    /**
-     * Retrieve the last clicked RayCast3DNode.
-     *
-     * @return the last clicked RayCast3DNode
-     */
-    public Clickable3D getLastClicked() {
-        return lastClicked;
-    }
-
-    /**
-     * Retrieve the last hovered RayCast3DNode.
-     *
-     * @return the last hovered RayCast3DNode
-     */
-    public Clickable3D getLastHovered() {
-        return lastHovered;
-    }
-
-    /**
-     * Gets the last point hit by a ray.
-     *
-     * @return the 3D position of the hit
-     */
-    public Vector3f getLastWorldHit() {
-        return lastWorldHit;
-    }
-
-    /**
-     * Adds a node to the clickable 3d objects.
-     *
-     * @param object that will be clickable
-     */
-    public void addClickableObject(Spatial object) {
-        clickable3D.attachChild(object);
-    }
-
-    /**
-     * Removes a specific node from the clickable 3d objects.
-     *
-     * @param object that wont be clickable anymore
-     */
-    public void removeClickableObject(Spatial object) {
-
-        clickable3D.detachChild(object);
     }
 
     /**
@@ -284,9 +238,9 @@ public class ScreenRayCast3D implements TuioListener {
                     mouse.x >= 0 && mouse.y >= 0
                     && mouse.x <= cam.getWidth() && mouse.y <= cam.getHeight();
             if (isInWindow) {
-                checkMouseMovement(mouse, tpf);
+                checkMouseMovement(entry.getKey(), mouse, tpf);
             }
-            lastMousePosition = mouse.clone();
+            lastMousePosition.put(entry.getKey(), mouse.clone());
         }
     }
 
@@ -297,8 +251,8 @@ public class ScreenRayCast3D implements TuioListener {
      * @param mouse the mouse position
      * @param tpf the gap between 2 two calls
      */
-    public void checkMouseMovement(Vector2f mouse, float tpf) {
-        float diff = Math.abs(mouse.subtract(lastMousePosition).length());
+    public void checkMouseMovement(long id, Vector2f mouse, float tpf) {
+        float diff = Math.abs(mouse.subtract(lastMousePosition.get(id)).length());
         //==========================================================================
         //===   Mouse Moved
         //==========================================================================
@@ -316,7 +270,7 @@ public class ScreenRayCast3D implements TuioListener {
 //                    new Vector2f(click2d.x, click2d.y), 1f).subtractLocal(click3d).normalizeLocal();
             Vector3f click3d =
                     new Vector3f(click2d.x, click2d.y, 0f);
-            lastWorldHit = click3d.clone();
+            lastWorldHit.put(id, click3d.clone());
             Vector3f dir = new Vector3f(click2d.x, click2d.y, 1f).subtractLocal(click3d).normalizeLocal();
             Ray ray = new Ray(click3d, dir);
             // 3. Collect intersections between Ray and Shootables in results list.
