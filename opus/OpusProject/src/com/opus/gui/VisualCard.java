@@ -18,6 +18,7 @@ import com.opus.controller.TuioInputListener;
 import com.opus.gui.frames.SampleBoardUserFrame;
 import com.opus.gui.frames.SampleCalendarUserFrame;
 import com.opus.gui.frames.SampleNewsUserFrame;
+import com.opus.gui.frames.StartUserFrame;
 import com.opus.logic.Card;
 
 /**
@@ -32,7 +33,7 @@ public class VisualCard extends Node implements Updateable {
     private FrameChooserMenu frameChooser;
     private boolean frameChanged;
     
-    AbstractUserFrame frame, boardUserFrame, newsUserFrame, calendarUserFrame;
+    AbstractUserFrame frame, startUserFrame,boardUserFrame, newsUserFrame, calendarUserFrame;
     Card card;
     Geometry cardGeom;
 
@@ -45,7 +46,8 @@ public class VisualCard extends Node implements Updateable {
         boardUserFrame = new SampleBoardUserFrame(card);
         newsUserFrame = new SampleNewsUserFrame(card);
         calendarUserFrame = new SampleCalendarUserFrame(card);
-        this.setFrame(boardUserFrame);
+        startUserFrame = new StartUserFrame(card);
+        this.setFrame(startUserFrame);
         Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
         mat.setColor("Color", ColorRGBA.Blue);
         cardGeom.setMaterial(mat);
@@ -80,7 +82,13 @@ public class VisualCard extends Node implements Updateable {
         frameChooser.update(tpf);
         if (frame != null) {
             frame.update(tpf);
+            if (frame.equals(startUserFrame)){
+                float[] angles = {0f,  0f, card.getAngle()};
+                frameChooser.setLocalRotation(new Quaternion(angles));
+            }
         }
+        
+       
         // System.out.println(trans.toString());
         // System.out.println("Updated " + card.getOwner().getTuioSymbolID());
     }
