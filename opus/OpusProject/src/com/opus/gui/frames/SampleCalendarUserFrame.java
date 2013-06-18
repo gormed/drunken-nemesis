@@ -26,8 +26,8 @@ public class SampleCalendarUserFrame extends AbstractUserFrame {
 
     public SampleCalendarUserFrame(Card card) {
         super(card);
-        setMenu(new SampleCalendarFrameMenu(this));
-        setContent(new SampleCalendarFrameContent(this));
+        setMenu(new CalendarFrameMenu(this));
+        setContent(new CalendarFrameContent(this));
     }
     
     @Override

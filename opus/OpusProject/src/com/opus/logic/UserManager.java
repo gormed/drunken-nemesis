@@ -49,6 +49,8 @@ public class UserManager {
             userList.put(newUser.userSessionID, newUser);
             //User an die Hashmap vom NewsManager
             NewsManager.getInstance().addUser(newUser.userSessionID);
+            //User an die Hashmap vom CalendarManager
+            CalendarManager.getInstance().addUser(newUser.userSessionID);
             userSymbolList.put(newUser.tuioSymbolID, newUser);
             newUsers.add(newUser);
         }
