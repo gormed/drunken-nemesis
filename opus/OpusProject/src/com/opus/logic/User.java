@@ -22,11 +22,13 @@ public class User {
     int userSessionID = getSessionID();
     long lastActiveTime = 0;
     Card card;
+    private boolean loggedIn = false;
     
     public User(TuioObject object) {
         this.tuioSymbolID = object.getSymbolID();
         this.card = new Card(this, object);
         lastActiveTime = System.currentTimeMillis();
+        loggedIn = true;
     }
     
     public void update(TuioObject object) {
@@ -45,5 +47,12 @@ public class User {
     public Card getCard() {
         return card;
     }
+
+    public boolean isLoggedIn() {
+        return loggedIn;
+    }
     
+    void logout() {
+        loggedIn = false;
+    }
 }

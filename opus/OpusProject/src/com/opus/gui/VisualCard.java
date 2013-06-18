@@ -28,10 +28,8 @@ public class VisualCard extends Node implements Updateable {
 
     static final int SCREEN_WIDHT = 1024;
     static final int SCREEN_HEIGHT = 768;
-    
     private FrameChooserMenu frameChooser;
     private boolean frameChanged;
-    
     AbstractUserFrame frame, boardUserFrame, newsUserFrame, calendarUserFrame;
     Card card;
     Geometry cardGeom;
@@ -41,7 +39,7 @@ public class VisualCard extends Node implements Updateable {
         cardGeom = new Geometry("Card_" + card.getOwner().getTuioSymbolID(), new Box(Vector3f.ZERO, 1, 1, 1));
 
         this.card = card;
-        
+
         boardUserFrame = new SampleBoardUserFrame(card);
         newsUserFrame = new SampleNewsUserFrame(card);
         calendarUserFrame = new SampleCalendarUserFrame(card);
@@ -67,6 +65,10 @@ public class VisualCard extends Node implements Updateable {
 
     @Override
     public void update(float tpf) {
+        if (!card.getOwner().isLoggedIn()) {
+            logout();
+            return;
+        }
         float Xpos = card.getX() * SCREEN_WIDHT;
         float Ypos = card.getY() * SCREEN_HEIGHT;
         float scale = SCREEN_HEIGHT / (float) TuioInputListener.table_size;
@@ -75,7 +77,7 @@ public class VisualCard extends Node implements Updateable {
         //System.out.println(card.getAngle());
 
 
-        
+
         this.setLocalTransform(rotateUI(Xpos - card.getX(), Ypos - card.getY(), scale));
         frameChooser.update(tpf);
         if (frame != null) {
@@ -84,7 +86,6 @@ public class VisualCard extends Node implements Updateable {
         // System.out.println(trans.toString());
         // System.out.println("Updated " + card.getOwner().getTuioSymbolID());
     }
- 
 
     private Transform rotateUI(float x, float y, float scale) {
 //        Vector3f middle = new Vector3f(SCREEN_WIDHT*0.5f, SCREEN_HEIGHT*0.5f, 0);
@@ -109,5 +110,10 @@ public class VisualCard extends Node implements Updateable {
     public AbstractUserFrame getFrame() {
         return frame;
     }
-    
+
+    public void logout() {
+        if (parent != null) {
+            parent.detachChild(this);
+        }
+    }
 }

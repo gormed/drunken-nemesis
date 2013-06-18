@@ -43,9 +43,10 @@ public class UserManager {
             long currentTime = System.currentTimeMillis();
             float diff = ((u.lastActiveTime - currentTime) / 1000f);
             if (diff > 10) {
-                userSymbolList.remove(object.getSymbolID());
+                logoutUser(object.getSymbolID());
             } else {
                 userList.put(u.getUserSessionID(), u);
+            System.out.print("User recovered!");
             }
             //newUsers.add(u);
         } else {
@@ -55,6 +56,7 @@ public class UserManager {
             NewsManager.addUser(newUser.userSessionID);
             userSymbolList.put(newUser.tuioSymbolID, newUser);
             newUsers.add(newUser);
+            System.out.print("User logged in!");
         }
     }
 //    
@@ -79,21 +81,24 @@ public class UserManager {
             User u = userSymbolList.get(object.getSymbolID());
             userList.remove(u.userSessionID);
             removedUsers.add(u);
+            System.out.print("User Symbol removed!");
         }
     }
 
     public void logoutUser(int symbolid) {
-        userSymbolList.remove(symbolid);
+        User u = userSymbolList.remove(symbolid);
+        u.logout();
+        System.out.print("User logged out!");
     }
 
     public void logoutUsers(float tpf) {
         logoutCounter += tpf;
         if (logoutCounter > logoutCheckTime) {
             for (Map.Entry<Integer, User> entry : userSymbolList.entrySet()) {
-                if (entry.getValue() != null) {
+                if (entry.getValue() != null && !userList.containsValue(entry.getValue())) {
                     long currentTime = System.currentTimeMillis();
                     float diff = ((currentTime - entry.getValue().lastActiveTime) / 1000f);
-                    if (diff > 10) {
+                    if (diff > 5) {
                         logoutUser(entry.getValue().getTuioSymbolID());
                     }
                 }
