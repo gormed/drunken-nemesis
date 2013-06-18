@@ -17,15 +17,15 @@ import com.opus.gui.OpusApplication;
 public class Heading extends BitmapText {
 
     public Heading(boolean rightToLeft, boolean arrayBased) {
-        super(OpusApplication.getInstance().getAssetManager().loadFont("Interface/Fonts/NexaBold.fnt"), rightToLeft, arrayBased);
+        super(OpusApplication.getInstance().getAssetManager().loadFont("Interface/Fonts/Avenir12.fnt"), rightToLeft, arrayBased);
     }
 
     public Heading( boolean rightToLeft) {
-        super(OpusApplication.getInstance().getAssetManager().loadFont("Interface/Fonts/NexaBold.fnt"), rightToLeft);
+        super(OpusApplication.getInstance().getAssetManager().loadFont("Interface/Fonts/Avenir12.fnt"), rightToLeft);
     }
     
     public Heading( boolean rightToLeft, ColorRGBA color) {
-        super(OpusApplication.getInstance().getAssetManager().loadFont("Interface/Fonts/NexaBold.fnt"), rightToLeft);
+        super(OpusApplication.getInstance().getAssetManager().loadFont("Interface/Fonts/Avenir12.fnt"), rightToLeft);
         this.setColor(color);
         }
     
