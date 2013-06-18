@@ -26,7 +26,11 @@ public class NewsFrameContent extends AbstractFrameContent {
     public NewsFrameContent(AbstractUserFrame parent) {
         super(parent);
         userID = parent.getCard().getOwner().getUserSessionID();
-        newsID = 1;
+        // !!!!!!!!!!! newsID:
+        // NewsManager.getInstance().getHshlNewsCounter() -1 = letzte HSHL news
+        // NewsManager.getInstance().getHshlNewsCounter()    = erste Google news
+        // NewsManager.getInstance().getHshlNewsCounter() + NewsManager.getInstance().getGoogleNewsCounter() - 1 = letzte google news
+        newsID = NewsManager.getInstance().getHshlNewsCounter();
     }
     
     @Override
@@ -67,7 +71,6 @@ public class NewsFrameContent extends AbstractFrameContent {
         //attachChild(message);
         
         String inputSource = "qrcodes/" + (NewsManager.getInstance().getUserNews(userID).get(newsID).getQrSrc()) + ".png";
-        System.out.println(inputSource);
         Vector2f vec = new Vector2f(-65f, -75f);
         Image qrTest = new Image(inputSource, vec);
         attachChild(qrTest);
