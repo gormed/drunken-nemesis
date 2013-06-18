@@ -28,7 +28,7 @@ public class StartFrameContentCalendar extends AbstractFrameContent {
 
     @Override
     public void createContent() {
-        Heading h1 = new Heading(false,  new ColorRGBA(1f,1f,1f,1f));
+        Heading h1 = new Heading(false,  new ColorRGBA(120/255f, 168/255f, 199/255f,1f));
         h1.setText("Calendar");
         h1.setLocalTranslation(-h1.getLineWidth()*0.5f, 100, 0);
         attachChild(h1);

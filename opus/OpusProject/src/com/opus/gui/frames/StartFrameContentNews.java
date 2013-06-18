@@ -28,9 +28,9 @@ public class StartFrameContentNews extends AbstractFrameContent {
 
     @Override
     public void createContent() {
-        Heading h1 = new Heading(false,  new ColorRGBA(1f,1f,1f,1f));
+        Heading h1 = new Heading(false,  new ColorRGBA(203/255f, 75/255f, 59/255f,1f));
         h1.setText("News");
-        h1.setLocalTranslation(h1.getLineWidth()*0.5f, 100, 0);
+        h1.setLocalTranslation(-h1.getLineWidth()*0.5f, 100, 0);
         attachChild(h1);
         
 //        Text message = new Text(false, new ColorRGBA(42f/255f, 101f/255f, 137f/255f,1f));

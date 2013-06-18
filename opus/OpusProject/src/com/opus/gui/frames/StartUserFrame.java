@@ -26,7 +26,6 @@ public class StartUserFrame extends AbstractUserFrame {
    
     public StartUserFrame(Card card) {
         super(card);
-        
         startFrameContent = new StartFrameContent(this);
         startFrameContentBoard = new StartFrameContentBoard(this);
         startFrameContentCalendar = new StartFrameContentCalendar(this);
@@ -68,20 +67,21 @@ public class StartUserFrame extends AbstractUserFrame {
 
     @Override
     public void update(float tpf) {
-        if(card.getAngle()>=0f && card.getAngle()<((2f/3f)*(float)Math.PI)){
-               if(!this.getContent().equals(startFrameContent)) {
-                this.changeContent(startFrameContent);
+        System.out.println();
+        if(card.getAngle()>=(0.8333f * 2f * ((float) Math.PI)) || card.getAngle()< (0.1666f * 2f * ((float) Math.PI))){
+               if(!this.getContent().equals(startFrameContentCalendar)) {
+                this.changeContent(startFrameContentCalendar);
             }
         } 
-        else if(card.getAngle()>=((2f/3f)*(float)Math.PI) && card.getAngle()<((1f+(1f/3f))*(float)Math.PI)){
+        else if(card.getAngle()>=(0.1666f * 2f * ((float) Math.PI)) && card.getAngle()< (0.5f * 2f * ((float) Math.PI))){
             if(!this.getContent().equals(startFrameContentBoard)) {
                 this.changeContent(startFrameContentBoard);
                 
             }
         } 
-        else{
-            if(!this.getContent().equals(startFrameContentCalendar)) {
-                this.changeContent(startFrameContentCalendar);
+        else if(card.getAngle()>=(0.5f * 2f * ((float) Math.PI)) && card.getAngle()< (0.8333f * 2f * ((float) Math.PI))){
+            if(!this.getContent().equals(startFrameContentNews)) {
+                this.changeContent(startFrameContentNews);
         
             }
         }
