@@ -34,6 +34,7 @@ public class UserManager {
     private HashMap<Integer, User> userSymbolList = new HashMap<Integer, User>();
     private ArrayList<User> newUsers = new ArrayList<User>();
     private ArrayList<User> removedUsers = new ArrayList<User>();
+    private ArrayList<Integer> logoutUsers = new ArrayList<Integer>();
     float logoutCounter = 0;
     float logoutCheckTime = 1;
 
@@ -46,7 +47,7 @@ public class UserManager {
                 logoutUser(object.getSymbolID());
             } else {
                 userList.put(u.getUserSessionID(), u);
-            System.out.print("User recovered!");
+            System.out.println("User recovered!");
             }
             //newUsers.add(u);
         } else {
@@ -56,7 +57,7 @@ public class UserManager {
             NewsManager.addUser(newUser.userSessionID);
             userSymbolList.put(newUser.tuioSymbolID, newUser);
             newUsers.add(newUser);
-            System.out.print("User logged in!");
+            System.out.println("User logged in!");
         }
     }
 //    
@@ -81,14 +82,13 @@ public class UserManager {
             User u = userSymbolList.get(object.getSymbolID());
             userList.remove(u.userSessionID);
             removedUsers.add(u);
-            System.out.print("User Symbol removed!");
+            System.out.println("User Symbol removed!");
         }
     }
 
     public void logoutUser(int symbolid) {
-        User u = userSymbolList.remove(symbolid);
-        u.logout();
-        System.out.print("User logged out!");
+        //User u = userSymbolList.remove(symbolid);
+        logoutUsers.add(symbolid);
     }
 
     public void logoutUsers(float tpf) {
@@ -102,6 +102,14 @@ public class UserManager {
                         logoutUser(entry.getValue().getTuioSymbolID());
                     }
                 }
+            }
+            if (logoutUsers.size() > 0) {
+                for (Integer id : logoutUsers) {
+                    User u = userSymbolList.remove(id);
+                    u.logout();
+                    System.out.println("User logged out!");
+                }
+                logoutUsers.clear();
             }
             logoutCounter = 0;
         }

@@ -93,11 +93,11 @@ public class VisualCard extends Node implements Updateable {
         Vector2f mid = new Vector2f(SCREEN_WIDHT * 0.5f, SCREEN_HEIGHT * 0.5f);
         Vector2f p = new Vector2f(x, y);
         Vector2f midp = p.subtract(mid);
-        float[] angles = {-0.15f * (float) Math.PI, 0, midp.getAngle() - (float) Math.PI / 2};
+        float[] angles = {0, 0, midp.getAngle() - (float) Math.PI / 2};
         midp.normalizeLocal();
         midp.multLocal(300);
         midp.addLocal(mid);
-        trans.setTranslation(midp.x, midp.y, -1);
+        trans.setTranslation(midp.x, midp.y, 0);
         trans.setRotation(new Quaternion(angles));
         trans.setScale(scale);
         return trans;

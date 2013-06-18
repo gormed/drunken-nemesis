@@ -73,6 +73,8 @@ public class ScreenRayCast3D implements TuioListener {
      * The RAYCAS t_3 d.
      */
     public static String RAYCAST_3D = "Raycast_3D";
+    public static final int CALIB_X = 0;
+    public static final int CALIB_Y = 0;
 
     //==========================================================================
     //===   Singleton
@@ -247,10 +249,10 @@ public class ScreenRayCast3D implements TuioListener {
 
         for (Map.Entry<Long, TuioCursor> entry : cursorList.entrySet()) {
             Vector2f mouse = new Vector2f(entry.getValue().getX() * cam.getWidth(), (1 - entry.getValue().getY()) * cam.getHeight());
-
+            mouse.addLocal(CALIB_X, CALIB_Y);
             Node n = visCursorList.get(entry.getValue().getSessionID());
             if (n != null) {
-                n.setLocalTranslation(entry.getValue().getX() * cam.getWidth(), (1 - entry.getValue().getY()) * cam.getHeight(), 0);
+                n.setLocalTranslation(mouse.x, mouse.y, 0);
             }
 
 //            boolean isInWindow =
@@ -500,6 +502,7 @@ public class ScreenRayCast3D implements TuioListener {
             CollisionResults results = new CollisionResults();
             // 2. Aim the ray from cam loc to cam direction.
             Vector2f click2d = new Vector2f(cursor.getX() * cam.getWidth(), (1 - cursor.getY()) * cam.getHeight());
+            click2d.addLocal(CALIB_X, CALIB_Y);
             Vector3f click3d =
                     new Vector3f(click2d.x, click2d.y, 0f);
             Vector3f dir = new Vector3f(click2d.x, click2d.y, 1f).subtractLocal(click3d).normalizeLocal();
