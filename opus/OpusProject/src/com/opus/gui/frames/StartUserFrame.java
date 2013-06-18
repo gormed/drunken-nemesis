@@ -22,6 +22,7 @@ public class StartUserFrame extends AbstractUserFrame {
     private final StartFrameContentBoard startFrameContentBoard;
     private final StartFrameContentCalendar startFrameContentCalendar;
     private final StartFrameContentNews startFrameContentNews;
+    private final StartFrameMenu startFrameMenu;
     
    
     public StartUserFrame(Card card) {
@@ -30,12 +31,16 @@ public class StartUserFrame extends AbstractUserFrame {
         startFrameContentBoard = new StartFrameContentBoard(this);
         startFrameContentCalendar = new StartFrameContentCalendar(this);
         startFrameContentNews = new StartFrameContentNews(this);
-        setContent(startFrameContent);
-        
+        startFrameMenu = new StartFrameMenu(this);
+
         startFrameContentBoard.createContent();
         startFrameContentCalendar.createContent();
         startFrameContentNews.createContent();
-        setContent(new StartFrameContent(this));
+        startFrameMenu.createMenu();
+        
+        
+        setContent(startFrameContent);
+        setMenu(startFrameMenu);
     }
     
     
@@ -67,7 +72,7 @@ public class StartUserFrame extends AbstractUserFrame {
 
     @Override
     public void update(float tpf) {
-        System.out.println();
+      super.update(tpf);
         if(card.getAngle()>=(0.8333f * 2f * ((float) Math.PI)) || card.getAngle()< (0.1666f * 2f * ((float) Math.PI))){
                if(!this.getContent().equals(startFrameContentCalendar)) {
                 this.changeContent(startFrameContentCalendar);

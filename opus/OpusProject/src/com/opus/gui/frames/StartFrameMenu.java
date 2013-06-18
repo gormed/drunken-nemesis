@@ -13,57 +13,20 @@ import com.opus.gui.AbstractFrameMenu;
 import com.opus.gui.AbstractFrameMenuEntry;
 import com.opus.gui.AbstractUserFrame;
 import com.opus.gui.elements.Text;
-import com.opus.logic.Card;
 
 /**
  *
  * @author Senju
  */
-public class NewsFrameMenu extends AbstractFrameMenu {
-    private final Card card;
+public class StartFrameMenu extends AbstractFrameMenu {
 
-    public NewsFrameMenu(AbstractUserFrame frame) {
+    public StartFrameMenu(AbstractUserFrame frame) {
         super(frame);
-        this.card = this.getFrame().getCard();
     }
 
     @Override
     public void createMenu() {
-        addMenuEntry(new AbstractFrameMenuEntry(this) {
-
-            @Override
-            protected void createEntry() {
-                createRotated(this, (float) (0.16f * Math.PI), "Hot");
-            }
-        });
-        addMenuEntry(new AbstractFrameMenuEntry(this) {
-
-            @Override
-            protected void createEntry() {
-                createRotated(this, (float) (0.32f * Math.PI), "HSHL");
-            }
-        });
-        addMenuEntry(new AbstractFrameMenuEntry(this) {
-
-            @Override
-            protected void createEntry() {
-                createRotated(this, (float) (0.48f * Math.PI), "Welt");
-            }
-        });
-        addMenuEntry(new AbstractFrameMenuEntry(this) {
-
-            @Override
-            protected void createEntry() {
-                createRotated(this, (float) (0.64f * Math.PI), "Studium");
-            }
-        });
-        addMenuEntry(new AbstractFrameMenuEntry(this) {
-
-            @Override
-            protected void createEntry() {
-                createRotated(this, (float) (0.8f * Math.PI), "Alle");
-            }
-        });
+        
     }
 
     private BitmapText createRotated(AbstractFrameMenuEntry menuentry, float angle, String title) {
@@ -96,16 +59,4 @@ public class NewsFrameMenu extends AbstractFrameMenu {
         }
         return v;
     }
-
-    @Override
-    public void update(float tpf) {
-        super.update(tpf);
-           if(card.getAngle()>=(0.8333f * 2f * ((float) Math.PI)) || card.getAngle()< (0.1666f * 2f * ((float) Math.PI))){
-               
-            }
-        
-        
-    }
-    
-    
 }

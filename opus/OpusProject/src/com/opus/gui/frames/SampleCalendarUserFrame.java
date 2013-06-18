@@ -62,18 +62,25 @@ public class SampleCalendarUserFrame extends AbstractUserFrame {
 
     @Override
     public void update(float tpf) {
-        if (animate) {
-            currentAnimationTime += tpf;
-            animationAngle += tpf * (animationSpeed / animationTime);
-            
-            if (currentAnimationTime > animationTime) {
-                animate = false;
-                animationAngle = desiredAngle;
-                currentAnimationTime = 0;
-            }
-            float[] angles = {0, (animationAngle) * 2f * ((float) Math.PI), 0 };
-            setLocalRotation(new Quaternion(angles));
-        }
+        super.update(tpf);
+        
+//        if(card.getAngle()>=(0.8333f * 2f * ((float) Math.PI)) || card.getAngle()< (0.1666f * 2f * ((float) Math.PI))){
+//               if(!this.getContent().equals(startFrameContentCalendar)) {
+//                this.changeContent(startFrameContentCalendar);
+//            }
+//        } 
+//        else if(card.getAngle()>=(0.1666f * 2f * ((float) Math.PI)) && card.getAngle()< (0.5f * 2f * ((float) Math.PI))){
+//            if(!this.getContent().equals(startFrameContentBoard)) {
+//                this.changeContent(startFrameContentBoard);
+//                
+//            }
+//        } 
+//        else if(card.getAngle()>=(0.5f * 2f * ((float) Math.PI)) && card.getAngle()< (0.8333f * 2f * ((float) Math.PI))){
+//            if(!this.getContent().equals(startFrameContentNews)) {
+//                this.changeContent(startFrameContentNews);
+//        
+//            }
+//        }
     }
 
     @Override

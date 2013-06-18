@@ -17,9 +17,11 @@ public class Card {
     float xposition;
     float yposition;
     float angle;
+    private boolean startScreen;
 
     public Card(User owner, TuioObject object) {
         this.owner = owner;
+        startScreen = true;
         update(object);
     }
 
@@ -51,5 +53,10 @@ public class Card {
     public float getY() {
         return yposition;
     }
+
+    public boolean isStartScreen() {
+        return startScreen;
+    }
+    
     
 }
