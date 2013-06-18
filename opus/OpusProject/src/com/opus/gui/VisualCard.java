@@ -28,11 +28,13 @@ public class VisualCard extends Node implements Updateable {
 
     static final int SCREEN_WIDHT = 1024;
     static final int SCREEN_HEIGHT = 768;
+    
+    private FrameChooserMenu frameChooser;
+    private boolean frameChanged;
+    
     AbstractUserFrame frame, boardUserFrame, newsUserFrame, calendarUserFrame;
     Card card;
     Geometry cardGeom;
-    private FrameChooser frameChooser;
-    private boolean frameChanged;
 
     public VisualCard(Card card, AssetManager assetManager) {
 
@@ -50,7 +52,7 @@ public class VisualCard extends Node implements Updateable {
         cardGeom.setLocalScale(10);
 
         this.attachChild(cardGeom);
-        frameChooser = new FrameChooser();
+        frameChooser = new FrameChooserMenu(this);
         this.attachChild(frameChooser);
     }
 
@@ -69,28 +71,13 @@ public class VisualCard extends Node implements Updateable {
         float Ypos = card.getY() * SCREEN_HEIGHT;
         float scale = SCREEN_HEIGHT / (float) TuioInputListener.table_size;
 
-        Transform transFC = new Transform();
 
-        float[] angles = { 0,0,card.getAngle() };
-        transFC.setTranslation(0,-100,0);
-        transFC.setRotation(new Quaternion(angles));
         //System.out.println(card.getAngle());
 
-        if(card.getAngle()>=0f && card.getAngle()<((2f/3f)*(float)Math.PI)){
-            if(!this.frame.equals(boardUserFrame))
-                this.setFrame(boardUserFrame);
-        } else if(card.getAngle()>=((2f/3f)*(float)Math.PI) && card.getAngle()<((1f+(1f/3f))*(float)Math.PI)){
-            if(!this.frame.equals(newsUserFrame))
-                this.setFrame(newsUserFrame);
-        } else {
-            if(!this.frame.equals(calendarUserFrame))
-                this.setFrame(calendarUserFrame);
-        }
+
         
         this.setLocalTransform(rotateUI(Xpos - card.getX(), Ypos - card.getY(), scale));
-        for(BorderMenu bm : frameChooser.getBorderMenus()){
-            bm.setLocalTransform(transFC);
-         }
+        frameChooser.update(tpf);
         if (frame != null) {
             frame.update(tpf);
         }
@@ -105,13 +92,22 @@ public class VisualCard extends Node implements Updateable {
         Vector2f mid = new Vector2f(SCREEN_WIDHT * 0.5f, SCREEN_HEIGHT * 0.5f);
         Vector2f p = new Vector2f(x, y);
         Vector2f midp = p.subtract(mid);
-        float[] angles = {0, 0, midp.getAngle() - (float) Math.PI / 2};
+        float[] angles = {-0.15f * (float) Math.PI, 0, midp.getAngle() - (float) Math.PI / 2};
         midp.normalizeLocal();
-        midp.multLocal(350);
+        midp.multLocal(300);
         midp.addLocal(mid);
-        trans.setTranslation(midp.x, midp.y, 0);
+        trans.setTranslation(midp.x, midp.y, -1);
         trans.setRotation(new Quaternion(angles));
         trans.setScale(scale);
         return trans;
     }
+
+    public FrameChooserMenu getFrameChooser() {
+        return frameChooser;
+    }
+
+    public AbstractUserFrame getFrame() {
+        return frame;
+    }
+    
 }

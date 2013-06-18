@@ -4,54 +4,64 @@
  */
 package com.opus.gui;
 
+import com.jme3.collision.CollisionResult;
 import com.jme3.math.Quaternion;
-import com.jme3.scene.Node;
+import com.jme3.math.Vector2f;
+import com.opus.controller.Clickable3D;
 import com.opus.shape.Circle;
 import java.awt.Color;
-import java.util.Random;
 
 /**
  *
  * @author hady
  */
-public class BorderMenu extends Node implements Updateable {
+public class BorderMenu extends Circle implements Updateable, Clickable3D {
 
-    private int borderAngle;
-    private int innerAngle = 0;
-    private float borderWidth= 30f;
-    private Color borderColor;
-    private Color innerColor =new Color(255, 255, 255);
-    private Circle circle;
-    private int diameter;
-    
-    protected BorderMenu(Color color, int diameter, float posFactor, int borderAngle){
-        super();
-        this.diameter = diameter;
-        this.borderAngle  = borderAngle;
-        borderColor = color;
-        createBorderMenu(borderColor,posFactor);
+    public static final float DIAMETER = 20f;
+    FrameChooserMenu frameChooserMenu;
+    AbstractUserFrame accordingFrame;
+    private int menuId;
+
+    protected BorderMenu(FrameChooserMenu card, AbstractUserFrame accordingFrame, int menuId, Color borderColor, int borderAngle) {
+        super(OpusApplication.getInstance().getAssetManager(), (DIAMETER + 10), DIAMETER, new Color(255, 255, 255), borderAngle, borderColor, 360);
+        this.frameChooserMenu = card;
+        this.accordingFrame = accordingFrame;
+        this.menuId = menuId;
+        createBorderMenu();
     }
-    
-     private void createBorderMenu(Color color, float posFactor) {        
-        
+
+    private void createBorderMenu() {
+
         //Color randomInnerColor = new Color(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));       
-        circle = new Circle(OpusApplication.getInstance().getAssetManager(), diameter+(borderWidth), borderWidth, borderColor, borderAngle, innerColor, innerAngle);
+        //circle = new Circle(OpusApplication.getInstance().getAssetManager(), diameter + (borderWidth), borderWidth, borderColor, borderAngle, innerColor, innerAngle);
         //circle.setLocalTranslation(0,-diameter/3,0);
-        
+
         //circle.setLocalTranslation(100, 100, 0);
         // use z-axis to rotate
-        float[] angles = {0,0, posFactor*((float) Math.PI)};
-        circle.setLocalRotation(new Quaternion(angles));
-        this.attachChild(circle);
+        setLocalTranslation(0, 170, 0.5f);
     }
-    
+
     @Override
     public void update(float tpf) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
-    
-    
-    
-    
-}
 
+    @Override
+    public void onRayCastClick(Vector2f mouse, CollisionResult result) {
+        frameChooserMenu.animate = true;
+
+        if (!frameChooserMenu.visualCard.frame.equals(accordingFrame)) {
+            frameChooserMenu.visualCard.setFrame(accordingFrame);
+            frameChooserMenu.currentActive = menuId;
+            frameChooserMenu.desiredAngle = frameChooserMenu.menuStages[menuId];
+            frameChooserMenu.animationSpeed = (frameChooserMenu.desiredAngle - frameChooserMenu.animationAngle);
+        }
+    }
+
+    @Override
+    public void onRayCastMouseOver(Vector2f mouse, CollisionResult result) {
+    }
+
+    @Override
+    public void onRayCastMouseLeft(Vector2f mouse, CollisionResult result) {
+    }
+}
