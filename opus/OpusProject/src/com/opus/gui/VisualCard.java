@@ -104,6 +104,12 @@ public class VisualCard extends Node implements Updateable {
         return trans;
     }
 
+    public Card getCard() {
+        return card;
+    }
+    
+    
+
     public FrameChooserMenu getFrameChooser() {
         return frameChooser;
     }
