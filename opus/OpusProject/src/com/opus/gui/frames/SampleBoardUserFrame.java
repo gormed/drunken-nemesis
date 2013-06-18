@@ -7,7 +7,7 @@ package com.opus.gui.frames;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Quaternion;
 import com.opus.gui.AbstractUserFrame;
-import com.opus.gui.FrameChooser;
+import com.opus.gui.FrameChooserMenu;
 import com.opus.gui.OpusApplication;
 import com.opus.gui.elements.Heading;
 import com.opus.logic.Card;
@@ -62,6 +62,19 @@ public class SampleBoardUserFrame extends AbstractUserFrame {
 
     @Override
     public void update(float tpf) {
+       
+        if (animate) {
+            currentAnimationTime += tpf;
+            animationAngle += tpf * (animationSpeed / animationTime);
+            
+            if (currentAnimationTime > animationTime) {
+                animate = false;
+                animationAngle = desiredAngle;
+                currentAnimationTime = 0;
+            }
+            float[] angles = {0, (animationAngle) * 2f * ((float) Math.PI), 0 };
+            setLocalRotation(new Quaternion(angles));
+        }
     }
 
     @Override

@@ -4,12 +4,9 @@
  */
 package com.opus.gui;
 
-import com.opus.gui.frames.SampleUserFrame;
 import TUIO.TuioClient;
 import com.jme3.app.SimpleApplication;
-import com.jme3.font.BitmapText;
 import com.jme3.math.ColorRGBA;
-import com.jme3.math.Vector2f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.scene.Node;
 import com.opus.controller.ScreenRayCast3D;
@@ -20,10 +17,8 @@ import com.opus.logic.Card;
 import com.opus.logic.NewsManager;
 import com.opus.logic.User;
 import com.opus.logic.UserManager;
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Map;
 import java.util.Random;
 import java.util.logging.Level;
@@ -126,6 +121,8 @@ public class OpusApplication extends SimpleApplication {
     public void simpleUpdate(float tpf) {
         //TODO: add update code
         ArrayList<User> newUsers = userManager.getNewUsers();
+        
+        userManager.logoutUsers(tpf);
 	
 	rayCast3D.update(tpf);
 	

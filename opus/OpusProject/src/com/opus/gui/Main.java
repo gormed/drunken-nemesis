@@ -1,18 +1,7 @@
 package com.opus.gui;
 
 import TUIO.TuioClient;
-import com.jme3.app.SimpleApplication;
-import com.jme3.font.BitmapText;
-import com.jme3.math.ColorRGBA;
-import com.jme3.renderer.RenderManager;
-import com.opus.logic.Card;
 import com.opus.logic.QRC;
-import com.opus.logic.User;
-import com.opus.logic.UserManager;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.Map;
-import java.util.Random;
 
 
 /**

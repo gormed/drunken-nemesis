@@ -73,6 +73,8 @@ public class ScreenRayCast3D implements TuioListener {
      * The RAYCAS t_3 d.
      */
     public static String RAYCAST_3D = "Raycast_3D";
+    public static final int CALIB_X = 0;
+    public static final int CALIB_Y = 0;
 
     //==========================================================================
     //===   Singleton
@@ -121,17 +123,9 @@ public class ScreenRayCast3D implements TuioListener {
      */
     private Node clickable3D;
     /**
-     * The last clicked.
-     */
-    private Clickable3D lastClicked = null;
-    /**
      * The last hovered.
      */
     private Clickable3D lastHovered = null;
-    /**
-     * The last world hit.
-     */
-    private Vector3f lastWorldHit;
     /**
      * The cam.
      */
@@ -180,7 +174,6 @@ public class ScreenRayCast3D implements TuioListener {
 
 //        EventManager.getInstance().
 //                removeMouseInputListener(this);
-        lastClicked = null;
         lastHovered = null;
         clickable3D.detachAllChildren();
 //        game.getRootNode().detachChild(clickable3D);
@@ -199,30 +192,12 @@ public class ScreenRayCast3D implements TuioListener {
     }
 
     /**
-     * Retrieve the last clicked RayCast3DNode.
-     *
-     * @return the last clicked RayCast3DNode
-     */
-    public Clickable3D getLastClicked() {
-        return lastClicked;
-    }
-
-    /**
      * Retrieve the last hovered RayCast3DNode.
      *
      * @return the last hovered RayCast3DNode
      */
     public Clickable3D getLastHovered() {
         return lastHovered;
-    }
-
-    /**
-     * Gets the last point hit by a ray.
-     *
-     * @return the 3D position of the hit
-     */
-    public Vector3f getLastWorldHit() {
-        return lastWorldHit;
     }
 
     /**
@@ -274,18 +249,18 @@ public class ScreenRayCast3D implements TuioListener {
 
         for (Map.Entry<Long, TuioCursor> entry : cursorList.entrySet()) {
             Vector2f mouse = new Vector2f(entry.getValue().getX() * cam.getWidth(), (1 - entry.getValue().getY()) * cam.getHeight());
-
+            mouse.addLocal(CALIB_X, CALIB_Y);
             Node n = visCursorList.get(entry.getValue().getSessionID());
             if (n != null) {
-                n.setLocalTranslation(entry.getValue().getX() * cam.getWidth(), (1 - entry.getValue().getY()) * cam.getHeight(), 0);
+                n.setLocalTranslation(mouse.x, mouse.y, 0);
             }
 
-            boolean isInWindow =
-                    mouse.x >= 0 && mouse.y >= 0
-                    && mouse.x <= cam.getWidth() && mouse.y <= cam.getHeight();
-            if (isInWindow) {
-                checkMouseMovement(mouse, tpf);
-            }
+//            boolean isInWindow =
+//                    mouse.x >= 0 && mouse.y >= 0
+//                    && mouse.x <= cam.getWidth() && mouse.y <= cam.getHeight();
+//            if (isInWindow) {
+//                checkMouseMovement(mouse, tpf);
+//            }
             lastMousePosition = mouse.clone();
         }
     }
@@ -316,7 +291,6 @@ public class ScreenRayCast3D implements TuioListener {
 //                    new Vector2f(click2d.x, click2d.y), 1f).subtractLocal(click3d).normalizeLocal();
             Vector3f click3d =
                     new Vector3f(click2d.x, click2d.y, 0f);
-            lastWorldHit = click3d.clone();
             Vector3f dir = new Vector3f(click2d.x, click2d.y, 1f).subtractLocal(click3d).normalizeLocal();
             Ray ray = new Ray(click3d, dir);
             // 3. Collect intersections between Ray and Shootables in results list.
@@ -333,23 +307,23 @@ public class ScreenRayCast3D implements TuioListener {
             }
             // 5. Use the results (we mark the hit object)
             if (results.size() > 0) {
-                for (CollisionResult r : results) {
-                    Spatial n = r.getGeometry();
-                    Spatial parent = null;
+//                for (CollisionResult r : results) {
+                CollisionResult r = results.getClosestCollision();
+                    Spatial n = r.getGeometry().getParent().getParent();
                     // recursivly check if object is clickable or not
                     if (n != null) {
                         if (n instanceof Clickable3D) {
                             decideLeftOrOver((Clickable3D) n, click2d, r);
                         }
-                        parent = n.getParent();
-                        while (parent != null) {
-                            if (parent instanceof Clickable3D) {
-                                decideLeftOrOver((Clickable3D) parent, click2d, r);
-                            }
-                            parent = parent.getParent();
-                        }
+//                        parent = n.getParent();
+//                        while (parent != null) {
+//                            if (parent instanceof Clickable3D) {
+//                                decideLeftOrOver((Clickable3D) parent, click2d, r);
+//                            }
+//                            parent = parent.getParent();
+//                        }
                     }
-                }
+//                }
 //                // The closest collision point is what was truly hit:
 //                CollisionResult closest = results.getClosestCollision();
 //                Spatial n = closest.getGeometry();
@@ -396,9 +370,23 @@ public class ScreenRayCast3D implements TuioListener {
      * @param click2d the screen pos
      * @param closest the 3d hit params
      */
-    private void invokeOnMouseOver(Clickable3D r, Vector2f click2d, CollisionResult closest) {
-        r.onRayCastMouseOver(click2d, closest);
-        lastHovered = r;
+    private void invokeOnMouseOver(final Clickable3D r, final Vector2f click2d, final CollisionResult closest) {
+        Future<Clickable3D> o = OpusApplication.getInstance().enqueue(new Callable<Clickable3D>() {
+            @Override
+            public Clickable3D call() throws Exception {
+                r.onRayCastMouseOver(click2d, closest);
+                return r;
+            }
+        });
+        try {
+            while (!o.isDone()) {
+                lastHovered = o.get();
+            }
+        } catch (InterruptedException ex) {
+            Logger.getLogger(ScreenRayCast3D.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ExecutionException ex) {
+            Logger.getLogger(ScreenRayCast3D.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -408,8 +396,14 @@ public class ScreenRayCast3D implements TuioListener {
      * @param click2d the screen pos
      * @param closest the 3d hit params
      */
-    private void invokeOnMouseLeft(Clickable3D r, Vector2f click2d, CollisionResult closest) {
-        r.onRayCastMouseLeft(click2d, closest);
+    private void invokeOnMouseLeft(final Clickable3D r, final Vector2f click2d, final CollisionResult closest) {
+        OpusApplication.getInstance().enqueue(new Callable<Clickable3D>() {
+            @Override
+            public Clickable3D call() throws Exception {
+                r.onRayCastMouseLeft(click2d, closest);
+                return r;
+            }
+        });
     }
 
     /**
@@ -508,9 +502,9 @@ public class ScreenRayCast3D implements TuioListener {
             CollisionResults results = new CollisionResults();
             // 2. Aim the ray from cam loc to cam direction.
             Vector2f click2d = new Vector2f(cursor.getX() * cam.getWidth(), (1 - cursor.getY()) * cam.getHeight());
+            click2d.addLocal(CALIB_X, CALIB_Y);
             Vector3f click3d =
                     new Vector3f(click2d.x, click2d.y, 0f);
-            lastWorldHit = click3d.clone();
             Vector3f dir = new Vector3f(click2d.x, click2d.y, 1f).subtractLocal(click3d).normalizeLocal();
             Ray ray = new Ray(click3d, dir);
             // 3. Collect intersections between Ray and Shootables in results list.
@@ -527,43 +521,16 @@ public class ScreenRayCast3D implements TuioListener {
             }
             // 5. Use the results (we mark the hit object)
             if (results.size() > 0) {
-                for (CollisionResult r : results) {
-                    Spatial n = r.getGeometry();
-                    Spatial parent = null;
+//                for (CollisionResult r : results) {
+                CollisionResult r = results.getClosestCollision();
+                    Spatial n = r.getGeometry().getParent();
                     // recursivly check if object is clickable or not
                     if (n != null) {
                         if (n instanceof Clickable3D) {
                             invokeOnClick((Clickable3D) n, click2d, r);
                         }
-                        parent = n.getParent();
-                        while (parent != null) {
-                            if (parent instanceof Clickable3D) {
-                                invokeOnClick((Clickable3D) parent, click2d, r);
-                            }
-                            parent = parent.getParent();
-                        }
                     }
-                }
-//                // The closest collision point is what was truly hit:
-//                CollisionResult closest = results.getClosestCollision();
-//                Spatial n = closest.getGeometry();
-//                Spatial parent = null;
-//                // recursivly check if object is clickable or not
-//                if (n != null) {
-//                    if (n instanceof Clickable3D) {
-//                        invokeOnClick((Clickable3D) n, click2d, closest);
-//                    }
-//                    parent = n.getParent();
-//                    while (parent != null) {
-//                        if (parent instanceof Clickable3D) {
-//                            invokeOnClick((Clickable3D) parent, click2d, closest);
-//                        }
-//                        parent = parent.getParent();
-//                    }
-//                }
-            } else {
-                // reset the last clicked object if none
-                lastClicked = null;
+
             }
         }
     }
@@ -575,10 +542,14 @@ public class ScreenRayCast3D implements TuioListener {
      * @param click2d the screen pos
      * @param closest the 3d hit params
      */
-    private void invokeOnClick(Clickable3D node, Vector2f click2d, CollisionResult closest) {
-
-        node.onRayCastClick(click2d, closest);
-        lastClicked = node;
+    private void invokeOnClick(final Clickable3D node, final Vector2f click2d, final CollisionResult closest) {
+        OpusApplication.getInstance().enqueue(new Callable<Clickable3D>() {
+            @Override
+            public Clickable3D call() throws Exception {
+                node.onRayCastClick(click2d, closest);
+                return node;
+            }
+        });
 
     }
 }
