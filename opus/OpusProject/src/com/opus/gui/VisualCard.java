@@ -76,11 +76,6 @@ public class VisualCard extends Node implements Updateable {
         float Ypos = card.getY() * SCREEN_HEIGHT;
         float scale = SCREEN_HEIGHT / (float) TuioInputListener.table_size;
 
-
-        //System.out.println(card.getAngle());
-
-
-
         this.setLocalTransform(rotateUI(Xpos - card.getX(), Ypos - card.getY(), scale));
         frameChooser.update(tpf);
         if (frame != null) {
@@ -91,8 +86,6 @@ public class VisualCard extends Node implements Updateable {
 
             frame.update(tpf);
         }
-        // System.out.println(trans.toString());
-        // System.out.println("Updated " + card.getOwner().getTuioSymbolID());
     }
 
     private Transform rotateUI(float x, float y, float scale) {

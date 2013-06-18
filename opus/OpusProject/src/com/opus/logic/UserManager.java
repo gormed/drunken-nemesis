@@ -54,9 +54,9 @@ public class UserManager {
             User newUser = new User(object);
             userList.put(newUser.userSessionID, newUser);
             //User an die Hashmap vom NewsManager
-            NewsManager.getInstance().addUser(newUser.userSessionID);
+            NewsManager.addUser(newUser.userSessionID);
             //User an die Hashmap vom CalendarManager
-            CalendarManager.getInstance().addUser(newUser.userSessionID);
+            CalendarManager.addUser(newUser.userSessionID);
             userSymbolList.put(newUser.tuioSymbolID, newUser);
             newUsers.add(newUser);
             System.out.println("User logged in!");
