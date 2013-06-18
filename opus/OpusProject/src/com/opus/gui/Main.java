@@ -47,7 +47,5 @@ public class Main  {
         
         app.start();
         
-        QRC.getInstance().createQR("http://hshl.de/startseite/");
-        
     }
 }

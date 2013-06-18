@@ -31,25 +31,33 @@ public class QRC {
 
     // Class
     public void createQR(String url) {
-        ByteArrayOutputStream out = QRCode.from(url)
-                .to(ImageType.PNG).stream();
-        
-        String name = url.replaceAll("[^a-zA-Z]", "");
-        name = "assets/qrcodes/"+name+".png";
-        
         try {
-            FileOutputStream fout = new FileOutputStream(new File(
-                    name));
+            ByteArrayOutputStream out = QRCode.from(url)
+                    .to(ImageType.PNG).stream();
 
-            fout.write(out.toByteArray());
+            String name = url.replaceAll("[^a-zA-Z]", "");
+            while (name.length() < 25) {
+                name = name + "x";
+            }
+            name = name.substring(0, 25);
+            name = "assets/qrcodes/" + name + ".png";
+            try {
+                FileOutputStream fout = new FileOutputStream(new File(
+                        name));
 
-            fout.flush();
-            fout.close();
+                fout.write(out.toByteArray());
 
-        } catch (FileNotFoundException e) {
-            // Do Logging
-        } catch (IOException e) {
-            // Do Logging
+                fout.flush();
+                fout.close();
+
+            } catch (FileNotFoundException e) {
+                System.out.println(e + " - File not found! - in QRC");
+            } catch (IOException e) {
+                System.out.println(e + " - in QRC");
+            }
+
+        } catch (Exception e) {
+            System.out.println(e + " - Failed to create QR image from text due to underlying exception: URL too long.");
         }
     }
 }
