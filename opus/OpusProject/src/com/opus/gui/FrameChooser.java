@@ -25,6 +25,7 @@ public class FrameChooser extends Node implements Updateable {
     private static final int diameter = 300;
     
     
+    
     public FrameChooser() {
         super();
         // TODO get concrete USerFrames
@@ -35,7 +36,7 @@ public class FrameChooser extends Node implements Updateable {
 
     @Override
     public void update(float tpf) {
-
+        
        
     }
     
