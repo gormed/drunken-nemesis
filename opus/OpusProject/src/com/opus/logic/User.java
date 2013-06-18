@@ -20,16 +20,18 @@ public class User {
     
     int tuioSymbolID = -1;
     int userSessionID = getSessionID();
+    long lastActiveTime = 0;
     Card card;
     
     public User(TuioObject object) {
         this.tuioSymbolID = object.getSymbolID();
         this.card = new Card(this, object);
-        
+        lastActiveTime = System.currentTimeMillis();
     }
     
     public void update(TuioObject object) {
         card.update(object);
+        lastActiveTime = System.currentTimeMillis();
     }
 
     public int getTuioSymbolID() {
