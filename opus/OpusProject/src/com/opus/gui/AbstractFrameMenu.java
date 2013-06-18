@@ -29,6 +29,7 @@ public abstract class AbstractFrameMenu extends Node implements Updateable {
     
     public abstract void createMenu();
     
+    
     public AbstractUserFrame getFrame() {
         return frame;
     }

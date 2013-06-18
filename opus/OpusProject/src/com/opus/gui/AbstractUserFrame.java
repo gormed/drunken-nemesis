@@ -57,5 +57,12 @@ public abstract class AbstractUserFrame extends Node implements Updateable {
     
     protected abstract int getDiameter();
     
-    
+    public void changeContent(AbstractFrameContent c){
+            if (this.content != null) {
+            this.getBackground().detachChild(this.content);
+        }
+        this.content = c;
+        this.content.createContent();
+        this.getBackground().attachChild(this.content);
+    }
 }

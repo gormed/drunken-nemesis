@@ -18,6 +18,8 @@ import com.opus.controller.TuioInputListener;
 import com.opus.gui.frames.SampleBoardUserFrame;
 import com.opus.gui.frames.SampleCalendarUserFrame;
 import com.opus.gui.frames.SampleNewsUserFrame;
+import com.opus.gui.frames.StartFrameContent;
+import com.opus.gui.frames.StartUserFrame;
 import com.opus.logic.Card;
 
 /**
@@ -28,39 +30,52 @@ public class VisualCard extends Node implements Updateable {
 
     static final int SCREEN_WIDHT = 1024;
     static final int SCREEN_HEIGHT = 768;
-    AbstractUserFrame frame, boardUserFrame, newsUserFrame, calendarUserFrame;
+    AbstractUserFrame currentFrame,startUserFrame, boardUserFrame, newsUserFrame, calendarUserFrame;
     Card card;
     Geometry cardGeom;
     private FrameChooser frameChooser;
     private boolean frameChanged;
+    private StartFrameContent startFrameContent;
 
     public VisualCard(Card card, AssetManager assetManager) {
-
+        this.card = card;
+        initVisualCard(assetManager);
+  
+    }
+    
+    
+    private void initVisualCard(AssetManager assetManager){
         cardGeom = new Geometry("Card_" + card.getOwner().getTuioSymbolID(), new Box(Vector3f.ZERO, 1, 1, 1));
 
-        this.card = card;
-        
         boardUserFrame = new SampleBoardUserFrame(card);
         newsUserFrame = new SampleNewsUserFrame(card);
         calendarUserFrame = new SampleCalendarUserFrame(card);
-        this.setFrame(boardUserFrame);
-        Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+        startUserFrame = new StartUserFrame(card);
+        this.setFrame(startUserFrame);
+        
+        startFrameContent = new StartFrameContent(this.currentFrame);
+        this.setFrameContent(startFrameContent);
+        
+        
+        //Card Geometry
+        Material mat = new Material(OpusApplication.getInstance().getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
         mat.setColor("Color", ColorRGBA.Blue);
         cardGeom.setMaterial(mat);
         cardGeom.setLocalScale(10);
-
         this.attachChild(cardGeom);
+        
+        
         frameChooser = new FrameChooser();
         this.attachChild(frameChooser);
     }
 
     public void setFrame(AbstractUserFrame frame) {
-        if (this.frame != null) {
-            this.detachChild(this.frame);
+        if (this.currentFrame != null) {
+            this.detachChild(this.currentFrame);
         }
-        this.frame = frame;
-        this.frame.createFrame();
-        this.attachChildAt(this.frame, 0);
+        this.currentFrame = frame;
+        this.currentFrame.createFrame();
+        this.attachChildAt(this.currentFrame, 0);
     }
 
     @Override
@@ -76,23 +91,14 @@ public class VisualCard extends Node implements Updateable {
         transFC.setRotation(new Quaternion(angles));
         //System.out.println(card.getAngle());
 
-        if(card.getAngle()>=0f && card.getAngle()<((2f/3f)*(float)Math.PI)){
-            if(!this.frame.equals(boardUserFrame))
-                this.setFrame(boardUserFrame);
-        } else if(card.getAngle()>=((2f/3f)*(float)Math.PI) && card.getAngle()<((1f+(1f/3f))*(float)Math.PI)){
-            if(!this.frame.equals(newsUserFrame))
-                this.setFrame(newsUserFrame);
-        } else {
-            if(!this.frame.equals(calendarUserFrame))
-                this.setFrame(calendarUserFrame);
-        }
+
         
         this.setLocalTransform(rotateUI(Xpos - card.getX(), Ypos - card.getY(), scale));
         for(BorderMenu bm : frameChooser.getBorderMenus()){
             bm.setLocalTransform(transFC);
          }
-        if (frame != null) {
-            frame.update(tpf);
+        if (currentFrame != null) {
+            currentFrame.update(tpf);
         }
         // System.out.println(trans.toString());
         // System.out.println("Updated " + card.getOwner().getTuioSymbolID());
@@ -113,5 +119,9 @@ public class VisualCard extends Node implements Updateable {
         trans.setRotation(new Quaternion(angles));
         trans.setScale(scale);
         return trans;
+    }
+
+    private void setFrameContent(AbstractFrameContent frameContent) {
+        currentFrame.setContent(frameContent);
     }
 }
