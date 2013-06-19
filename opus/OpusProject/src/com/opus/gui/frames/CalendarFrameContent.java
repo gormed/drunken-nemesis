@@ -159,4 +159,11 @@ public class CalendarFrameContent extends AbstractFrameContent {
             System.out.println(pro.getDTSTART());
         }
     }
+    /*
+    private String getDate() { 
+        SimpleDateFormat formatter = new SimpleDateFormat( 
+                "yyyy.MM.dd - HH:mm:ss "); 
+        Date currentTime = new Date(); 
+        System.out.println(formatter.format(currentTime));        // 2012.04.14 - 21:34:07  
+    }*/
 }
