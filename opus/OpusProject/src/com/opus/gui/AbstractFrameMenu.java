@@ -18,6 +18,8 @@ import java.util.Random;
 public abstract class AbstractFrameMenu extends Node implements Updateable {
     protected AbstractUserFrame frame;
     private ArrayList<AbstractFrameMenuEntry> frameMenuEntrys = new ArrayList<AbstractFrameMenuEntry>();
+    private Circle background;
+    private final int DIAMETER = 300;
 
     
     public AbstractFrameMenu(AbstractUserFrame frame) {
@@ -51,6 +53,25 @@ public abstract class AbstractFrameMenu extends Node implements Updateable {
     public void removeMenuEntry(AbstractFrameMenuEntry entry) {
         this.detachChild(entry);
         frameMenuEntrys.remove(entry);
+    }
+    
+    protected void createBackground(float angle, Color color){
+         Random randomGenerator = new Random(System.currentTimeMillis());
+        
+        int borderAngle = ((100/this.getFrameMenuEntrys().size())+10);
+        int innerAngle = 0;
+        //Circle 1
+        Color outerBorderColor = color;
+        Color innerColor = color ;
+        //Color randomInnerColor = new Color(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));       
+        background = new Circle(OpusApplication.getInstance().getAssetManager(), (DIAMETER-5), 40, outerBorderColor, borderAngle, innerColor, innerAngle);
+        background.setLocalTranslation(0,-DIAMETER/3,1);
+        
+        //circle.setLocalTranslation(100, 100, 0);
+        // use z-axis to rotate
+        float[] angles = {0,0,(angle *(float) Math.PI)};
+        background.setLocalRotation(new Quaternion(angles));
+        frame.attachChild(background);
     }
     
     

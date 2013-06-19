@@ -20,14 +20,14 @@ import java.util.Random;
  *
  * @author Hans
  */
-public class SampleBoardUserFrame extends AbstractUserFrame {
+public class BoardUserFrame extends AbstractUserFrame {
     public static final int diameter = 300;
    
 
-    public SampleBoardUserFrame(Card card) {
+    public BoardUserFrame(Card card) {
         super(card);
-        setMenu(new SampleBoardFrameMenu(this));
-        setContent(new SampleBoardFrameContent(this));
+        setMenu(new BoardFrameMenu(this));
+        setContent(new BoardFrameContent(this));
     }
     
     @Override

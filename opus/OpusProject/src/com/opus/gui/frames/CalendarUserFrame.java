@@ -20,11 +20,11 @@ import java.util.Random;
  *
  * @author Hans
  */
-public class SampleCalendarUserFrame extends AbstractUserFrame {
+public class CalendarUserFrame extends AbstractUserFrame {
     public static final int diameter = 300;
    
 
-    public SampleCalendarUserFrame(Card card) {
+    public CalendarUserFrame(Card card) {
         super(card);
         setMenu(new CalendarFrameMenu(this));
         setContent(new CalendarFrameContent(this));
@@ -63,24 +63,7 @@ public class SampleCalendarUserFrame extends AbstractUserFrame {
     @Override
     public void update(float tpf) {
         super.update(tpf);
-        
-//        if(card.getAngle()>=(0.8333f * 2f * ((float) Math.PI)) || card.getAngle()< (0.1666f * 2f * ((float) Math.PI))){
-//               if(!this.getContent().equals(startFrameContentCalendar)) {
-//                this.changeContent(startFrameContentCalendar);
-//            }
-//        } 
-//        else if(card.getAngle()>=(0.1666f * 2f * ((float) Math.PI)) && card.getAngle()< (0.5f * 2f * ((float) Math.PI))){
-//            if(!this.getContent().equals(startFrameContentBoard)) {
-//                this.changeContent(startFrameContentBoard);
-//                
-//            }
-//        } 
-//        else if(card.getAngle()>=(0.5f * 2f * ((float) Math.PI)) && card.getAngle()< (0.8333f * 2f * ((float) Math.PI))){
-//            if(!this.getContent().equals(startFrameContentNews)) {
-//                this.changeContent(startFrameContentNews);
-//        
-//            }
-//        }
+
     }
 
     @Override

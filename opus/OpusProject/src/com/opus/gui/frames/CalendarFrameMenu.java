@@ -13,6 +13,7 @@ import com.opus.gui.AbstractFrameMenu;
 import com.opus.gui.AbstractFrameMenuEntry;
 import com.opus.gui.AbstractUserFrame;
 import com.opus.gui.elements.Text;
+import java.awt.Color;
 
 /**
  *
@@ -61,6 +62,12 @@ public class CalendarFrameMenu extends AbstractFrameMenu {
                 createRotated(this, (float) (0.8f * Math.PI), "Montag");
             }
         });
+        
+        createBackground(0.16f, new Color(120, 168, 199));
+        createBackground(0.32f, new Color(100, 100, 100));
+        createBackground(0.48f, new Color(120, 168, 199));
+        createBackground(0.64f, new Color(100, 100, 100));
+        createBackground(0.8f, new Color(120, 168, 199));
     }
 
     private BitmapText createRotated(AbstractFrameMenuEntry menuentry, float angle, String title) {
@@ -70,7 +77,7 @@ public class CalendarFrameMenu extends AbstractFrameMenu {
 
         float[] angles1 = {0, 0, (float) -(Math.PI / 2)};
         entry.setLocalRotation(new Quaternion(angles1));
-        entry.setLocalTranslation(new Vector3f(0, entry.getLineWidth() * 0.5f, 0));
+        entry.setLocalTranslation(new Vector3f(0, entry.getLineWidth() * 0.5f, 2));
 
         Vector3f rot = getAngleCoords(angle, 140);
         menuentry.setLocalTranslation(rot);
