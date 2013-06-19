@@ -4,8 +4,11 @@
  */
 package com.opus.gui;
 
+import com.jme3.collision.CollisionResult;
 import com.jme3.math.Quaternion;
+import com.jme3.math.Vector2f;
 import com.jme3.scene.Node;
+import com.opus.controller.Clickable3D;
 import com.opus.gui.frames.SampleFrameContent;
 import com.opus.logic.Card;
 
@@ -85,4 +88,6 @@ public abstract class AbstractUserFrame extends Node implements Updateable {
         this.content.createContent();
         this.getBackground().attachChild(this.content);
     }
+    
+   
 }

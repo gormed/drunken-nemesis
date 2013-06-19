@@ -58,7 +58,7 @@ public class StartUserFrame extends AbstractUserFrame {
         int borderAngle = 0;
         int innerAngle = 360;
         //Circle 1
-        Color randomBorderColor = new Color(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));
+        Color randomBorderColor = new Color(42, 101, 137);
         Color innerColor = new Color(42, 101, 137);
         //Color randomInnerColor = new Color(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));       
         background = new Circle(OpusApplication.getInstance().getAssetManager(), diameter, 10, randomBorderColor, borderAngle, innerColor, innerAngle);
