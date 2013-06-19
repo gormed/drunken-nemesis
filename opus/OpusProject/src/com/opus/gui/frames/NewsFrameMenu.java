@@ -56,7 +56,7 @@ public class NewsFrameMenu extends AbstractFrameMenu {
         createBackground(0.666f, new Color(100, 100, 100));
     }
     protected void createBackground(float angle, Color color){
-         Random randomGenerator = new Random(System.currentTimeMillis());
+        Random randomGenerator = new Random(System.currentTimeMillis());
         
         int borderAngle = ((100/this.getFrameMenuEntrys().size())+10);
         int innerAngle = 0;
@@ -65,7 +65,7 @@ public class NewsFrameMenu extends AbstractFrameMenu {
         Color innerColor = color;
         //Color randomInnerColor = new Color(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));       
         background = new Circle(OpusApplication.getInstance().getAssetManager(), (DIAMETER-5), 40, outerBorderColor, borderAngle, innerColor, innerAngle);
-        background.setLocalTranslation(0,-DIAMETER/3,1);
+        background.setLocalTranslation(0,-DIAMETER/3,0);
         
         //circle.setLocalTranslation(100, 100, 0);
         // use z-axis to rotate

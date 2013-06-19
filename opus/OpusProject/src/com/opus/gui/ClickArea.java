@@ -21,7 +21,7 @@ import java.awt.Color;
  *
  * @author hady
  */
-public class ClickArea extends Circle implements  Clickable3D {
+public class ClickArea extends Circle implements Clickable3D {
 
     private AbstractFrameContent content;
     private  Geometry geom;
