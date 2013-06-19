@@ -20,6 +20,7 @@ import com.opus.gui.frames.SampleCalendarUserFrame;
 import com.opus.gui.frames.SampleNewsUserFrame;
 import com.opus.gui.frames.StartUserFrame;
 import com.opus.logic.Card;
+import java.util.ArrayList;
 
 /**
  *
@@ -31,6 +32,7 @@ public class VisualCard extends Node implements Updateable {
     static final int SCREEN_HEIGHT = 768;
     private FrameChooserMenu frameChooser;
     private boolean frameChanged;
+    private QuadrantControl quadrantControl;
     AbstractUserFrame frame, startUserFrame, boardUserFrame, newsUserFrame, calendarUserFrame;
     Card card;
     Geometry cardGeom;
@@ -55,6 +57,7 @@ public class VisualCard extends Node implements Updateable {
         this.attachChild(cardGeom);
         frameChooser = new FrameChooserMenu(this);
         this.attachChild(frameChooser);
+        quadrantControl = new QuadrantControl();
     }
 
     public void setFrame(AbstractUserFrame frame) {
@@ -86,6 +89,7 @@ public class VisualCard extends Node implements Updateable {
 
             frame.update(tpf);
         }
+        quadrantControl.update(tpf);
     }
 
     private Transform rotateUI(float x, float y, float scale) {
@@ -122,5 +126,39 @@ public class VisualCard extends Node implements Updateable {
         if (parent != null) {
             parent.detachChild(this);
         }
+    }
+
+    public interface QuadrantListener {
+
+        public void changeQuadrant(int quad);
+    }
+    
+    public class QuadrantControl {
+
+        int maxQuadrants = 0;
+        int currentQuadrant = 0;
+        
+        
+        ArrayList<QuadrantListener> quadrantListeners = new ArrayList<QuadrantListener>();
+        
+        public QuadrantControl() {
+         setMaxQuadrants(4);
+        }
+
+        public void setMaxQuadrants(int maxQuadrants) {
+            this.maxQuadrants = maxQuadrants;
+        }
+        
+        public void update(float tpf) {
+            float angle = card.getAngle();
+            int deg = ((int) Math.toDegrees(angle)) % 180;
+            for (int i = 0; i < maxQuadrants; i++) {
+                if ( (deg / (180/(maxQuadrants - i))) == (i-1) ) {
+                    currentQuadrant = i;
+                    //System.out.println("Quad: " + currentQuadrant);
+                }
+            }
+        }
+        
     }
 }
