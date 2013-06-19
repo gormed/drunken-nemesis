@@ -7,7 +7,7 @@ package com.opus.gui.frames;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Quaternion;
 import com.opus.gui.AbstractUserFrame;
-import com.opus.gui.FrameChooser;
+import com.opus.gui.FrameChooserMenu;
 import com.opus.gui.OpusApplication;
 import com.opus.gui.elements.Heading;
 import com.opus.logic.Card;

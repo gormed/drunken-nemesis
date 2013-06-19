@@ -18,6 +18,7 @@ import com.opus.controller.TuioInputListener;
 import com.opus.gui.frames.SampleBoardUserFrame;
 import com.opus.gui.frames.SampleCalendarUserFrame;
 import com.opus.gui.frames.SampleNewsUserFrame;
+import com.opus.gui.frames.StartUserFrame;
 import com.opus.logic.Card;
 
 /**
@@ -28,29 +29,31 @@ public class VisualCard extends Node implements Updateable {
 
     static final int SCREEN_WIDHT = 1024;
     static final int SCREEN_HEIGHT = 768;
-    AbstractUserFrame frame, boardUserFrame, newsUserFrame, calendarUserFrame;
+    private FrameChooserMenu frameChooser;
+    private boolean frameChanged;
+    AbstractUserFrame frame, startUserFrame, boardUserFrame, newsUserFrame, calendarUserFrame;
     Card card;
     Geometry cardGeom;
-    private FrameChooser frameChooser;
-    private boolean frameChanged;
 
     public VisualCard(Card card, AssetManager assetManager) {
 
         cardGeom = new Geometry("Card_" + card.getOwner().getTuioSymbolID(), new Box(Vector3f.ZERO, 1, 1, 1));
 
         this.card = card;
-        
+
         boardUserFrame = new SampleBoardUserFrame(card);
         newsUserFrame = new SampleNewsUserFrame(card);
         calendarUserFrame = new SampleCalendarUserFrame(card);
-        this.setFrame(boardUserFrame);
+        startUserFrame = new StartUserFrame(card);
+        this.setFrame(startUserFrame);
+        
         Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
         mat.setColor("Color", ColorRGBA.Blue);
         cardGeom.setMaterial(mat);
         cardGeom.setLocalScale(10);
 
         this.attachChild(cardGeom);
-        frameChooser = new FrameChooser();
+        frameChooser = new FrameChooserMenu(this);
         this.attachChild(frameChooser);
     }
 
@@ -65,39 +68,32 @@ public class VisualCard extends Node implements Updateable {
 
     @Override
     public void update(float tpf) {
+        if (!card.getOwner().isLoggedIn()) {
+            logout();
+            return;
+        }
         float Xpos = card.getX() * SCREEN_WIDHT;
         float Ypos = card.getY() * SCREEN_HEIGHT;
         float scale = SCREEN_HEIGHT / (float) TuioInputListener.table_size;
 
-        Transform transFC = new Transform();
 
-        float[] angles = { 0,0,card.getAngle() };
-        transFC.setTranslation(0,-100,0);
-        transFC.setRotation(new Quaternion(angles));
         //System.out.println(card.getAngle());
 
-        if(card.getAngle()>=0f && card.getAngle()<((2f/3f)*(float)Math.PI)){
-            if(!this.frame.equals(boardUserFrame))
-                this.setFrame(boardUserFrame);
-        } else if(card.getAngle()>=((2f/3f)*(float)Math.PI) && card.getAngle()<((1f+(1f/3f))*(float)Math.PI)){
-            if(!this.frame.equals(newsUserFrame))
-                this.setFrame(newsUserFrame);
-        } else {
-            if(!this.frame.equals(calendarUserFrame))
-                this.setFrame(calendarUserFrame);
-        }
-        
+
+
         this.setLocalTransform(rotateUI(Xpos - card.getX(), Ypos - card.getY(), scale));
-        for(BorderMenu bm : frameChooser.getBorderMenus()){
-            bm.setLocalTransform(transFC);
-         }
+        frameChooser.update(tpf);
         if (frame != null) {
+            if (frame.equals(startUserFrame)){
+                float[] angles = {0f,  0f, card.getAngle()};
+                frameChooser.setLocalRotation(new Quaternion(angles));
+            }
+
             frame.update(tpf);
         }
         // System.out.println(trans.toString());
         // System.out.println("Updated " + card.getOwner().getTuioSymbolID());
     }
- 
 
     private Transform rotateUI(float x, float y, float scale) {
 //        Vector3f middle = new Vector3f(SCREEN_WIDHT*0.5f, SCREEN_HEIGHT*0.5f, 0);
@@ -107,11 +103,25 @@ public class VisualCard extends Node implements Updateable {
         Vector2f midp = p.subtract(mid);
         float[] angles = {0, 0, midp.getAngle() - (float) Math.PI / 2};
         midp.normalizeLocal();
-        midp.multLocal(350);
+        midp.multLocal(300);
         midp.addLocal(mid);
         trans.setTranslation(midp.x, midp.y, 0);
         trans.setRotation(new Quaternion(angles));
         trans.setScale(scale);
         return trans;
+    }
+
+    public FrameChooserMenu getFrameChooser() {
+        return frameChooser;
+    }
+
+    public AbstractUserFrame getFrame() {
+        return frame;
+    }
+
+    public void logout() {
+        if (parent != null) {
+            parent.detachChild(this);
+        }
     }
 }

@@ -1,6 +1,7 @@
 bin
 /opus/OpusProject/nbproject/private/
 /opus/OpusProject/build/
+/opus/OpusProject/assets/qrcodes
 opus/OpusProject/lib/batik-1.7/CHANGES
 opus/OpusProject/lib/batik-1.7/LICENSE
 opus/OpusProject/lib/batik-1.7/NOTICE

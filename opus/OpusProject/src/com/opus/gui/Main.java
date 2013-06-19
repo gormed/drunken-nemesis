@@ -1,6 +1,7 @@
 package com.opus.gui;
 
 import TUIO.TuioClient;
+import com.opus.logic.QRC;
 /**
  * test
  *

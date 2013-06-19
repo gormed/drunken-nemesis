@@ -4,6 +4,7 @@
  */
 package com.opus.gui;
 
+import com.jme3.math.Quaternion;
 import com.jme3.scene.Node;
 import com.opus.gui.frames.SampleFrameContent;
 import com.opus.logic.Card;
@@ -18,6 +19,14 @@ public abstract class AbstractUserFrame extends Node implements Updateable {
     protected AbstractFrameContent content;
     protected AbstractFrameMenu menu;
     protected Node background;
+        // Animation
+    protected boolean animate;
+    protected float animationSpeed = 1f;
+    protected float animationTime = 0.4f;
+    protected float currentAnimationTime;
+    protected float animationAngle;
+    protected float desiredAngle;
+    protected Quaternion rotation;
     
     public AbstractUserFrame(Card card) {
         super();
@@ -57,5 +66,12 @@ public abstract class AbstractUserFrame extends Node implements Updateable {
     
     protected abstract int getDiameter();
     
-    
+    public void changeContent(AbstractFrameContent c){
+            if (this.content != null) {
+            this.getBackground().detachChild(this.content);
+        }
+        this.content = c;
+        this.content.createContent();
+        this.getBackground().attachChild(this.content);
+    }
 }
