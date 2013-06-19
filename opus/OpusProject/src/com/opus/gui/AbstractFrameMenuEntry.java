@@ -5,9 +5,13 @@
 package com.opus.gui;
 
 import com.jme3.collision.CollisionResult;
+import com.jme3.math.Quaternion;
 import com.jme3.math.Vector2f;
 import com.jme3.scene.Node;
 import com.opus.controller.Clickable3D;
+import com.opus.shape.Circle;
+import java.awt.Color;
+import java.util.Random;
 import javax.sound.midi.SysexMessage;
 
 /**
@@ -16,11 +20,14 @@ import javax.sound.midi.SysexMessage;
  */
 public abstract class AbstractFrameMenuEntry extends Node implements Updateable, Clickable3D {
     private AbstractFrameMenu menu;
+        private Circle background;
+    private final int DIAMETER =300;
 
     public AbstractFrameMenuEntry(AbstractFrameMenu menu) {
         super();
         this.menu = menu;
         create();
+        
     }
     
     private void create() {
@@ -33,6 +40,9 @@ public abstract class AbstractFrameMenuEntry extends Node implements Updateable,
     public void update(float tpf) {
         
     }
+    
+   
+    
     
     public AbstractFrameMenu getMenu() {
         return menu;

@@ -12,16 +12,23 @@ import com.jme3.math.Vector3f;
 import com.opus.gui.AbstractFrameMenu;
 import com.opus.gui.AbstractFrameMenuEntry;
 import com.opus.gui.AbstractUserFrame;
+import com.opus.gui.OpusApplication;
 import com.opus.gui.elements.Text;
+import com.opus.shape.Circle;
+import java.awt.Color;
+import java.util.Random;
 
 /**
  *
  * @author Hans
  */
 public class SampleCalendarFrameMenu extends AbstractFrameMenu {
+    private Circle background;
+    private final float DIAMETER = 300;
 
     public SampleCalendarFrameMenu(AbstractUserFrame frame) {
         super(frame);
+        createSampleBackground();
     }
 
     @Override
@@ -49,6 +56,22 @@ public class SampleCalendarFrameMenu extends AbstractFrameMenu {
         });
     }
 
+    private void createSampleBackground() {        
+        int borderAngle = 30;
+        int innerAngle = 0;
+        //Circle 1
+        Color outerBorderColor = new Color(42, 101, 137);
+        Color innerColor = new Color(42, 101, 137);
+        //Color randomInnerColor = new Color(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));       
+        background = new Circle(OpusApplication.getInstance().getAssetManager(), DIAMETER, 10, outerBorderColor, borderAngle, innerColor, innerAngle);
+        background.setLocalTranslation(0,-DIAMETER/3,0);
+        
+        //circle.setLocalTranslation(100, 100, 0);
+        // use z-axis to rotate
+        float[] angles = {0,0,(float) Math.PI};
+        background.setLocalRotation(new Quaternion(angles));
+    }
+    
     private BitmapText createRotated(AbstractFrameMenuEntry menuentry, float angle, String title) {
         Text entry = new Text(false);
         entry.setColor(new ColorRGBA(42f/255f, 101f/255f, 137f/255f,1f));
@@ -69,7 +92,7 @@ public class SampleCalendarFrameMenu extends AbstractFrameMenu {
 
     public Vector3f getAngleCoords(float angle, float dist) {
         Vector3f v = new Vector3f();
-        if (dist <= SampleNewsUserFrame.diameter && dist >= 0) {
+        if (dist <= NewsUserFrame.diameter && dist >= 0) {
             Vector2f v2 = new Vector2f(dist, 0);
             v2.rotateAroundOrigin(angle, false);
             v.x = v2.x;

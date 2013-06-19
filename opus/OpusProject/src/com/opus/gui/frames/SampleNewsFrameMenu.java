@@ -69,7 +69,7 @@ public class SampleNewsFrameMenu extends AbstractFrameMenu {
 
     public Vector3f getAngleCoords(float angle, float dist) {
         Vector3f v = new Vector3f();
-        if (dist <= SampleCalendarUserFrame.diameter && dist >= 0) {
+        if (dist <= CalendarUserFrame.diameter && dist >= 0) {
             Vector2f v2 = new Vector2f(dist, 0);
             v2.rotateAroundOrigin(angle, false);
             v.x = v2.x;

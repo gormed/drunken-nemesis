@@ -4,8 +4,11 @@
  */
 package com.opus.gui;
 
+import com.jme3.collision.CollisionResult;
 import com.jme3.math.Quaternion;
+import com.jme3.math.Vector2f;
 import com.jme3.scene.Node;
+import com.opus.controller.Clickable3D;
 import com.opus.gui.frames.SampleFrameContent;
 import com.opus.logic.Card;
 
@@ -26,7 +29,6 @@ public abstract class AbstractUserFrame extends Node implements Updateable {
     protected float currentAnimationTime;
     protected float animationAngle;
     protected float desiredAngle;
-    protected Quaternion rotation;
     
     public AbstractUserFrame(Card card) {
         super();
@@ -39,6 +41,18 @@ public abstract class AbstractUserFrame extends Node implements Updateable {
     public void update(float tpf) {
         menu.update(tpf);
         content.update(tpf);
+        if (animate) {
+            currentAnimationTime += tpf;
+            animationAngle += tpf * (animationSpeed / animationTime);
+            
+            if (currentAnimationTime > animationTime) {
+                animate = false;
+                animationAngle = desiredAngle;
+                currentAnimationTime = 0;
+            }
+            float[] angles = {0, (animationAngle) * 2f * ((float) Math.PI), 0 };
+            setLocalRotation(new Quaternion(angles));
+        }
     }
 
     public Node getBackground() {
@@ -74,4 +88,6 @@ public abstract class AbstractUserFrame extends Node implements Updateable {
         this.content.createContent();
         this.getBackground().attachChild(this.content);
     }
+    
+   
 }

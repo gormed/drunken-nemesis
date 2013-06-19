@@ -22,6 +22,7 @@ public class StartUserFrame extends AbstractUserFrame {
     private final StartFrameContentBoard startFrameContentBoard;
     private final StartFrameContentCalendar startFrameContentCalendar;
     private final StartFrameContentNews startFrameContentNews;
+    private final StartFrameMenu startFrameMenu;
     
    
     public StartUserFrame(Card card) {
@@ -30,12 +31,16 @@ public class StartUserFrame extends AbstractUserFrame {
         startFrameContentBoard = new StartFrameContentBoard(this);
         startFrameContentCalendar = new StartFrameContentCalendar(this);
         startFrameContentNews = new StartFrameContentNews(this);
-        setContent(startFrameContent);
-        
+        startFrameMenu = new StartFrameMenu(this);
+
         startFrameContentBoard.createContent();
         startFrameContentCalendar.createContent();
         startFrameContentNews.createContent();
-        setContent(new StartFrameContent(this));
+        startFrameMenu.createMenu();
+        
+        
+        setContent(startFrameContent);
+        setMenu(startFrameMenu);
     }
     
     
@@ -53,7 +58,7 @@ public class StartUserFrame extends AbstractUserFrame {
         int borderAngle = 0;
         int innerAngle = 360;
         //Circle 1
-        Color randomBorderColor = new Color(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));
+        Color randomBorderColor = new Color(42, 101, 137);
         Color innerColor = new Color(42, 101, 137);
         //Color randomInnerColor = new Color(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));       
         background = new Circle(OpusApplication.getInstance().getAssetManager(), diameter, 10, randomBorderColor, borderAngle, innerColor, innerAngle);
@@ -67,6 +72,10 @@ public class StartUserFrame extends AbstractUserFrame {
 
     @Override
     public void update(float tpf) {
+<<<<<<< HEAD
+=======
+      super.update(tpf);
+>>>>>>> c18abae444616a07b453e54e639b4dcc3d2e45f3
         if(card.getAngle()>=(0.8333f * 2f * ((float) Math.PI)) || card.getAngle()< (0.1666f * 2f * ((float) Math.PI))){
                if(!this.getContent().equals(startFrameContentCalendar)) {
                 this.changeContent(startFrameContentCalendar);

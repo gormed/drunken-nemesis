@@ -6,6 +6,7 @@ package com.opus.logic;
 
 import TUIO.TuioObject;
 import com.opus.controller.TuioInputListener;
+import com.opus.gui.VisualCard;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -54,9 +55,9 @@ public class UserManager {
             User newUser = new User(object);
             userList.put(newUser.userSessionID, newUser);
             //User an die Hashmap vom NewsManager
-            NewsManager.getInstance().addUser(newUser.userSessionID);
+            NewsManager.addUser(newUser.userSessionID);
             //User an die Hashmap vom CalendarManager
-            CalendarManager.getInstance().addUser(newUser.userSessionID);
+            CalendarManager.addUser(newUser.userSessionID);
             userSymbolList.put(newUser.tuioSymbolID, newUser);
             newUsers.add(newUser);
             System.out.println("User logged in!");
@@ -99,10 +100,11 @@ public class UserManager {
             for (Map.Entry<Integer, User> entry : userSymbolList.entrySet()) {
                 if (entry.getValue() != null && !userList.containsValue(entry.getValue())) {
                     long currentTime = System.currentTimeMillis();
-                    float diff = ((currentTime - entry.getValue().lastActiveTime) / 1000f);
+                    float diff = ((currentTime - entry.getValue().lastActiveTime) / 1000f);                   
                     if (diff > 5) {
-                        logoutUser(entry.getValue().getTuioSymbolID());
+                        logoutUser(entry.getValue().getTuioSymbolID());  
                     }
+                   
                 }
             }
             if (logoutUsers.size() > 0) {

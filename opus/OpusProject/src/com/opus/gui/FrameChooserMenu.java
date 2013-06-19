@@ -5,9 +5,7 @@
 package com.opus.gui;
 
 import com.jme3.math.Quaternion;
-import com.jme3.math.Transform;
 import com.jme3.scene.Node;
-import com.opus.logic.Card;
 import java.awt.Color;
 import java.util.ArrayList;
 
@@ -67,9 +65,9 @@ public class FrameChooserMenu extends Node implements Updateable {
 
     private void createFrameChooser() {
         //TODO Parameter anpassen
-        this.borderMenuCalendar = new BorderMenu(this, visualCard.calendarUserFrame, 0, new Color(120, 168, 199), 60); // blue
-        this.borderMenuNews = new BorderMenu(this, visualCard.newsUserFrame, 1, new Color(203, 75, 59), 60); // red
-        this.borderMenuBoard = new BorderMenu(this, visualCard.boardUserFrame, 2, new Color(227, 179, 80), 60); // yellow
+        this.borderMenuCalendar = new BorderMenu(this, visualCard.calendarUserFrame, 0, new Color(120, 168, 199), 0); // blue
+        this.borderMenuNews = new BorderMenu(this, visualCard.newsUserFrame, 1, new Color(203, 75, 59), 0); // red
+        this.borderMenuBoard = new BorderMenu(this, visualCard.boardUserFrame, 2, new Color(227, 179, 80), 0); // yellow
         addBorderMenu(borderMenuCalendar, angleStages[0]);
         addBorderMenu(borderMenuNews, angleStages[1]);
         addBorderMenu(borderMenuBoard, angleStages[2]);
@@ -79,6 +77,10 @@ public class FrameChooserMenu extends Node implements Updateable {
         setLocalRotation(menuRotation);
     }
 
+    public VisualCard getVisualCard() {
+        return visualCard;
+    }
+    
     public AbstractUserFrame getCurrentFrame() {
         return currentFrame;
     }

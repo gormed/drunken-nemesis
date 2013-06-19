@@ -8,6 +8,7 @@ import com.jme3.collision.CollisionResult;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector2f;
 import com.opus.controller.Clickable3D;
+import com.opus.logic.UserManager;
 import com.opus.shape.Circle;
 import java.awt.Color;
 
@@ -15,7 +16,7 @@ import java.awt.Color;
  *
  * @author hady
  */
-public class BorderMenu extends Circle implements Updateable, Clickable3D {
+public class BorderMenu extends Circle implements Clickable3D {
 
     public static final float DIAMETER = 20f;
     FrameChooserMenu frameChooserMenu;
@@ -42,10 +43,6 @@ public class BorderMenu extends Circle implements Updateable, Clickable3D {
     }
 
     @Override
-    public void update(float tpf) {
-    }
-
-    @Override
     public void onRayCastClick(Vector2f mouse, CollisionResult result) {
         frameChooserMenu.animate = true;
         if (!frameChooserMenu.visualCard.frame.equals(accordingFrame)) {
@@ -55,6 +52,7 @@ public class BorderMenu extends Circle implements Updateable, Clickable3D {
             frameChooserMenu.currentActive = menuId;
             frameChooserMenu.desiredAngle = frameChooserMenu.menuStages[menuId];
             frameChooserMenu.animationSpeed = (frameChooserMenu.desiredAngle - frameChooserMenu.animationAngle);
+            
         }
     }
 
