@@ -125,7 +125,7 @@ public class VisualCard extends Node implements Updateable {
             parent.detachChild(this);
         }
     }
-    
+
     public void addQuadrantListener(QuadrantListener listener) {
         quadrantControl.quadrantListeners.clear();
         quadrantControl.quadrantListeners.add(listener);
@@ -157,21 +157,15 @@ public class VisualCard extends Node implements Updateable {
             float angle = card.getAngle();
             int deg = ((int) Math.toDegrees(angle)) % 180;
             int seg = 180 / maxQuadrants;
-            if (deg == 0) {
-                currentQuadrant = 0;
-            } else {
-                for (int i = 1; i < maxQuadrants + 1; i++) {
-                    //System.out.println("Quad: " + (i * seg) + " i: " + i);
-                    if (deg / ((i * seg)) == 0) {
-                        currentQuadrant = i - 1;
-
-                        break;
+            for (int i = 1; i < maxQuadrants + 1; i++) {
+                //System.out.println("Quad: " + (i * seg) + " i: " + i);
+                if (deg / ((i * seg)) == 0 && currentQuadrant != (i - 1)) {
+                    currentQuadrant = i - 1;
+                    for (QuadrantListener l : quadrantListeners) {
+                        l.changeQuadrant(currentQuadrant);
                     }
+                    break;
                 }
-            }
-            //System.out.println("Quad: " + currentQuadrant + " angle: " + deg);
-            for (QuadrantListener l : quadrantListeners) {
-                l.changeQuadrant(currentQuadrant);
             }
         }
     }
