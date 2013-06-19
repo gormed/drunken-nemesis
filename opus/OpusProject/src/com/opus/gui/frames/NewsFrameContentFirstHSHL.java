@@ -25,7 +25,7 @@ public class NewsFrameContentFirstHSHL extends AbstractFrameContent {
     
     public NewsFrameContentFirstHSHL(AbstractUserFrame parent) {
         super(parent);
-        userID = parent.getCard().getOwner().getUserSessionID();
+        userID = parent.getCard().getCard().getOwner().getUserSessionID();
         // !!!!!!!!!!! newsID:
         // NewsManager.getInstance().getHshlNewsCounter() -1 = letzte HSHL news
         // NewsManager.getInstance().getHshlNewsCounter()    = erste Google news

@@ -49,9 +49,9 @@ public class BoardFrameMenu extends AbstractFrameMenu {
             }
         });
         
-        createBackground(0.2f, new Color(227, 179, 80));
-        createBackground(0.5f, new Color(227, 179, 80));
-        createBackground(0.8f, new Color(227, 179, 80));
+        createBackground(0.2f, new Color(120, 168, 199));
+        createBackground(0.5f, new Color(120, 168, 199));
+        createBackground(0.8f, new Color(120, 168, 199));
     }
 
     private BitmapText createRotated(AbstractFrameMenuEntry menuentry, float angle, String title) {

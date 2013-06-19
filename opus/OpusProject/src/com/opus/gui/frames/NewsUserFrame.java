@@ -9,6 +9,8 @@ import com.jme3.math.Quaternion;
 import com.opus.gui.AbstractUserFrame;
 import com.opus.gui.FrameChooserMenu;
 import com.opus.gui.OpusApplication;
+import com.opus.gui.VisualCard;
+import com.opus.gui.VisualCard.QuadrantListener;
 import com.opus.gui.elements.Heading;
 import com.opus.logic.Card;
 import com.opus.logic.User;
@@ -20,14 +22,16 @@ import java.util.Random;
  *
  * @author Hans
  */
-public class NewsUserFrame extends AbstractUserFrame {
+public class NewsUserFrame extends AbstractUserFrame implements QuadrantListener{
     public static final int diameter = 300;
    
 
-    public NewsUserFrame(Card card) {
+    public NewsUserFrame(VisualCard card) {
         super(card);
         setMenu(new NewsFrameMenu(this));
         setContent(new NewsFrameContentFirstHSHL(this));
+        card.setMaxQuadrants(2);
+        card.addQuadrantListener(this);
     }
     
     @Override
@@ -67,6 +71,18 @@ public class NewsUserFrame extends AbstractUserFrame {
     @Override
     protected int getDiameter() {
         return diameter;
+    }
+
+    @Override
+    public void changeQuadrant(int quad) {
+       switch(quad){
+           case 0:
+               
+               break;
+           case 1: 
+               
+               break;
+       }
     }
     
 

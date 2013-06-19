@@ -7,7 +7,7 @@ package com.opus.gui.frames;
 import com.jme3.math.Quaternion;
 import com.opus.gui.AbstractUserFrame;
 import com.opus.gui.OpusApplication;
-import com.opus.logic.Card;
+import com.opus.gui.VisualCard;
 import com.opus.shape.Circle;
 import java.awt.Color;
 import java.util.Random;
@@ -25,7 +25,7 @@ public class StartUserFrame extends AbstractUserFrame {
     private final StartFrameMenu startFrameMenu;
     
    
-    public StartUserFrame(Card card) {
+    public StartUserFrame(VisualCard card) {
         super(card);
         startFrameContent = new StartFrameContent(this);
         startFrameContentBoard = new StartFrameContentBoard(this);
@@ -41,6 +41,9 @@ public class StartUserFrame extends AbstractUserFrame {
         
         setContent(startFrameContent);
         setMenu(startFrameMenu);
+
+        
+        
     }
     
     
@@ -73,18 +76,18 @@ public class StartUserFrame extends AbstractUserFrame {
     @Override
     public void update(float tpf) {
       super.update(tpf);
-        if(card.getAngle()>=(0.8333f * 2f * ((float) Math.PI)) || card.getAngle()< (0.1666f * 2f * ((float) Math.PI))){
+        if(card.getCard().getAngle()>=(0.8333f * 2f * ((float) Math.PI)) || card.getCard().getAngle()< (0.1666f * 2f * ((float) Math.PI))){
                if(!this.getContent().equals(startFrameContentCalendar)) {
                 this.changeContent(startFrameContentCalendar);
             }
         } 
-        else if(card.getAngle()>=(0.1666f * 2f * ((float) Math.PI)) && card.getAngle()< (0.5f * 2f * ((float) Math.PI))){
+        else if(card.getCard().getAngle()>=(0.1666f * 2f * ((float) Math.PI)) && card.getCard().getAngle()< (0.5f * 2f * ((float) Math.PI))){
             if(!this.getContent().equals(startFrameContentBoard)) {
                 this.changeContent(startFrameContentBoard);
                 
             }
         } 
-        else if(card.getAngle()>=(0.5f * 2f * ((float) Math.PI)) && card.getAngle()< (0.8333f * 2f * ((float) Math.PI))){
+        else if(card.getCard().getAngle()>=(0.5f * 2f * ((float) Math.PI)) && card.getCard().getAngle()< (0.8333f * 2f * ((float) Math.PI))){
             if(!this.getContent().equals(startFrameContentNews)) {
                 this.changeContent(startFrameContentNews);
         
@@ -96,6 +99,7 @@ public class StartUserFrame extends AbstractUserFrame {
     protected int getDiameter() {
         return diameter;
     }
+
     
 
 

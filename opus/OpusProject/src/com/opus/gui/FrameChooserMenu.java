@@ -64,10 +64,10 @@ public class FrameChooserMenu extends Node implements Updateable {
     }
 
     private void createFrameChooser() {
-        //TODO Parameter anpassen
-        this.borderMenuCalendar = new BorderMenu(this, visualCard.calendarUserFrame, 0, new Color(120, 168, 199), 0); // blue
+       //TODO Parameter anpassen
+        this.borderMenuCalendar = new BorderMenu(this, visualCard.calendarUserFrame, 0, new Color(227, 179, 80), 0); // yellow
         this.borderMenuNews = new BorderMenu(this, visualCard.newsUserFrame, 1, new Color(203, 75, 59), 0); // red
-        this.borderMenuBoard = new BorderMenu(this, visualCard.boardUserFrame, 2, new Color(227, 179, 80), 0); // yellow
+        this.borderMenuBoard = new BorderMenu(this, visualCard.boardUserFrame, 2, new Color(120, 168, 199 ), 0); // blue
         addBorderMenu(borderMenuCalendar, angleStages[0]);
         addBorderMenu(borderMenuNews, angleStages[1]);
         addBorderMenu(borderMenuBoard, angleStages[2]);

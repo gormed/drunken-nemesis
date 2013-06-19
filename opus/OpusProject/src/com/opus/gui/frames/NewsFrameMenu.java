@@ -30,7 +30,7 @@ public class NewsFrameMenu extends AbstractFrameMenu {
 
     public NewsFrameMenu(AbstractUserFrame frame) {
         super(frame);
-        this.card = this.getFrame().getCard();
+        this.card = this.getFrame().getCard().getCard();
 
     }
 
@@ -55,7 +55,7 @@ public class NewsFrameMenu extends AbstractFrameMenu {
         createBackground(0.333f, new Color(203, 75, 59));
         createBackground(0.666f, new Color(203, 75, 59));
 
-   
+    }
     
     private BitmapText createRotated(AbstractFrameMenuEntry menuentry, float angle, String title) {
         Text entry = new Text(false);

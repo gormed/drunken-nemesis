@@ -18,7 +18,7 @@ import com.opus.logic.Card;
  */
 public abstract class AbstractUserFrame extends Node implements Updateable {
     
-    protected Card card;
+    protected VisualCard card;
     protected AbstractFrameContent content;
     protected AbstractFrameMenu menu;
     protected Node background;
@@ -30,7 +30,7 @@ public abstract class AbstractUserFrame extends Node implements Updateable {
     protected float animationAngle;
     protected float desiredAngle;
     
-    public AbstractUserFrame(Card card) {
+    public AbstractUserFrame(VisualCard card) {
         super();
         this.card = card;
     }
@@ -74,7 +74,7 @@ public abstract class AbstractUserFrame extends Node implements Updateable {
     protected void setContent(AbstractFrameContent content) {
         this.content = content;
     }
-    public Card getCard(){
+    public VisualCard getCard(){
         return this.card;
     }  
     

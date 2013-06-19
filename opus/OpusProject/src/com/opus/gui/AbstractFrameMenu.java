@@ -15,7 +15,7 @@ import java.util.Random;
  *
  * @author Hans
  */
-public abstract class AbstractFrameMenu extends Node implements Updateable {
+public abstract class AbstractFrameMenu extends Node implements Updateable{
     protected AbstractUserFrame frame;
     private ArrayList<AbstractFrameMenuEntry> frameMenuEntrys = new ArrayList<AbstractFrameMenuEntry>();
     private Circle background;

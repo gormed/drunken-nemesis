@@ -42,11 +42,12 @@ public class VisualCard extends Node implements Updateable {
         cardGeom = new Geometry("Card_" + card.getOwner().getTuioSymbolID(), new Box(Vector3f.ZERO, 1, 1, 1));
 
         this.card = card;
-
-        boardUserFrame = new BoardUserFrame(card);
-        newsUserFrame = new NewsUserFrame(card);
-        calendarUserFrame = new CalendarUserFrame(card);
-        startUserFrame = new StartUserFrame(card);
+        quadrantControl = new QuadrantControl();
+        
+        boardUserFrame = new BoardUserFrame(this);
+        newsUserFrame = new NewsUserFrame(this);
+        calendarUserFrame = new CalendarUserFrame(this);
+        startUserFrame = new StartUserFrame(this);
         this.setFrame(startUserFrame);
 
         Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
@@ -57,9 +58,11 @@ public class VisualCard extends Node implements Updateable {
         this.attachChild(cardGeom);
         frameChooser = new FrameChooserMenu(this);
         this.attachChild(frameChooser);
-        quadrantControl = new QuadrantControl();
+        
     }
 
+    
+    
     public void setFrame(AbstractUserFrame frame) {
         if (this.frame != null) {
             this.detachChild(this.frame);
@@ -119,7 +122,11 @@ public class VisualCard extends Node implements Updateable {
     public AbstractUserFrame getFrame() {
         return frame;
     }
-
+    
+        public void setMaxQuadrants(int maxQuadrants) {
+            this.quadrantControl.setMaxQuadrants(maxQuadrants);
+        }
+    
     public void logout() {
         if (parent != null) {
             parent.detachChild(this);
@@ -136,9 +143,10 @@ public class VisualCard extends Node implements Updateable {
         public void changeQuadrant(int quad);
     }
 
-    public class QuadrantControl {
+    private class QuadrantControl {
 
         int maxQuadrants = 0;
+
         int currentQuadrant = 0;
         ArrayList<QuadrantListener> quadrantListeners = new ArrayList<QuadrantListener>();
 
@@ -146,10 +154,14 @@ public class VisualCard extends Node implements Updateable {
             //setMaxQuadrants(4);
         }
 
+        public int getMaxQuadrants() {
+            return maxQuadrants;
+        }
+
         public void setMaxQuadrants(int maxQuadrants) {
             this.maxQuadrants = maxQuadrants;
         }
-
+        
         public void update(float tpf) {
             if (maxQuadrants <= 0) {
                 return;

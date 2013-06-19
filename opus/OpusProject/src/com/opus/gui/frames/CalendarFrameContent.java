@@ -21,7 +21,7 @@ public class CalendarFrameContent extends AbstractFrameContent {
     
     public CalendarFrameContent(AbstractUserFrame parent) {
         super(parent);
-        userID = parent.getCard().getOwner().getUserSessionID();
+        userID = parent.getCard().getCard().getOwner().getUserSessionID();
     }
     
     @Override

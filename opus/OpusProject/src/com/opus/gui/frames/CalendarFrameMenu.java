@@ -12,6 +12,7 @@ import com.jme3.math.Vector3f;
 import com.opus.gui.AbstractFrameMenu;
 import com.opus.gui.AbstractFrameMenuEntry;
 import com.opus.gui.AbstractUserFrame;
+import com.opus.gui.VisualCard.QuadrantListener;
 import com.opus.gui.elements.Text;
 import java.awt.Color;
 
@@ -19,7 +20,7 @@ import java.awt.Color;
  *
  * @author Senju
  */
-public class CalendarFrameMenu extends AbstractFrameMenu {
+public class CalendarFrameMenu extends AbstractFrameMenu  {
 
     public CalendarFrameMenu(AbstractUserFrame frame) {
         super(frame);
@@ -63,11 +64,11 @@ public class CalendarFrameMenu extends AbstractFrameMenu {
             }
         });
         
-        createBackground(0.16f, new Color(120, 168, 199));
-        createBackground(0.32f, new Color(100, 100, 100));
-        createBackground(0.48f, new Color(120, 168, 199));
-        createBackground(0.64f, new Color(100, 100, 100));
-        createBackground(0.8f, new Color(120, 168, 199));
+        createBackground(0.16f, new Color(227, 179, 80));
+        createBackground(0.32f, new Color(227, 179, 80));
+        createBackground(0.48f, new Color(227, 179, 80));
+        createBackground(0.64f, new Color(227, 179, 80));
+        createBackground(0.8f, new Color(227, 179, 80));
     }
 
     private BitmapText createRotated(AbstractFrameMenuEntry menuentry, float angle, String title) {
@@ -100,4 +101,6 @@ public class CalendarFrameMenu extends AbstractFrameMenu {
         }
         return v;
     }
+
+   
 }

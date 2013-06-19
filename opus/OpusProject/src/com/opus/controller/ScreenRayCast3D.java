@@ -497,12 +497,10 @@ public class ScreenRayCast3D implements TuioListener {
                 CollisionResult r = results.getClosestCollision();
                     Spatial n = r.getGeometry().getParent();
                     // recursivly check if object is clickable or not
-                    while (n != null) {
+                    if (n != null) {
                         if (n instanceof Clickable3D) {
-                            invokeOnClick((Clickable3D) n, click2d, r);
-                            break;
+                            invokeOnClick((Clickable3D) n, click2d, r);            
                         }
-                        n = n.getParent();
                     }
 
             }

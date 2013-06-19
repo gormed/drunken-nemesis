@@ -9,6 +9,7 @@ import com.jme3.math.Quaternion;
 import com.opus.gui.AbstractUserFrame;
 import com.opus.gui.FrameChooserMenu;
 import com.opus.gui.OpusApplication;
+import com.opus.gui.VisualCard;
 import com.opus.gui.elements.Heading;
 import com.opus.logic.Card;
 import com.opus.logic.User;
@@ -24,7 +25,7 @@ public class BoardUserFrame extends AbstractUserFrame {
     public static final int diameter = 300;
    
 
-    public BoardUserFrame(Card card) {
+    public BoardUserFrame(VisualCard card) {
         super(card);
         setMenu(new BoardFrameMenu(this));
         setContent(new BoardFrameContent(this));
