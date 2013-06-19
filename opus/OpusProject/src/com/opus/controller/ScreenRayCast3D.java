@@ -232,7 +232,7 @@ public class ScreenRayCast3D implements TuioListener {
 //            if (isInWindow) {
 //                checkMouseMovement(mouse, tpf);
 //            }
-            lastMousePosition = mouse.clone();
+            lastMousePosition.put(entry.getKey(), mouse);
         }
     }
 
@@ -350,15 +350,15 @@ public class ScreenRayCast3D implements TuioListener {
                 return r;
             }
         });
-        try {
-            while (!o.isDone()) {
-                lastHovered = o.get();
-            }
-        } catch (InterruptedException ex) {
-            Logger.getLogger(ScreenRayCast3D.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ExecutionException ex) {
-            Logger.getLogger(ScreenRayCast3D.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            while (!o.isDone()) {
+//                lastHovered.put(, r) = o.get();
+//            }
+//        } catch (InterruptedException ex) {
+//            Logger.getLogger(ScreenRayCast3D.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (ExecutionException ex) {
+//            Logger.getLogger(ScreenRayCast3D.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
     /**
@@ -387,7 +387,7 @@ public class ScreenRayCast3D implements TuioListener {
      */
     private void decideLeftOrOver(Clickable3D node, Vector2f click2d, CollisionResult closest) {
         if (lastHovered != null && !node.equals(lastHovered)) {
-            invokeOnMouseLeft(lastHovered, click2d, closest);
+//            invokeOnMouseLeft(lastHovered, click2d, closest);
         }
         invokeOnMouseOver(node, click2d, closest);
     }

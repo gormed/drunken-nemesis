@@ -48,7 +48,7 @@ public class VisualCard extends Node implements Updateable {
         calendarUserFrame = new SampleCalendarUserFrame(card);
         startUserFrame = new StartUserFrame(card);
         this.setFrame(startUserFrame);
-        
+
         Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
         mat.setColor("Color", ColorRGBA.Blue);
         cardGeom.setMaterial(mat);
@@ -82,8 +82,8 @@ public class VisualCard extends Node implements Updateable {
         this.setLocalTransform(rotateUI(Xpos - card.getX(), Ypos - card.getY(), scale));
         frameChooser.update(tpf);
         if (frame != null) {
-            if (frame.equals(startUserFrame)){
-                float[] angles = {0f,  0f, card.getAngle()};
+            if (frame.equals(startUserFrame)) {
+                float[] angles = {0f, 0f, card.getAngle()};
                 frameChooser.setLocalRotation(new Quaternion(angles));
             }
 
@@ -111,8 +111,6 @@ public class VisualCard extends Node implements Updateable {
     public Card getCard() {
         return card;
     }
-    
-    
 
     public FrameChooserMenu getFrameChooser() {
         return frameChooser;
@@ -127,38 +125,54 @@ public class VisualCard extends Node implements Updateable {
             parent.detachChild(this);
         }
     }
+    
+    public void addQuadrantListener(QuadrantListener listener) {
+        quadrantControl.quadrantListeners.clear();
+        quadrantControl.quadrantListeners.add(listener);
+    }
 
     public interface QuadrantListener {
 
         public void changeQuadrant(int quad);
     }
-    
+
     public class QuadrantControl {
 
         int maxQuadrants = 0;
         int currentQuadrant = 0;
-        
-        
         ArrayList<QuadrantListener> quadrantListeners = new ArrayList<QuadrantListener>();
-        
+
         public QuadrantControl() {
-         setMaxQuadrants(4);
+            //setMaxQuadrants(4);
         }
 
         public void setMaxQuadrants(int maxQuadrants) {
             this.maxQuadrants = maxQuadrants;
         }
-        
+
         public void update(float tpf) {
+            if (maxQuadrants <= 0) {
+                return;
+            }
             float angle = card.getAngle();
             int deg = ((int) Math.toDegrees(angle)) % 180;
-            for (int i = 0; i < maxQuadrants; i++) {
-                if ( (deg / (180/(maxQuadrants - i))) == (i-1) ) {
-                    currentQuadrant = i;
-                    //System.out.println("Quad: " + currentQuadrant);
+            int seg = 180 / maxQuadrants;
+            if (deg == 0) {
+                currentQuadrant = 0;
+            } else {
+                for (int i = 1; i < maxQuadrants + 1; i++) {
+                    //System.out.println("Quad: " + (i * seg) + " i: " + i);
+                    if (deg / ((i * seg)) == 0) {
+                        currentQuadrant = i - 1;
+
+                        break;
+                    }
                 }
             }
+            //System.out.println("Quad: " + currentQuadrant + " angle: " + deg);
+            for (QuadrantListener l : quadrantListeners) {
+                l.changeQuadrant(currentQuadrant);
+            }
         }
-        
     }
 }
