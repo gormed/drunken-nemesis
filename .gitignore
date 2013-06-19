@@ -215,7 +215,6 @@ opus/OpusProject/build/classes/compile.sh
 opus/OpusProject/build/classes/doc.sh
 opus/OpusProject/build/classes/manifest.inc
 opus/OpusProject/liblwjgl.jnilib
-opus/OpusProject/nbproject/build-impl.xml
 opus/OpusProject/nbproject/private/config.properties
 opus/OpusProject/nbproject/private/private.properties
 opus/OpusProject/nbproject/private/private.xml
