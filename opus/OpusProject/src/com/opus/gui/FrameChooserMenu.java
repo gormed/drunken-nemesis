@@ -51,7 +51,7 @@ public class FrameChooserMenu extends Node implements Updateable {
             currentAnimationTime += tpf;
             animationAngle += tpf * (animationSpeed / animationTime);
             
-            System.out.println(animationAngle);
+            //System.out.println(animationAngle);
             if (currentAnimationTime > animationTime) {
                 animate = false;
                 animationAngle = desiredAngle;

@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import net.glxn.qrgen.QRCode;
 import net.glxn.qrgen.image.ImageType;
@@ -17,47 +18,44 @@ import net.glxn.qrgen.image.ImageType;
  *
  * @author Senju
  */
-public class QRC {
+public class QuickSort {
 
     // Singleton    
-    public static QRC getInstance() {
-        return QRC.QRCHolder.INSTANCE;
+    public static QuickSort getInstance() {
+        return QuickSort.QRCHolder.INSTANCE;
     }
 
     private static class QRCHolder {
 
-        private static final QRC INSTANCE = new QRC();
+        private static final QuickSort INSTANCE = new QuickSort();
     }
 
     // Class
-    public void createQR(String url) {
-        try {
-            ByteArrayOutputStream out = QRCode.from(url)
-                    .to(ImageType.PNG).stream();
-
-            String name = url.replaceAll("[^a-zA-Z]", "");
-            while (name.length() < 25) {
-                name = name + "x";
+    public ArrayList<Integer> sortArray(ArrayList<Integer> aL, int start, int end) {
+        int links = start;
+        int rechts = end;
+        int pivot = aL.get((start + end) / 2);
+        do {
+            while (aL.get(links) < pivot) {
+                links++;
             }
-            name = name.substring(0, 25);
-            name = "assets/qrcodes/" + name + ".png";
-            try {
-                FileOutputStream fout = new FileOutputStream(new File(
-                        name));
-
-                fout.write(out.toByteArray());
-
-                fout.flush();
-                fout.close();
-
-            } catch (FileNotFoundException e) {
-                System.out.println(e + " - File not found! - in QRC");
-            } catch (IOException e) {
-                System.out.println(e + " - in QRC");
+            while (pivot < aL.get(rechts)) {
+                rechts--;
             }
-
-        } catch (Exception e) {
-            System.out.println(e + " - Failed to create QR image from text due to underlying exception: URL too long.");
+            if (links <= rechts) {
+                int help = aL.get(links);
+                aL.set(links ,aL.get(rechts));
+                aL.set(rechts, help);
+                links++;
+                rechts--;
+            }
+        } while (links <= rechts);
+        if (start < end) {
+            aL = sortArray(aL, start, rechts);
         }
+        if (links < end) {
+            aL = sortArray(aL, links, end);
+        }
+        return aL;
     }
 }
