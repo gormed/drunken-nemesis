@@ -654,3 +654,6 @@ opus/OpusProject/liblwjgl.dylib
 opus/OpusProject/liblwjgl.jnilib
 opus/OpusProject/openal.dylib
 /opus/OpusProject/dist/
+opus/OpusProject/nbproject/build-impl.xml
+opus/OpusProject/nbproject/project.properties
+opus/OpusProject/nbproject/project.xml
