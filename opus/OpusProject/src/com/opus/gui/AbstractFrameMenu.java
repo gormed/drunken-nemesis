@@ -4,8 +4,12 @@
  */
 package com.opus.gui;
 
+import com.jme3.math.Quaternion;
 import com.jme3.scene.Node;
+import com.opus.shape.Circle;
+import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *
@@ -14,10 +18,12 @@ import java.util.ArrayList;
 public abstract class AbstractFrameMenu extends Node implements Updateable {
     protected AbstractUserFrame frame;
     private ArrayList<AbstractFrameMenuEntry> frameMenuEntrys = new ArrayList<AbstractFrameMenuEntry>();
+
     
     public AbstractFrameMenu(AbstractUserFrame frame) {
         super();
         this.frame = frame;
+        
     }
 
     @Override
@@ -46,4 +52,6 @@ public abstract class AbstractFrameMenu extends Node implements Updateable {
         this.detachChild(entry);
         frameMenuEntrys.remove(entry);
     }
+    
+    
 }
