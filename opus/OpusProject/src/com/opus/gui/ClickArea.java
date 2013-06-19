@@ -4,6 +4,7 @@
  */
 package com.opus.gui;
 
+import com.jme3.asset.AssetManager;
 import com.jme3.collision.CollisionResult;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
@@ -13,26 +14,24 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.shape.Box;
 import com.opus.controller.Clickable3D;
+import com.opus.shape.Circle;
+import java.awt.Color;
 
 /**
  *
  * @author hady
  */
-public class ClickArea extends Node implements Clickable3D {
+public class ClickArea extends Circle implements  Clickable3D {
 
     private AbstractFrameContent content;
     private  Geometry geom;
     public ClickArea(AbstractFrameContent content){
-        geom = new Geometry("CLickarea", new Box(Vector3f.ZERO, 1, 1, 1));
-        Material mat = new Material(OpusApplication.getInstance().getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
-        mat.setColor("Color", ColorRGBA.Green);
-        geom.setMaterial(mat);
-        geom.setLocalTranslation(0f, 0f, 1f);
-        geom.setLocalScale(100);
-
-        this.attachChild(geom);
-
+        super(OpusApplication.getInstance().getAssetManager(), 200, 50, new Color(222,222,222), 50,  new Color(222,222,222), 360 );
+        
+        this.setLocalTranslation(0f, 0f, 0.2f);
+       
         this.content = content;
+        this.setName("ClickArea");
     }
     
     
@@ -54,7 +53,8 @@ public class ClickArea extends Node implements Clickable3D {
     @Override
     public void onRayCastMouseLeft(Vector2f mouse, CollisionResult result) {
     }
-    
+
+   
 
    
     

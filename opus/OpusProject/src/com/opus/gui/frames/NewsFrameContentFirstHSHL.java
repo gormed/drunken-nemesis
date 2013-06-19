@@ -43,7 +43,7 @@ public class NewsFrameContentFirstHSHL extends AbstractFrameContent {
     public void createContent() {
          Heading h1 = new Heading(false,  new ColorRGBA(203/255f, 75/255f, 59/255f,1f));
          h1.setText("100 neue HSHL News");
-        h1.setLocalTranslation(-h1.getLineWidth()*0.5f, 0, 1);
+        h1.setLocalTranslation(-h1.getLineWidth()*0.5f, 0, 1.0f);
         attachChild(h1);
     }
     
