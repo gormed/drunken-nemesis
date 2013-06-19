@@ -476,8 +476,8 @@ public class ScreenRayCast3D implements TuioListener {
             Vector2f click2d = new Vector2f(cursor.getX() * cam.getWidth(), (1 - cursor.getY()) * cam.getHeight());
             click2d.addLocal(CALIB_X, CALIB_Y);
             Vector3f click3d =
-                    new Vector3f(click2d.x, click2d.y, 0f);
-            Vector3f dir = new Vector3f(click2d.x, click2d.y, 1f).subtractLocal(click3d).normalizeLocal();
+                    new Vector3f(click2d.x, click2d.y, 1f);
+            Vector3f dir = new Vector3f(click2d.x, click2d.y, 0f).subtractLocal(click3d).normalizeLocal();
             Ray ray = new Ray(click3d, dir);
             // 3. Collect intersections between Ray and Shootables in results list.
             clickable3D.collideWith(ray, results);
@@ -497,10 +497,12 @@ public class ScreenRayCast3D implements TuioListener {
                 CollisionResult r = results.getClosestCollision();
                     Spatial n = r.getGeometry().getParent();
                     // recursivly check if object is clickable or not
-                    if (n != null) {
+                    while (n != null) {
                         if (n instanceof Clickable3D) {
                             invokeOnClick((Clickable3D) n, click2d, r);
+                            break;
                         }
+                        n = n.getParent();
                     }
 
             }

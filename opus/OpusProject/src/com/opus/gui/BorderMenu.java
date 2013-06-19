@@ -16,7 +16,7 @@ import java.awt.Color;
  *
  * @author hady
  */
-public class BorderMenu extends Circle implements Updateable, Clickable3D {
+public class BorderMenu extends Circle implements Clickable3D {
 
     public static final float DIAMETER = 20f;
     FrameChooserMenu frameChooserMenu;
@@ -40,10 +40,6 @@ public class BorderMenu extends Circle implements Updateable, Clickable3D {
         //circle.setLocalTranslation(100, 100, 0);
         // use z-axis to rotate
         setLocalTranslation(0, 170, 0.5f);
-    }
-
-    @Override
-    public void update(float tpf) {
     }
 
     @Override
