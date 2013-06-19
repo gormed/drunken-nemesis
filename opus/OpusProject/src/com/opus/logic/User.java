@@ -13,6 +13,7 @@ import TUIO.TuioObject;
 public class User {
     
     private static int generalSessionID = 0;
+    private boolean startScreen = true;
     
     private static int getSessionID() {
         return generalSessionID++;
@@ -55,4 +56,14 @@ public class User {
     void logout() {
         loggedIn = false;
     }
+
+    public boolean isStartScreen() {
+        return startScreen;
+    }
+
+    public void setStartScreen(boolean startScreen) {
+        this.startScreen = startScreen;
+    }
+    
+    
 }

@@ -26,7 +26,6 @@ public abstract class AbstractUserFrame extends Node implements Updateable {
     protected float currentAnimationTime;
     protected float animationAngle;
     protected float desiredAngle;
-    protected Quaternion rotation;
     
     public AbstractUserFrame(Card card) {
         super();
@@ -39,6 +38,18 @@ public abstract class AbstractUserFrame extends Node implements Updateable {
     public void update(float tpf) {
         menu.update(tpf);
         content.update(tpf);
+        if (animate) {
+            currentAnimationTime += tpf;
+            animationAngle += tpf * (animationSpeed / animationTime);
+            
+            if (currentAnimationTime > animationTime) {
+                animate = false;
+                animationAngle = desiredAngle;
+                currentAnimationTime = 0;
+            }
+            float[] angles = {0, (animationAngle) * 2f * ((float) Math.PI), 0 };
+            setLocalRotation(new Quaternion(angles));
+        }
     }
 
     public Node getBackground() {

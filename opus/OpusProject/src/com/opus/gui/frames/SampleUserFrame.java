@@ -26,8 +26,8 @@ public class SampleUserFrame extends AbstractUserFrame {
 
     public SampleUserFrame(Card card) {
         super(card);
-        setMenu(new NewsFrameMenu(this));
-        setContent(new NewsFrameContent(this));
+        setMenu(new SampleBoardFrameMenu(this));
+        setContent(new SampleBoardFrameContent(this));
     }
     
     @Override
