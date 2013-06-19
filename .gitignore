@@ -215,6 +215,7 @@ opus/OpusProject/build/classes/compile.sh
 opus/OpusProject/build/classes/doc.sh
 opus/OpusProject/build/classes/manifest.inc
 opus/OpusProject/liblwjgl.jnilib
+<<<<<<< HEAD
 opus/OpusProject/nbproject/private/config.properties
 opus/OpusProject/nbproject/private/private.properties
 opus/OpusProject/nbproject/private/private.xml
@@ -250,3 +251,14 @@ opus/OpusProject/build/classes/com/opus/logic/UserManager$1.class
 opus/OpusProject/build/classes/com/opus/logic/UserManager$UserManagerHolder.class
 opus/OpusProject/build/classes/com/opus/logic/UserManager.class
 opus/OpusProject/build/classes/com/opus/shape/Circle.class
+=======
+opus/OpusProject/openal.dylib
+/opus/OpusProject/dist/
+opus/OpusProject/nbproject/build-impl.xml
+opus/OpusProject/nbproject/project.properties
+opus/OpusProject/nbproject/project.xml
+>>>>>>> jmeprototype
+opus/OpusProject/build/classes/com/opus/logic/Compare.class
+opus/OpusProject/build/classes/com/opus/logic/Properti.class
+opus/OpusProject/build/classes/com/opus/logic/QuickSort$QRCHolder.class
+opus/OpusProject/build/classes/com/opus/logic/QuickSort.class

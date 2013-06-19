@@ -46,18 +46,18 @@ public class NewsFrameContent extends AbstractFrameContent {
         String headingLine1 = "";
         String headingLine2 = "";
         int headingLength = heading.length();
-        if(headingLength > 75){
-            headingLength = 75;
+        if(headingLength > 50){
+            headingLength = 50;
         }
-        if(headingLength < 30){
+        if(headingLength < 20){
            int headingMinLength = headingLength;
            headingLine1 = heading.substring(0, headingMinLength);
         } else{
-            headingLine1 = heading.substring(0, 30);
-            headingLine2 = heading.substring(31, headingLength);
+            headingLine1 = heading.substring(0, 20);
+            headingLine2 = heading.substring(20, headingLength);
         }                     
         
-        String headingComplete = headingLine1 +" -\n" + headingLine2;
+        String headingComplete = "      " + headingLine1 +" -\n" + headingLine2;
         h1.setText(headingComplete + "..");
         h1.setLocalTranslation(-h1.getLineWidth()*0.5f, 100, 0);
         attachChild(h1);
