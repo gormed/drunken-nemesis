@@ -20,14 +20,14 @@ import java.util.Random;
  *
  * @author Hans
  */
-public class SampleNewsUserFrame extends AbstractUserFrame {
+public class NewsUserFrame extends AbstractUserFrame {
     public static final int diameter = 300;
    
 
-    public SampleNewsUserFrame(Card card) {
+    public NewsUserFrame(Card card) {
         super(card);
         setMenu(new NewsFrameMenu(this));
-        setContent(new NewsFrameContent(this));
+        setContent(new NewsFrameContentFirstHSHL(this));
     }
     
     @Override
@@ -44,11 +44,10 @@ public class SampleNewsUserFrame extends AbstractUserFrame {
    
     
     private void createSampleBackground() {        
-        Random randomGenerator = new Random(System.currentTimeMillis());
         int borderAngle = 0;
         int innerAngle = 360;
         //Circle 1
-        Color randomBorderColor = new Color(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));
+        Color randomBorderColor = new Color(255, 255, 255);
         Color innerColor = new Color(255, 255, 255);
         //Color randomInnerColor = new Color(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));       
         background = new Circle(OpusApplication.getInstance().getAssetManager(), diameter, 10, randomBorderColor, borderAngle, innerColor, innerAngle);
