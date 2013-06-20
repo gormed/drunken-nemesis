@@ -26,7 +26,7 @@ public class ClickArea extends Circle implements Clickable3D {
     private AbstractFrameContent content;
     private  Geometry geom;
     public ClickArea(AbstractFrameContent content){
-        super(OpusApplication.getInstance().getAssetManager(), 200, 50, new Color(222,222,222), 50,  new Color(222,222,222), 360 );
+        super(OpusApplication.getInstance().getAssetManager(), 250, 0, new Color(255,255,255), 0,  new Color(255,255,255), 360 );
         
         this.setLocalTranslation(0f, 0f, 0.2f);
        
@@ -38,10 +38,10 @@ public class ClickArea extends Circle implements Clickable3D {
     @Override
     public void onRayCastClick(Vector2f mouse, CollisionResult result) {
         content.getFrame().animate = true;
-        if (!content.getAccordingContent().equals(null)) {
-            //accordingFrame.animate = true;
+        if (!content.getAccordingFrame().equals(null)) {
+            content.getAccordingFrame().animate = true;
             
-            content.getFrame().changeContent(content.getAccordingContent());
+            content.getFrame().getCard().setFrame(content.getAccordingFrame());
            
         }
     }

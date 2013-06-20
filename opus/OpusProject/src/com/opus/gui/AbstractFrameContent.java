@@ -13,7 +13,7 @@ import com.jme3.scene.Node;
  */
 public abstract class AbstractFrameContent extends Node implements Updateable {
     private AbstractUserFrame frame;
-    private AbstractFrameContent accordingContent;
+    private AbstractUserFrame accordingFrame;
     private ClickArea clickArea;
     public AbstractFrameContent(AbstractUserFrame frame) {
         super();
@@ -26,12 +26,12 @@ public abstract class AbstractFrameContent extends Node implements Updateable {
     
     public abstract void createContent();
 
-    public AbstractFrameContent getAccordingContent() {
-        return accordingContent;
+    public AbstractUserFrame getAccordingFrame() {
+        return accordingFrame;
     }
 
-    public void setAccordingContent(AbstractFrameContent accordingContent) {
-        this.accordingContent = accordingContent;
+    public void setAccordingFrame(AbstractUserFrame according) {
+        this.accordingFrame = according;
     }
 
     public void createClickArea() {
