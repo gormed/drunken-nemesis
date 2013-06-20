@@ -41,11 +41,14 @@ public class FrameChooserMenu extends Node implements Updateable {
     public FrameChooserMenu(VisualCard card) {
         super();
         this.visualCard = card;
-        this.restart = false;
         // TODO get concrete USerFrames
         //attachCHild Node
         createFrameChooser();
 
+    }
+
+    public void setRestart(boolean restart) {
+        this.restart = restart;
     }
     
     
@@ -59,22 +62,22 @@ public class FrameChooserMenu extends Node implements Updateable {
             //System.out.println(animationAngle);
             if (currentAnimationTime > animationTime) {
                 animate = false;
-                startPosition = false;
-                restart = false;
+                
+                if(restart){
+                    startPosition = true;
+                    restart = false;
+                } 
+                else {
+                    startPosition = false;
+                    
+                }
+                
                 animationAngle = desiredAngle;
                 currentAnimationTime = 0;
             }
             float[] angles = {0, 0, (animationAngle) * 2f * ((float) Math.PI)};
             menuRotation.fromAngles(angles);
             setLocalRotation(menuRotation);
-            if(startPosition){
-                interpolation = currentAnimationTime/animationTime;
-                ArrayList<BorderMenu> borderMenus = getBorderMenus();
-                 for(BorderMenu bm :borderMenus ){
-                     bm.setLocalTranslation(0, interpolation * 90 + 80, 0.5f);
-                 }
-                 setLocalTranslation(0, interpolation * (-100), 0);
-            }           
             if(restart){
                 interpolation = (1- (currentAnimationTime/animationTime));
                 ArrayList<BorderMenu> borderMenus = getBorderMenus();
@@ -83,6 +86,15 @@ public class FrameChooserMenu extends Node implements Updateable {
                  }
                  setLocalTranslation(0, interpolation * (-100), 0);
             }
+            if(startPosition){
+                interpolation = currentAnimationTime/animationTime;
+                ArrayList<BorderMenu> borderMenus = getBorderMenus();
+                 for(BorderMenu bm :borderMenus ){
+                     bm.setLocalTranslation(0, interpolation * 90 + 80, 0.5f);
+                 }
+                 setLocalTranslation(0, interpolation * (-100), 0);
+            }           
+            
               
         }
        
