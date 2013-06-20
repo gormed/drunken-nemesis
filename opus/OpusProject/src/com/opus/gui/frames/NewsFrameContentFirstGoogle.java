@@ -22,15 +22,20 @@ public class NewsFrameContentFirstGoogle extends AbstractFrameContent {
 
     private int userID = -1;
     private int newsID = -1;
+    private final AbstractUserFrame according;
     
     public NewsFrameContentFirstGoogle(AbstractUserFrame parent) {
         super(parent);
         userID = parent.getCard().getCard().getOwner().getUserSessionID();
+        
+        according = new NewsUserFrameHSHL(parent.getCard());
         // !!!!!!!!!!! newsID:
         // NewsManager.getInstance().getHshlNewsCounter() -1 = letzte HSHL news
         // NewsManager.getInstance().getHshlNewsCounter()    = erste Google news
         // NewsManager.getInstance().getHshlNewsCounter() + NewsManager.getInstance().getGoogleNewsCounter() - 1 = letzte google news
         newsID = NewsManager.getInstance().getHshlNewsCounter();
+        setAccordingFrame(according);
+        createClickArea();
     }
     
     @Override
@@ -41,7 +46,7 @@ public class NewsFrameContentFirstGoogle extends AbstractFrameContent {
     public void createContent() {
          Heading h1 = new Heading(false,  new ColorRGBA(203/255f, 75/255f, 59/255f,1f));
         h1.setText("20 neue Google News");
-        h1.setLocalTranslation(-h1.getLineWidth()*0.5f, 100, 0);
+        h1.setLocalTranslation(-h1.getLineWidth()*0.5f, 0, 1);
         attachChild(h1);
     }
     
