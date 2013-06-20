@@ -132,6 +132,14 @@ public class VisualCard extends Node implements Updateable {
             parent.detachChild(this);
         }
     }
+    
+    public boolean isRestart() {
+        if (card.getOwner().isRestart()) {
+            card.getOwner().restarted();
+            return true;
+        }
+        return false;
+    }
 
     public void addQuadrantListener(QuadrantListener listener) {
         quadrantControl.quadrantListeners.clear();

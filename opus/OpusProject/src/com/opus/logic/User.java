@@ -73,6 +73,10 @@ public class User {
     public void setStartScreen(boolean startScreen) {
         this.startScreen = startScreen;
     }
+
+    public void restarted() {
+        restart = false;
+    }
     
     
 }
