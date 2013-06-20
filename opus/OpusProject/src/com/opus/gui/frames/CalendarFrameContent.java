@@ -75,6 +75,7 @@ public class CalendarFrameContent extends AbstractFrameContent {
                 dayComponentNumber++;
             }
         }
+        
 
         //Die Termine in einen String verknüpfen
         String input = "";

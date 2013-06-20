@@ -26,6 +26,10 @@ public abstract class AbstractFrameContent extends Node implements Updateable {
     
     public abstract void createContent();
 
+    public void destroyContent(){
+        this.detachAllChildren();
+    }
+    
     public AbstractUserFrame getAccordingFrame() {
         return accordingFrame;
     }
