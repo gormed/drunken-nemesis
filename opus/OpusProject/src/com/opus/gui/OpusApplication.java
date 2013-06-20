@@ -12,6 +12,7 @@ import com.jme3.scene.Node;
 import com.opus.controller.ScreenRayCast3D;
 import com.opus.gui.frames.SampleFrameContent;
 import com.opus.gui.frames.SampleFrameMenu;
+import com.opus.logic.BlackboardManager;
 import com.opus.logic.CalendarManager;
 import com.opus.logic.Card;
 import com.opus.logic.NewsManager;
@@ -29,7 +30,6 @@ import java.util.logging.Logger;
  * @author Hans
  */
 public class OpusApplication extends SimpleApplication {
-
         
     private OpusApplication() {
         super();
@@ -40,6 +40,7 @@ public class OpusApplication extends SimpleApplication {
         userManager = UserManager.getInstance();
         newsManager = NewsManager.getInstance();
         calendarManager = CalendarManager.getInstance();
+        blackBoardManager = BlackboardManager.getInstance();
     }
     
     public static OpusApplication getInstance() {
@@ -47,7 +48,6 @@ public class OpusApplication extends SimpleApplication {
     }
     
     private static class OpusApplicationHolder {
-
         private static final OpusApplication INSTANCE = new OpusApplication();
     }
     
@@ -55,6 +55,8 @@ public class OpusApplication extends SimpleApplication {
     static UserManager userManager;
     static NewsManager newsManager;
     static CalendarManager calendarManager;
+    static BlackboardManager blackBoardManager;
+
     static ScreenRayCast3D rayCast3D;
     HashMap<Card, VisualCard> visualCards = new HashMap<Card, VisualCard>();
     static Node cardNode = new Node("Cards");
