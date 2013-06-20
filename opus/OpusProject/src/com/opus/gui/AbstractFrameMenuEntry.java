@@ -23,6 +23,7 @@ public abstract class AbstractFrameMenuEntry extends Node implements Updateable,
         private Circle background;
     private final int DIAMETER =300;
 
+
     public AbstractFrameMenuEntry(AbstractFrameMenu menu) {
         super();
         this.menu = menu;
@@ -39,6 +40,14 @@ public abstract class AbstractFrameMenuEntry extends Node implements Updateable,
     @Override
     public void update(float tpf) {
         
+    }
+
+    public Circle getBackground() {
+        return background;
+    }
+
+    public void setBackground(Circle background) {
+        this.background = background;
     }
     
    

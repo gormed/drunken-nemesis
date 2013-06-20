@@ -91,13 +91,14 @@ public class NewsUserFrameFirst extends AbstractUserFrame implements QuadrantLis
            case 0:
               if(!this.getContent().equals(newsFrameContentFirstHSHL)) {
                 this.changeContent(newsFrameContentFirstHSHL);
+                //this.menu.setEntryBackground(quad, new Color(222,222,222));
                 
             }
                break;
            case 1: 
               if(!this.getContent().equals(newsFrameContentFirstGoogle)) {
                 this.changeContent(newsFrameContentFirstGoogle);
-                
+                //this.menu.setEntryBackground(quad, new Color(222,222,222));
             }
                break;
            default:
