@@ -5,6 +5,7 @@
 package com.opus.gui.frames;
 
 import com.jme3.math.Quaternion;
+import com.jme3.scene.Node;
 import com.opus.gui.AbstractUserFrame;
 import com.opus.gui.OpusApplication;
 import com.opus.gui.VisualCard;
@@ -46,25 +47,11 @@ public class StartUserFrame extends AbstractUserFrame {
         
     }
     
-    
-    @Override
-    public void createFrame() {
-        content.createContent();
-        createSampleBackground();
-        
-        this.attachChild(background);
-        background.attachChild(content);
-    }
-    
-    private void createSampleBackground() {        
-        Random randomGenerator = new Random(System.currentTimeMillis());
+     private void createSampleBackground() {        
         int borderAngle = 0;
         int innerAngle = 360;
+        background = new Node();
         //Circle 1
-        Color randomBorderColor = new Color(42, 101, 137);
-        Color innerColor = new Color(42, 101, 137);
-        //Color randomInnerColor = new Color(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));       
-        background = new Circle(OpusApplication.getInstance().getAssetManager(), diameter, 10, randomBorderColor, borderAngle, innerColor, innerAngle);
         background.setLocalTranslation(0,-diameter/3,0);
         
         //circle.setLocalTranslation(100, 100, 0);
@@ -72,6 +59,31 @@ public class StartUserFrame extends AbstractUserFrame {
         float[] angles = {0,0,(float) Math.PI};
         background.setLocalRotation(new Quaternion(angles));
     }
+    
+    
+    @Override
+    public void createFrame() {
+       createSampleBackground();
+       this.attachChild(background);
+        background.attachChild(content);
+    }
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Override
     public void update(float tpf) {

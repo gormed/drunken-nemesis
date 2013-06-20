@@ -39,15 +39,15 @@ public class BorderMenu extends Circle implements Clickable3D {
 
         //circle.setLocalTranslation(100, 100, 0);
         // use z-axis to rotate
-        setLocalTranslation(0, 170, 0.5f);
+
+        setLocalTranslation(0, 80, 0.5f);
     }
 
     @Override
     public void onRayCastClick(Vector2f mouse, CollisionResult result) {
-        frameChooserMenu.animate = true;
+        frameChooserMenu.animate = true;      
         if (!frameChooserMenu.visualCard.frame.equals(accordingFrame)) {
             accordingFrame.animate = true;
-            
             frameChooserMenu.visualCard.setFrame(accordingFrame);
             frameChooserMenu.currentActive = menuId;
             frameChooserMenu.desiredAngle = frameChooserMenu.menuStages[menuId];
@@ -63,4 +63,6 @@ public class BorderMenu extends Circle implements Clickable3D {
     @Override
     public void onRayCastMouseLeft(Vector2f mouse, CollisionResult result) {
     }
+    
+    
 }

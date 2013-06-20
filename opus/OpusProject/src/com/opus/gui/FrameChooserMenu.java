@@ -32,11 +32,16 @@ public class FrameChooserMenu extends Node implements Updateable {
     float currentAnimationTime;
     float animationAngle = 0.5f;
     float desiredAngle = 1.5f;
+    boolean restart = false;
     private Quaternion menuRotation;
+    
+    private boolean startPosition = true;
+    private float interpolation;
 
     public FrameChooserMenu(VisualCard card) {
         super();
         this.visualCard = card;
+        this.restart = false;
         // TODO get concrete USerFrames
         //attachCHild Node
         createFrameChooser();
@@ -52,12 +57,31 @@ public class FrameChooserMenu extends Node implements Updateable {
             //System.out.println(animationAngle);
             if (currentAnimationTime > animationTime) {
                 animate = false;
+                startPosition = false;
+                restart = false;
                 animationAngle = desiredAngle;
                 currentAnimationTime = 0;
             }
             float[] angles = {0, 0, (animationAngle) * 2f * ((float) Math.PI)};
             menuRotation.fromAngles(angles);
             setLocalRotation(menuRotation);
+            if(startPosition){
+                interpolation = currentAnimationTime/animationTime;
+                ArrayList<BorderMenu> borderMenus = getBorderMenus();
+                 for(BorderMenu bm :borderMenus ){
+                     bm.setLocalTranslation(0, interpolation * 90 + 80, 0.5f);
+                 }
+                 setLocalTranslation(0, interpolation * (-100), 0);
+            }           
+            if(restart){
+                interpolation = (1- (currentAnimationTime/animationTime));
+                ArrayList<BorderMenu> borderMenus = getBorderMenus();
+                 for(BorderMenu bm :borderMenus ){
+                     bm.setLocalTranslation(0, interpolation * 90 + 80, 0.5f);
+                 }
+                 setLocalTranslation(0, interpolation * (-100), 0);
+            }
+              
         }
        
 
@@ -71,7 +95,7 @@ public class FrameChooserMenu extends Node implements Updateable {
         addBorderMenu(borderMenuCalendar, angleStages[0]);
         addBorderMenu(borderMenuNews, angleStages[1]);
         addBorderMenu(borderMenuBoard, angleStages[2]);
-        setLocalTranslation(0, -100, 0);
+        setLocalTranslation(0, 0, 0);
         float[] angles = {0, 0, 0};
         menuRotation = new Quaternion(angles);
         setLocalRotation(menuRotation);

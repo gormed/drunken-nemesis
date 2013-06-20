@@ -17,7 +17,7 @@ import com.jme3.scene.shape.Box;
 import com.opus.controller.TuioInputListener;
 import com.opus.gui.frames.BoardUserFrame;
 import com.opus.gui.frames.CalendarUserFrame;
-import com.opus.gui.frames.NewsUserFrame;
+import com.opus.gui.frames.NewsUserFrameFirst;
 import com.opus.gui.frames.StartUserFrame;
 import com.opus.logic.Card;
 import java.util.ArrayList;
@@ -45,7 +45,7 @@ public class VisualCard extends Node implements Updateable {
         quadrantControl = new QuadrantControl();
         
         boardUserFrame = new BoardUserFrame(this);
-        newsUserFrame = new NewsUserFrame(this);
+        newsUserFrame = new NewsUserFrameFirst(this);
         calendarUserFrame = new CalendarUserFrame(this);
         startUserFrame = new StartUserFrame(this);
         this.setFrame(startUserFrame);
@@ -171,8 +171,9 @@ public class VisualCard extends Node implements Updateable {
             int seg = 180 / maxQuadrants;
             for (int i = 1; i < maxQuadrants + 1; i++) {
                 //System.out.println("Quad: " + (i * seg) + " i: " + i);
-                if (deg / ((i * seg)) == 0 && currentQuadrant != (i - 1)) {
+                if (deg <(i * seg) && deg >= ((i-1) * seg) && currentQuadrant != (i - 1)) {
                     currentQuadrant = i - 1;
+                    System.out.println("quadrant change: " + currentQuadrant);
                     for (QuadrantListener l : quadrantListeners) {
                         l.changeQuadrant(currentQuadrant);
                     }
