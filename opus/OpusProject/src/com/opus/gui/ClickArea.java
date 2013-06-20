@@ -26,7 +26,7 @@ public class ClickArea extends Circle implements Clickable3D {
     private AbstractFrameContent content;
     private  Geometry geom;
     public ClickArea(AbstractFrameContent content){
-        super(OpusApplication.getInstance().getAssetManager(), 250, 0, new Color(255,255,255), 0,  new Color(255,255,255), 360 );
+        super(OpusApplication.getInstance().getAssetManager(), 200, 0, new Color(255,255,255), 0,  new Color(255,255,255), 360 );
         
         this.setLocalTranslation(0f, 0f, 0.2f);
        

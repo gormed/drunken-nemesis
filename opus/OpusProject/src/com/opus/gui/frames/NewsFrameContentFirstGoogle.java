@@ -28,13 +28,16 @@ public class NewsFrameContentFirstGoogle extends AbstractFrameContent {
         super(parent);
         userID = parent.getCard().getCard().getOwner().getUserSessionID();
         
-        according = new NewsUserFrameGoogle(parent.getCard());
+        
         // !!!!!!!!!!! newsID:
         // NewsManager.getInstance().getHshlNewsCounter() -1 = letzte HSHL news
         // NewsManager.getInstance().getHshlNewsCounter()    = erste Google news
         // NewsManager.getInstance().getHshlNewsCounter() + NewsManager.getInstance().getGoogleNewsCounter() - 1 = letzte google news
         newsID = NewsManager.getInstance().getHshlNewsCounter();
+        
+        according = new NewsUserFrameGoogle(parent.getCard());
         setAccordingFrame(according);
+        setClickable(true);
         createClickArea();
     }
     

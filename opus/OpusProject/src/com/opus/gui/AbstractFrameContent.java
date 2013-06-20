@@ -15,11 +15,22 @@ public abstract class AbstractFrameContent extends Node implements Updateable {
     private AbstractUserFrame frame;
     private AbstractUserFrame accordingFrame;
     private ClickArea clickArea;
+    private boolean clickable = false;
     public AbstractFrameContent(AbstractUserFrame frame) {
         super();
         this.frame = frame;
     }
+    
+    public boolean isClickable(){
+        return clickable;
+    }
 
+    public void setClickable(boolean clickable) {
+        this.clickable = clickable;
+    }
+    
+    
+    
     public AbstractUserFrame getFrame() {
         return frame;
     }
