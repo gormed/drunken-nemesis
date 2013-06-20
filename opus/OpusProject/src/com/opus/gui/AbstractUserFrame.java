@@ -82,6 +82,7 @@ public abstract class AbstractUserFrame extends Node implements Updateable {
     
     public void changeContent(AbstractFrameContent c){
             if (this.content != null) {
+            this.content.destroyContent();
             this.getBackground().detachChild(this.content);
         }
         this.content = c;
