@@ -41,19 +41,12 @@ public class NewsFrameMenuGoogle extends AbstractFrameMenu {
 
             @Override
             protected void createEntry() {
-                createRotated(this, (float) (0.333f * Math.PI), "HSHL");
-            }
-        });
-        addMenuEntry(new AbstractFrameMenuEntry(this) {
-
-            @Override
-            protected void createEntry() {
-                createRotated(this, (float) (0.666f * Math.PI), "Google");
+                createRotated(this, (float) (0.5f * Math.PI), "Google News");
             }
         });
        
-        createBackground(0.333f, new Color(203, 75, 59));
-        createBackground(0.666f, new Color(203, 75, 59));
+       
+        createBackground(0.5f, new Color(203, 75, 59));
         
     }
     

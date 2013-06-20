@@ -6,6 +6,8 @@ package com.opus.gui.frames;
 
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Quaternion;
+import com.opus.gui.AbstractFrameContent;
+import com.opus.gui.AbstractFrameMenu;
 import com.opus.gui.AbstractUserFrame;
 import com.opus.gui.FrameChooserMenu;
 import com.opus.gui.OpusApplication;
@@ -24,12 +26,17 @@ import java.util.Random;
  */
 public class NewsUserFrameGoogle extends AbstractUserFrame implements QuadrantListener{
     public static final int diameter = 300;
-   
+      private  AbstractFrameContent newsFrameContentHSHL;
+        private AbstractFrameMenu newsFrameMenuGoogle;
 
     public NewsUserFrameGoogle(VisualCard card) {
         super(card);
-        setMenu(new NewsFrameMenuGoogle(this));
-        setContent(new NewsFrameContentHSHL(this));
+        
+        newsFrameContentHSHL = new NewsFrameContentHSHL(this);   
+        setContent(newsFrameContentHSHL);
+        newsFrameMenuGoogle = new NewsFrameMenuGoogle(this);
+        setMenu(newsFrameMenuGoogle);
+        
         card.setMaxQuadrants(2);
         card.addQuadrantListener(this);
     }

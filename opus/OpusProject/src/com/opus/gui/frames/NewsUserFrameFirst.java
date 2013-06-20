@@ -7,6 +7,7 @@ package com.opus.gui.frames;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Quaternion;
 import com.opus.gui.AbstractFrameContent;
+import com.opus.gui.AbstractFrameMenu;
 import com.opus.gui.AbstractUserFrame;
 import com.opus.gui.FrameChooserMenu;
 import com.opus.gui.OpusApplication;
@@ -27,25 +28,24 @@ public class NewsUserFrameFirst extends AbstractUserFrame implements QuadrantLis
     public static final int diameter = 300;
     private  AbstractFrameContent newsFrameContentFirstHSHL;
     private  AbstractFrameContent newsFrameContentFirstGoogle;
-   
+    private AbstractFrameMenu newsFrameMenuFirst;
 
     public NewsUserFrameFirst(VisualCard card) {
         super(card);
         newsFrameContentFirstHSHL = new NewsFrameContentFirstHSHL(this);
         newsFrameContentFirstGoogle = new NewsFrameContentFirstGoogle(this);
-        
         newsFrameContentFirstHSHL.createContent();
-        newsFrameContentFirstGoogle.createContent();  
-        
-        setMenu(new NewsFrameMenuGoogle(this));
+        newsFrameContentFirstGoogle.createContent();       
         setContent(newsFrameContentFirstHSHL);
-
+        
+        newsFrameMenuFirst = new NewsFrameMenuFirst(this);
+        setMenu(newsFrameMenuFirst);
+        
     }
     
     @Override
     public void createFrame() {
         menu.createMenu();
-        content.createContent();
         createSampleBackground();
         
         this.attachChild(background);
