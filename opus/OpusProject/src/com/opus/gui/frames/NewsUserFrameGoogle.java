@@ -77,15 +77,10 @@ public class NewsUserFrameGoogle extends AbstractUserFrame implements QuadrantLi
     public void changeQuadrant(int quad) {
        switch(quad){
            case 0:
-               
                break;
            case 1: 
-               
                break;
        }
     }
-    
-
-
-    
+   
 }

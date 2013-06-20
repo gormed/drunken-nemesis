@@ -50,6 +50,7 @@ public class CalendarFrameContent extends AbstractFrameContent {
 
     @Override
     public void update(float tpf) {
+        
     }
 
     @Override
