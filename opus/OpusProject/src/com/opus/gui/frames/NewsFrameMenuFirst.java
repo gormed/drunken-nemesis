@@ -51,10 +51,11 @@ public class NewsFrameMenuFirst extends AbstractFrameMenu {
                 createRotated(this, (float) (0.6666f * Math.PI), "Google News");
             }
         });
+       getFrameMenuEntrys().get(0).setBackground(createBackground(0.333f, new Color(203, 75, 59)));
+       getFrameMenuEntrys().get(1).setBackground(createBackground(0.666f, new Color(203, 75, 59)));
        
-       
-        createBackground(0.333f, new Color(203, 75, 59));
-        createBackground(0.666f, new Color(203, 75, 59));
+        
+      
         
     }
     

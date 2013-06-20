@@ -24,6 +24,7 @@ public class StartFrameContentCalendar extends AbstractFrameContent {
     
     @Override
     public void update(float tpf) {
+        
     }
 
     @Override
