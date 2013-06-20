@@ -16,9 +16,9 @@ import com.opus.gui.elements.Text;
  *
  * @author Hans
  */
-public class SampleBoardFrameContent extends AbstractFrameContent {
+public class BoardFrameContent extends AbstractFrameContent {
 
-    public SampleBoardFrameContent(AbstractUserFrame parent) {
+    public BoardFrameContent(AbstractUserFrame parent) {
         super(parent);
     }
     

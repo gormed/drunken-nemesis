@@ -15,8 +15,8 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.shape.Box;
 import com.opus.controller.TuioInputListener;
-import com.opus.gui.frames.SampleBoardUserFrame;
-import com.opus.gui.frames.SampleCalendarUserFrame;
+import com.opus.gui.frames.BoardUserFrame;
+import com.opus.gui.frames.CalendarUserFrame;
 import com.opus.gui.frames.NewsUserFrame;
 import com.opus.gui.frames.StartUserFrame;
 import com.opus.logic.Card;
@@ -43,9 +43,9 @@ public class VisualCard extends Node implements Updateable {
 
         this.card = card;
 
-        boardUserFrame = new SampleBoardUserFrame(card);
+        boardUserFrame = new BoardUserFrame(card);
         newsUserFrame = new NewsUserFrame(card);
-        calendarUserFrame = new SampleCalendarUserFrame(card);
+        calendarUserFrame = new CalendarUserFrame(card);
         startUserFrame = new StartUserFrame(card);
         this.setFrame(startUserFrame);
 

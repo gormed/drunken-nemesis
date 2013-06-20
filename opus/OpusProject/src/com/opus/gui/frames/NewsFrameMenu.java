@@ -52,27 +52,10 @@ public class NewsFrameMenu extends AbstractFrameMenu {
             }
         });
        
-        createBackground(0.333f, new Color(200, 200, 200));
-        createBackground(0.666f, new Color(100, 100, 100));
+        createBackground(0.333f, new Color(203, 75, 59));
+        createBackground(0.666f, new Color(203, 75, 59));
     }
-    protected void createBackground(float angle, Color color){
-        Random randomGenerator = new Random(System.currentTimeMillis());
-        
-        int borderAngle = ((100/this.getFrameMenuEntrys().size())+10);
-        int innerAngle = 0;
-        //Circle 1
-        Color outerBorderColor = new Color(165, 87, 75);
-        Color innerColor = color;
-        //Color randomInnerColor = new Color(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));       
-        background = new Circle(OpusApplication.getInstance().getAssetManager(), (DIAMETER-5), 40, outerBorderColor, borderAngle, innerColor, innerAngle);
-        background.setLocalTranslation(0,-DIAMETER/3,0);
-        
-        //circle.setLocalTranslation(100, 100, 0);
-        // use z-axis to rotate
-        float[] angles = {0,0,(angle *(float) Math.PI)};
-        background.setLocalRotation(new Quaternion(angles));
-        frame.attachChild(background);
-    }
+    
     private BitmapText createRotated(AbstractFrameMenuEntry menuentry, float angle, String title) {
         Text entry = new Text(false);
         entry.setColor(ColorRGBA.Black);

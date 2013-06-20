@@ -13,14 +13,15 @@ import com.opus.gui.AbstractFrameMenu;
 import com.opus.gui.AbstractFrameMenuEntry;
 import com.opus.gui.AbstractUserFrame;
 import com.opus.gui.elements.Text;
+import java.awt.Color;
 
 /**
  *
  * @author Hans
  */
-public class SampleBoardFrameMenu extends AbstractFrameMenu {
+public class BoardFrameMenu extends AbstractFrameMenu {
 
-    public SampleBoardFrameMenu(AbstractUserFrame frame) {
+    public BoardFrameMenu(AbstractUserFrame frame) {
         super(frame);
     }
 
@@ -47,6 +48,10 @@ public class SampleBoardFrameMenu extends AbstractFrameMenu {
                 createRotated(this, (float) (0.2f * Math.PI), "...");
             }
         });
+        
+        createBackground(0.2f, new Color(227, 179, 80));
+        createBackground(0.5f, new Color(227, 179, 80));
+        createBackground(0.8f, new Color(227, 179, 80));
     }
 
     private BitmapText createRotated(AbstractFrameMenuEntry menuentry, float angle, String title) {
@@ -69,7 +74,7 @@ public class SampleBoardFrameMenu extends AbstractFrameMenu {
 
     public Vector3f getAngleCoords(float angle, float dist) {
         Vector3f v = new Vector3f();
-        if (dist <= SampleBoardUserFrame.diameter && dist >= 0) {
+        if (dist <= BoardUserFrame.diameter && dist >= 0) {
             Vector2f v2 = new Vector2f(dist, 0);
             v2.rotateAroundOrigin(angle, false);
             v.x = v2.x;
