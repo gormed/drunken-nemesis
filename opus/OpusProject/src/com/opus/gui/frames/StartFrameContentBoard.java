@@ -30,7 +30,7 @@ public class StartFrameContentBoard extends AbstractFrameContent {
     public void createContent() {
         Heading h1 = new Heading(false,  new ColorRGBA(120/255f, 168/255f, 199/255f,1f));
         h1.setText("Blackboard");
-        h1.setLocalTranslation(-h1.getLineWidth()*0.5f, 100, 0);
+        h1.setLocalTranslation(-h1.getLineWidth()*0.5f, 80, 0);
         attachChild(h1);
         
 //        Text message = new Text(false, new ColorRGBA(42f/255f, 101f/255f, 137f/255f,1f));
