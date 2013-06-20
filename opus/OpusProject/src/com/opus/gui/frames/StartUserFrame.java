@@ -49,7 +49,6 @@ public class StartUserFrame extends AbstractUserFrame {
     
     @Override
     public void createFrame() {
-        content.createContent();
         createSampleBackground();
         
         this.attachChild(background);

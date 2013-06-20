@@ -87,6 +87,10 @@ public abstract class AbstractUserFrame extends Node implements Updateable {
         }
         this.content = c;
         this.content.createContent();
+        if(this.content.isClickable()){
+            this.content.createClickArea();
+        }
+        
         this.getBackground().attachChild(this.content);
     }
     

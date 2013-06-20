@@ -34,6 +34,7 @@ public class NewsFrameContentFirstHSHL extends AbstractFrameContent {
         // NewsManager.getInstance().getHshlNewsCounter() + NewsManager.getInstance().getGoogleNewsCounter() - 1 = letzte google news
         newsID = NewsManager.getInstance().getHshlNewsCounter();
         setAccordingFrame(according);
+        setClickable(true);
         createClickArea();
     }
     
