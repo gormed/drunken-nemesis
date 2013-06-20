@@ -7,11 +7,7 @@ package com.opus.gui.frames;
 import com.jme3.math.Quaternion;
 import com.jme3.scene.Node;
 import com.opus.gui.AbstractUserFrame;
-import com.opus.gui.OpusApplication;
 import com.opus.gui.VisualCard;
-import com.opus.shape.Circle;
-import java.awt.Color;
-import java.util.Random;
 
 /**
  *
@@ -68,22 +64,6 @@ public class StartUserFrame extends AbstractUserFrame {
         background.attachChild(content);
     }
     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     @Override
     public void update(float tpf) {

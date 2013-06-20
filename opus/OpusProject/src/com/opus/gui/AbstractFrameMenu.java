@@ -55,7 +55,7 @@ public abstract class AbstractFrameMenu extends Node implements Updateable{
         frameMenuEntrys.remove(entry);
     }
     
-    protected void createBackground(float angle, Color color){
+    protected Circle createBackground(float angle, Color color){
          Random randomGenerator = new Random(System.currentTimeMillis());
         
         int borderAngle = ((100/this.getFrameMenuEntrys().size())+10);
@@ -72,6 +72,12 @@ public abstract class AbstractFrameMenu extends Node implements Updateable{
         float[] angles = {0,0,(angle *(float) Math.PI)};
         background.setLocalRotation(new Quaternion(angles));
         frame.attachChild(background);
+        return background;
+    }
+
+    
+    public void setEntryBackground(int entry, Color color) {
+        getFrameMenuEntrys().get(entry).getBackground().setColor(color);
     }
     
     
