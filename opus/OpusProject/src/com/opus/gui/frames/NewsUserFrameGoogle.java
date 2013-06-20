@@ -22,11 +22,11 @@ import java.util.Random;
  *
  * @author Hans
  */
-public class NewsUserFrameHSHL extends AbstractUserFrame implements QuadrantListener{
+public class NewsUserFrameGoogle extends AbstractUserFrame implements QuadrantListener{
     public static final int diameter = 300;
    
 
-    public NewsUserFrameHSHL(VisualCard card) {
+    public NewsUserFrameGoogle(VisualCard card) {
         super(card);
         setMenu(new NewsFrameMenuGoogle(this));
         setContent(new NewsFrameContentHSHL(this));
@@ -43,9 +43,6 @@ public class NewsUserFrameHSHL extends AbstractUserFrame implements QuadrantList
         this.attachChild(background);
         background.attachChild(content);
         background.attachChild(menu);
-        
-        card.setMaxQuadrants(2);
-        card.addQuadrantListener(this);  
     }
     
    

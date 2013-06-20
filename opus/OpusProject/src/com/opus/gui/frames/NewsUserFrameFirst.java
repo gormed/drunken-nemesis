@@ -89,14 +89,10 @@ public class NewsUserFrameFirst extends AbstractUserFrame implements QuadrantLis
         
        switch(quad){
            case 0:
-                if(!this.getContent().equals(newsFrameContentFirstHSHL)){
-               changeContent(newsFrameContentFirstHSHL);
-                }
+               
                break;
            case 1: 
-               if(!this.getContent().equals(newsFrameContentFirstGoogle)){
-               changeContent(newsFrameContentFirstGoogle);
-               }
+               
                break;
            default:
                break;
