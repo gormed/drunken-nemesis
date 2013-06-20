@@ -1,0 +1,16 @@
+<de.hshl.nestler.CalibrationData>
+  <x>660</x>
+  <y>340</y>
+  <width>600</width>
+  <height>400</height>
+  <x0>0.5</x0>
+  <x25>0.5</x25>
+  <x50>0.5</x50>
+  <x75>0.5</x75>
+  <x100>0.5</x100>
+  <y0>NaN</y0>
+  <y25>0.5</y25>
+  <y50>0.5</y50>
+  <y75>0.5</y75>
+  <y100>NaN</y100>
+</de.hshl.nestler.CalibrationData>
