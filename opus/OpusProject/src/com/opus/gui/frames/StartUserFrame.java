@@ -72,7 +72,10 @@ public class StartUserFrame extends AbstractUserFrame {
 
     @Override
     public void update(float tpf) {
+<<<<<<< HEAD
+=======
       super.update(tpf);
+>>>>>>> c18abae444616a07b453e54e639b4dcc3d2e45f3
         if(card.getAngle()>=(0.8333f * 2f * ((float) Math.PI)) || card.getAngle()< (0.1666f * 2f * ((float) Math.PI))){
                if(!this.getContent().equals(startFrameContentCalendar)) {
                 this.changeContent(startFrameContentCalendar);

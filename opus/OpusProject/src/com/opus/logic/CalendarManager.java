@@ -37,7 +37,7 @@ public class CalendarManager {
     public static CalendarManager getInstance() {
         return CalendarManagerHolder.INSTANCE;
     }
-    
+
     private static class CalendarManagerHolder {
 
         private static final CalendarManager INSTANCE = new CalendarManager();
@@ -45,17 +45,16 @@ public class CalendarManager {
     /////////
     //CLASS//
     /////////
-    
     //Datenfelder    
     static HashMap correlation = new HashMap();
     static ArrayList<Calendar> calendarVariations = new ArrayList<Calendar>(0);
-    
+
     //Methoden
     public static void addUser(int ID) {
-        try{
-        Calendar calendar = getCalender();
-        correlation.put(ID, calendar); 
-        } catch (Exception e){
+        try {
+            Calendar calendar = getCalender();
+            correlation.put(ID, calendar);
+        } catch (Exception e) {
             System.out.println("CalenderManager - addUser: " + e);
         }
     }
@@ -67,37 +66,39 @@ public class CalendarManager {
         }
         return result;
     }
-    
-    
 
     private void initCalenderVariations() throws FileNotFoundException, IOException, ParserException {
         /*URI uri = new URI("https://www.google.com/calendar/ical/kbdmt5sgd7s3gb8ire77jbn19g@group.calendar.google.com/public/basic.ics");
-        File file = new File(uri);
-        FileInputStream fin = new FileInputStream(file);*/
+         File file = new File(uri);
+         FileInputStream fin = new FileInputStream(file);*/
         Calendar calendar;
         FileInputStream fin;
         CalendarBuilder builder;
-        
-        fin = new FileInputStream("assets/Ical/basic.ics");
+
+        fin = new FileInputStream("assets/Ical/Gruppe_A.ics");
+        builder = new CalendarBuilder();
+        calendar = builder.build(fin);
+        calendarVariations.add(calendar);
+
+        fin = new FileInputStream("assets/Ical/Gruppe_B.ics");
         builder = new CalendarBuilder();
         calendar = builder.build(fin);
         calendarVariations.add(calendar);
         
-        fin = new FileInputStream("assets/Ical/basic2.ics");
+        fin = new FileInputStream("assets/Ical/Gruppe_C.ics");
         builder = new CalendarBuilder();
         calendar = builder.build(fin);
         calendarVariations.add(calendar);
     }
 
-
     private static Calendar getCalender() {
         Random rnd = new Random();
-        Calendar calendar = calendarVariations.get(rnd.nextInt(calendarVariations.size() + 1));        
+        Calendar calendar = calendarVariations.get(rnd.nextInt(calendarVariations.size()));
         return calendar;
     }
 
     public static void calendarOutput(Calendar calendar) {
-        
+
         //Iteriert die einzelnen Event-Komponenten
         for (Iterator i = calendar.getComponents().iterator(); i.hasNext();) {
             Component component = (Component) i.next();
@@ -108,6 +109,5 @@ public class CalendarManager {
                 System.out.println("Property [" + property.getName() + ", " + property.getValue() + "]");
             }
         }
-
     }
 }
