@@ -85,6 +85,7 @@ public class UserManager {
             User u = userSymbolList.get(object.getSymbolID());
             userList.remove(u.userSessionID);
             removedUsers.add(u);
+            u.restart();
             System.out.println("User Symbol removed!");
         }
     }

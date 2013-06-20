@@ -24,6 +24,7 @@ public class User {
     long lastActiveTime = 0;
     Card card;
     private boolean loggedIn = false;
+    private boolean restart = false;
     
     public User(TuioObject object) {
         this.tuioSymbolID = object.getSymbolID();
@@ -51,6 +52,14 @@ public class User {
 
     public boolean isLoggedIn() {
         return loggedIn;
+    }
+
+    public boolean isRestart() {
+        return restart;
+    }
+    
+    void restart() {
+        restart = true;
     }
     
     void logout() {
