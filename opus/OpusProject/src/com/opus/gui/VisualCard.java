@@ -38,9 +38,7 @@ public class VisualCard extends Node implements Updateable {
     Geometry cardGeom;
 
     public VisualCard(Card card, AssetManager assetManager) {
-
-        cardGeom = new Geometry("Card_" + card.getOwner().getTuioSymbolID(), new Box(Vector3f.ZERO, 1, 1, 1));
-
+   
         this.card = card;
         quadrantControl = new QuadrantControl();
 
@@ -50,12 +48,6 @@ public class VisualCard extends Node implements Updateable {
         startUserFrame = new StartUserFrame(this);
         this.setFrame(startUserFrame);
 
-        Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        mat.setColor("Color", ColorRGBA.Blue);
-        cardGeom.setMaterial(mat);
-        cardGeom.setLocalScale(10);
-
-        this.attachChild(cardGeom);
         frameChooser = new FrameChooserMenu(this);
         this.attachChild(frameChooser);
 
