@@ -18,20 +18,20 @@ import com.opus.logic.NewsManager;
  *
  * @author Senju
  */
-public class NewsFrameContentHSHL extends AbstractFrameContent {
+public class NewsFrameContentGoogle extends AbstractFrameContent {
 
     private int userID = -1;
     private int newsID = -1;
     private int initValue;
     
-    public NewsFrameContentHSHL(AbstractUserFrame parent) {
+    public NewsFrameContentGoogle(AbstractUserFrame parent) {
         super(parent);
         userID = parent.getCard().getCard().getOwner().getUserSessionID();
         // !!!!!!!!!!! newsID:
         // NewsManager.getInstance().getHshlNewsCounter() -1 = letzte HSHL news
         // NewsManager.getInstance().getHshlNewsCounter()    = erste Google news
         // NewsManager.getInstance().getHshlNewsCounter() + NewsManager.getInstance().getGoogleNewsCounter() - 1 = letzte google news
-        newsID = 0;
+        newsID = NewsManager.getInstance().getHshlNewsCounter();
         initValue = newsID;
     }
     
@@ -41,7 +41,7 @@ public class NewsFrameContentHSHL extends AbstractFrameContent {
 
     @Override
     public void createContent() {
-        System.out.println("newsID HSHL: " + newsID);
+        System.out.println("newsID Google: " + newsID);
         Heading h1 = new Heading(false, new ColorRGBA(42f/255f, 101f/255f, 137f/255f,1f));
         //get(0) bedeutet, der erste Newseintrag - Überschrift
         String heading = NewsManager.getInstance().getUserNews(userID).get(newsID).getTitle();
@@ -79,12 +79,11 @@ public class NewsFrameContentHSHL extends AbstractFrameContent {
         attachChild(qrTest);
     }
     
-
     public void changeContent(int rotation) {
             destroyContent();
             switch(rotation){
                 case 1: 
-                    if(newsID == (NewsManager.getInstance().getHshlNewsCounter() -1)){
+                    if(newsID == (NewsManager.getInstance().getHshlNewsCounter() + NewsManager.getInstance().getGoogleNewsCounter() - 1)){
                         newsID = initValue;
                     } else{
                         newsID++;
@@ -92,13 +91,13 @@ public class NewsFrameContentHSHL extends AbstractFrameContent {
                     break;
                 case -1:
                     if (newsID == initValue){
-                        newsID = NewsManager.getInstance().getHshlNewsCounter() -1;
+                        newsID = NewsManager.getInstance().getHshlNewsCounter() + NewsManager.getInstance().getGoogleNewsCounter() - 1;
                     } else{
                         newsID--;
                     }
                     break;
                 default:
-                    System.out.print("NewsFrameContentHSHL - changeContent: DEFAULT CASE" + "\n");
+                    System.out.print("NewsFrameContentGoogle - changeContent: DEFAULT CASE" + "\n");
                     break;
             }
             createContent();

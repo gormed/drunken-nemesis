@@ -85,9 +85,9 @@ public class NewsUserFrameFirst extends AbstractUserFrame implements QuadrantLis
     }
 
     @Override
-    public void changeQuadrant(int quad) {
+    public void changeQuadrant(int currentQuad, int lastQuad) {
         
-       switch(quad){
+       switch(currentQuad){
            case 0:
               if(!this.getContent().equals(newsFrameContentFirstHSHL)) {
                 this.changeContent(newsFrameContentFirstHSHL);

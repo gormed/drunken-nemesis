@@ -39,5 +39,10 @@ public class SampleNewsFrameContent extends AbstractFrameContent {
        // message.setLocalTranslation(-message.getLineWidth()*0.5f, -message.getLineHeight()*message.getLineCount()*0.5f, 0);
         attachChild(message);
     }
+
+    @Override
+    public void changeContent(int rotation) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
     
 }
