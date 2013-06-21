@@ -158,13 +158,14 @@ public class VisualCard extends Node implements Updateable {
 
     public interface QuadrantListener {
 
-        public void changeQuadrant(int quad);
+        public void changeQuadrant(int currentQuadrant, int lastQuadrant);
     }
 
     private class QuadrantControl {
 
         int maxQuadrants = 0;
         int currentQuadrant = 0;
+        int lastQuadrant = 0;
         ArrayList<QuadrantListener> quadrantListeners = new ArrayList<QuadrantListener>();
 
         public QuadrantControl() {
@@ -189,10 +190,11 @@ public class VisualCard extends Node implements Updateable {
             for (int i = 1; i < maxQuadrants + 1; i++) {
                 //System.out.println("Quad: " + (i * seg) + " i: " + i);
                 if (deg < (i * seg) && deg >= ((i - 1) * seg) && currentQuadrant != (i - 1)) {
+                    lastQuadrant = currentQuadrant;
                     currentQuadrant = i - 1;
-                    System.out.println("quadrant change: " + currentQuadrant);
+                    System.out.println("quadrant change: " + currentQuadrant + " - lastQuadrant: " + lastQuadrant);
                     for (QuadrantListener l : quadrantListeners) {
-                        l.changeQuadrant(currentQuadrant);
+                        l.changeQuadrant(currentQuadrant, lastQuadrant);
                     }
                     break;
                 }

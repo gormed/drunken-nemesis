@@ -26,19 +26,17 @@ import java.util.Random;
  */
 public class NewsUserFrameGoogle extends AbstractUserFrame implements QuadrantListener{
     public static final int diameter = 300;
-      private  AbstractFrameContent newsFrameContentHSHL;
+      private  AbstractFrameContent newsFrameContentGoogle;
         private AbstractFrameMenu newsFrameMenuGoogle;
 
     public NewsUserFrameGoogle(VisualCard card) {
         super(card);
         
-        newsFrameContentHSHL = new NewsFrameContentHSHL(this);   
-        setContent(newsFrameContentHSHL);
+        newsFrameContentGoogle = new NewsFrameContentGoogle(this);   
+        setContent(newsFrameContentGoogle);
         newsFrameMenuGoogle = new NewsFrameMenuGoogle(this);
         setMenu(newsFrameMenuGoogle);
         
-        card.setMaxQuadrants(2);
-        card.addQuadrantListener(this);
     }
     
     @Override
@@ -51,6 +49,9 @@ public class NewsUserFrameGoogle extends AbstractUserFrame implements QuadrantLi
         this.attachChild(background);
         background.attachChild(content);
         background.attachChild(menu);
+        
+        card.setMaxQuadrants(4);
+        card.addQuadrantListener(this);
     }
     
    
@@ -82,13 +83,26 @@ public class NewsUserFrameGoogle extends AbstractUserFrame implements QuadrantLi
     }
 
     @Override
-    public void changeQuadrant(int quad) {
-       switch(quad){
-           case 0:
-               break;
-           case 1: 
-               break;
-       }
-    }
-   
+    public void changeQuadrant(int currentQuad, int lastQuad) {
+        //Marker wird nach rechts gedreht, außer Sonderfall: Sprung
+        if (currentQuad > lastQuad) {
+            //Check, ob gesprungen wird von 0 nach 3
+            if (currentQuad == 3 && lastQuad == 0) {
+                newsFrameContentGoogle.changeContent(-1);
+            } else {
+                newsFrameContentGoogle.changeContent(1);
+            }
+        } //Marker wird nach links gedreht, außer Sonderfall: Sprung 
+        else {
+            if(currentQuad < lastQuad){
+                //Check, ob gesprungen wird von 3 nach 0
+                if(currentQuad == 0 && lastQuad == 3){
+                    newsFrameContentGoogle.changeContent(1);
+                }
+                else{
+                    newsFrameContentGoogle.changeContent(-1);
+                }
+            }
+        }
+    }   
 }

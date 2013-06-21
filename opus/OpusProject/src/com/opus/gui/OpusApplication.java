@@ -35,7 +35,7 @@ public class OpusApplication extends SimpleApplication {
         super();
         
         //Blockiert INFO-Output der Console - "Sry Engine :)"
-        //Logger.getLogger( "" ).setLevel( Level.WARNING );
+        Logger.getLogger( "" ).setLevel( Level.WARNING );
         
         userManager = UserManager.getInstance();
         newsManager = NewsManager.getInstance();

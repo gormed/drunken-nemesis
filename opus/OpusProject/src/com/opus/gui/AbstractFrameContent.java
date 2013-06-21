@@ -54,5 +54,5 @@ public abstract class AbstractFrameContent extends Node implements Updateable {
         this.attachChild(clickArea);
     }
     
-    
+    public abstract void changeContent(int rotation); 
 }

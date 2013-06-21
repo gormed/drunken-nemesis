@@ -187,4 +187,9 @@ public class CalendarFrameContent extends AbstractFrameContent {
         System.out.println(inputDate + " was a " + dayFormat.format(format.parse(inputDate)));
         return dayFormat.format(format.parse(inputDate));
     }
+
+    @Override
+    public void changeContent(int rotation) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

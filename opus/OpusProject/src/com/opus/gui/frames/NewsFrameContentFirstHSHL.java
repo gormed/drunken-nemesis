@@ -49,6 +49,11 @@ public class NewsFrameContentFirstHSHL extends AbstractFrameContent {
         h1.setLocalTranslation(-h1.getLineWidth()*0.5f, 0, 1.0f);
         attachChild(h1);
     }
+
+    @Override
+    public void changeContent(int rotation) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
     
 }
 

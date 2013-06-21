@@ -37,8 +37,6 @@ public class NewsUserFrameHSHL extends AbstractUserFrame implements QuadrantList
         newsFrameMenuGoogle = new NewsFrameMenuHSHL(this);
         setMenu(newsFrameMenuGoogle);
         
-        card.setMaxQuadrants(2);
-        card.addQuadrantListener(this);
     }
     
     @Override
@@ -52,7 +50,7 @@ public class NewsUserFrameHSHL extends AbstractUserFrame implements QuadrantList
         background.attachChild(content);
         background.attachChild(menu);
         
-        card.setMaxQuadrants(2);
+        card.setMaxQuadrants(4);
         card.addQuadrantListener(this);  
     }
     
@@ -82,21 +80,28 @@ public class NewsUserFrameHSHL extends AbstractUserFrame implements QuadrantList
     @Override
     protected int getDiameter() {
         return diameter;
+    }    
+
+    public void changeQuadrant(int currentQuad, int lastQuad) {
+        //Marker wird nach rechts gedreht, außer Sonderfall: Sprung
+        if (currentQuad > lastQuad) {
+            //Check, ob gesprungen wird von 0 nach 3
+            if (currentQuad == 3 && lastQuad == 0) {
+                newsFrameContentHSHL.changeContent(-1);
+            } else {
+                newsFrameContentHSHL.changeContent(1);
+            }
+        } //Marker wird nach links gedreht, außer Sonderfall: Sprung 
+        else {
+            if(currentQuad < lastQuad){
+                //Check, ob gesprungen wird von 3 nach 0
+                if(currentQuad == 0 && lastQuad == 3){
+                    newsFrameContentHSHL.changeContent(1);
+                }
+                else{
+                    newsFrameContentHSHL.changeContent(-1);
+                }
+            }
+        }
     }
-
-    @Override
-    public void changeQuadrant(int quad) {
-       switch(quad){
-           case 0:
-               
-               break;
-           case 1: 
-               
-               break;
-       }
-    }
-    
-
-
-    
 }
