@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import twitter4j.Query;
@@ -20,6 +21,7 @@ import twitter4j.TwitterFactory;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
 import twitter4j.conf.ConfigurationBuilder;
+import twitter4j.examples.tweets.GetRetweets;
 
 /**
  *
@@ -30,6 +32,10 @@ public class BlackboardManager {
     // Token: 1531890990-w1hDA3K7IHeluVkt25LLmhxurJJswM8xkzQpO4b
     // Secret: h9GhUQNsLvKJmFPrV1bOLygRXkXkyLONgXI6g
     // Singleton
+    
+    
+    
+    
     private BlackboardManager() {
         ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true)
@@ -53,12 +59,30 @@ public class BlackboardManager {
     }
     // Class
     Twitter twitter;
-    ArrayList<BlackboardTweet> blackboardTweets = new ArrayList<BlackboardTweet>();
+    static ArrayList<BlackboardTweet> blackboardTweets = new ArrayList<BlackboardTweet>();
+    static HashMap correlation = new HashMap();
+    
+    public static void addUser(int ID) {
+        try {
+            ArrayList<BlackboardTweet> tweets = blackboardTweets;
+            correlation.put(ID, tweets);
+        } catch (Exception e) {
+            System.out.println("BlckboardManager - addUser: " + e);
+        }
+    }
 
+    public static ArrayList<BlackboardTweet> getUserTweets(int ID) {
+        ArrayList<BlackboardTweet> result = null;
+        if (correlation.containsKey(ID)) {
+            result = (ArrayList<BlackboardTweet>) correlation.get(ID);
+        }
+        return result;
+    }
+    
     public class BlackboardTweet implements Comparable<BlackboardTweet> {
-        String username;
-        String tweet;
-        Date time;
+        public String username;
+        public String tweet;
+        public Date time;
 
         @Override
         public int compareTo(BlackboardTweet t) {
@@ -78,7 +102,7 @@ public class BlackboardManager {
     
     private void getBlackboardTweets() {
         try {
-            Query query = new Query("@HSHLBlackboard #hshlblackboard");
+            Query query = new Query("HSHLBlackboard #hshlblackboard");
             QueryResult result = twitter.search(query);
             for (Status status : result.getTweets()) {
                 blackboardTweets.add(new BlackboardTweet(status.getUser().getScreenName(), status.getText(), status.getCreatedAt()));

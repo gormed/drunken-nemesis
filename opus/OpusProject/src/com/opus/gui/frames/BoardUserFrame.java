@@ -10,6 +10,7 @@ import com.opus.gui.AbstractUserFrame;
 import com.opus.gui.FrameChooserMenu;
 import com.opus.gui.OpusApplication;
 import com.opus.gui.VisualCard;
+import com.opus.gui.VisualCard.QuadrantListener;
 import com.opus.gui.elements.Heading;
 import com.opus.logic.Card;
 import com.opus.logic.User;
@@ -21,26 +22,37 @@ import java.util.Random;
  *
  * @author Hans
  */
-public class BoardUserFrame extends AbstractUserFrame {
+public class BoardUserFrame extends AbstractUserFrame implements QuadrantListener{
     public static final int diameter = 300;
+    private final BoardFrameMenu boardFrameMenu;
+    private final BoardFrameContent boardFrameContent;
    
 
     public BoardUserFrame(VisualCard card) {
         super(card);
-        setMenu(new BoardFrameMenu(this));
-        setContent(new BoardFrameContent(this));
+        boardFrameMenu = new BoardFrameMenu(this);
+        boardFrameContent = new BoardFrameContent(this);
+        
+        
+        setMenu(boardFrameMenu);
+        setContent(boardFrameContent);
+        
+        menu.createMenu();
+        content.createContent();
     }
     
     @Override
     public void createFrame() {
         detachAllChildren();
-        menu.createMenu();
-        content.createContent();
+
         createSampleBackground();
         
         this.attachChild(background);
         background.attachChild(content);
         background.attachChild(menu);
+        
+        card.setMaxQuadrants(4);
+        card.addQuadrantListener(this);
     }
     
    
@@ -65,6 +77,7 @@ public class BoardUserFrame extends AbstractUserFrame {
     @Override
     public void update(float tpf) {
         super.update(tpf);
+
     }
 
     @Override
@@ -73,6 +86,28 @@ public class BoardUserFrame extends AbstractUserFrame {
     }
     
 
+    public void changeQuadrant(int currentQuad, int lastQuad) {
+        //Marker wird nach rechts gedreht, außer Sonderfall: Sprung
+        if (currentQuad > lastQuad) {
+            //Check, ob gesprungen wird von 0 nach 3
+            if (currentQuad == 3 && lastQuad == 0) {
+                content.changeContent(-1);
+            } else {
+                content.changeContent(1);
+            }
+        } //Marker wird nach links gedreht, außer Sonderfall: Sprung 
+        else {
+            if(currentQuad < lastQuad){
+                //Check, ob gesprungen wird von 3 nach 0
+                if(currentQuad == 0 && lastQuad == 3){
+                    content.changeContent(1);
+                }
+                else{
+                    content.changeContent(-1);
+                }
+            }
+        }
+    } 
 
     
 }
