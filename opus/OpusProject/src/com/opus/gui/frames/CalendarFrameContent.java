@@ -46,6 +46,12 @@ public class CalendarFrameContent extends AbstractFrameContent {
     public CalendarFrameContent(AbstractUserFrame parent) {
         super(parent);
         userID = parent.getCard().getCard().getOwner().getUserSessionID();
+        Calendar calendar = CalendarManager.getInstance().getUserCalendar(userID);
+
+        initContent(calendar);
+        /*initDTSTARTint();*/
+        initProperties();
+        sortProperties();
     }
 
     @Override
@@ -58,12 +64,7 @@ public class CalendarFrameContent extends AbstractFrameContent {
         detachAllChildren();
         //Calendar auf der Console ausgeben
         //CalendarManager.getInstance().calendarOutput(CalendarManager.getInstance().getUserCalendar(userID));
-        Calendar calendar = CalendarManager.getInstance().getUserCalendar(userID);
-
-        initContent(calendar);
-        /*initDTSTARTint();*/
-        initProperties();
-        sortProperties();
+        
         /*testOutput();*/
         //QuickSort.getInstance().sortArray(propertiesDTSTART, 0, propertiesDTSTART.size()-1);
 
