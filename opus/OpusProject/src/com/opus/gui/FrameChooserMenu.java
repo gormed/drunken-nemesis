@@ -70,8 +70,7 @@ public class FrameChooserMenu extends Node implements Updateable {
                 else {
                     startPosition = false;
                     
-                }
-                
+                }  
                 animationAngle = desiredAngle;
                 currentAnimationTime = 0;
             }

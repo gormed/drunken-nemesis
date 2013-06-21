@@ -28,6 +28,8 @@ public class CalendarFrameMenu extends AbstractFrameMenu  {
 
     @Override
     public void createMenu() {
+        
+        this.detachAllChildren();
         addMenuEntry(new AbstractFrameMenuEntry(this) {
 
             @Override

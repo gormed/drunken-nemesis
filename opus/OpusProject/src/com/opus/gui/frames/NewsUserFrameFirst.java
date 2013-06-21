@@ -39,13 +39,13 @@ public class NewsUserFrameFirst extends AbstractUserFrame implements QuadrantLis
         setContent(newsFrameContentFirstHSHL);
         
         newsFrameMenuFirst = new NewsFrameMenuFirst(this);
+        newsFrameMenuFirst.createMenu();
         setMenu(newsFrameMenuFirst);
         
     }
     
     @Override
     public void createFrame() {
-        menu.createMenu();
         createSampleBackground();
         
         this.attachChild(background);
@@ -91,14 +91,13 @@ public class NewsUserFrameFirst extends AbstractUserFrame implements QuadrantLis
            case 0:
               if(!this.getContent().equals(newsFrameContentFirstHSHL)) {
                 this.changeContent(newsFrameContentFirstHSHL);
-                //this.menu.setEntryBackground(quad, new Color(222,222,222));
-                
+                menu.showMenuBackground(1);
             }
                break;
            case 1: 
               if(!this.getContent().equals(newsFrameContentFirstGoogle)) {
                 this.changeContent(newsFrameContentFirstGoogle);
-                //this.menu.setEntryBackground(quad, new Color(222,222,222));
+                menu.showMenuBackground(0);
             }
                break;
            default:
