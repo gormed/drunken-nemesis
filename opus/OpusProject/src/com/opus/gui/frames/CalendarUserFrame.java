@@ -22,40 +22,39 @@ import java.util.Random;
  *
  * @author Hans
  */
-public class CalendarUserFrame extends AbstractUserFrame implements QuadrantListener{
+public class CalendarUserFrame extends AbstractUserFrame implements QuadrantListener {
+
     public static final int diameter = 300;
     private final CalendarFrameMenu calendarFrameMenu;
     private final CalendarFrameContent calendarFrameContent;
-   
 
     public CalendarUserFrame(VisualCard card) {
         super(card);
         calendarFrameMenu = new CalendarFrameMenu(this);
         calendarFrameContent = new CalendarFrameContent(this);
-        
-        
+
         setMenu(calendarFrameMenu);
         setContent(calendarFrameContent);
+        
+                menu.createMenu();
+        content.createContent();
     }
-    
+
     @Override
     public void createFrame() {
         detachAllChildren();
-        menu.createMenu();
-        content.createContent();
+
         createSampleBackground();
-        
+
         this.attachChild(background);
         background.attachChild(content);
         background.attachChild(menu);
-        
-        card.setMaxQuadrants(4);
+
+        card.setMaxQuadrants(7);
         card.addQuadrantListener(this);
     }
-    
-   
-    
-    private void createSampleBackground() {        
+
+    private void createSampleBackground() {
         Random randomGenerator = new Random(System.currentTimeMillis());
         int borderAngle = 0;
         int innerAngle = 360;
@@ -64,11 +63,11 @@ public class CalendarUserFrame extends AbstractUserFrame implements QuadrantList
         Color innerColor = new Color(255, 255, 255);
         //Color randomInnerColor = new Color(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));       
         background = new Circle(OpusApplication.getInstance().getAssetManager(), diameter, 10, randomBorderColor, borderAngle, innerColor, innerAngle);
-        background.setLocalTranslation(0,-diameter/3,0);
-        
+        background.setLocalTranslation(0, -diameter / 3, 0);
+
         //circle.setLocalTranslation(100, 100, 0);
         // use z-axis to rotate
-        float[] angles = {0,0,(float) Math.PI};
+        float[] angles = {0, 0, (float) Math.PI};
         background.setLocalRotation(new Quaternion(angles));
     }
 
@@ -82,30 +81,53 @@ public class CalendarUserFrame extends AbstractUserFrame implements QuadrantList
     protected int getDiameter() {
         return diameter;
     }
-    
 
     public void changeQuadrant(int currentQuad, int lastQuad) {
         //Marker wird nach rechts gedreht, außer Sonderfall: Sprung
+        switch (currentQuad) {
+            case 0:
+                menu.showMenuBackground(6);
+                break;
+            case 1:
+                menu.showMenuBackground(5);
+                break;
+            case 2:
+                menu.showMenuBackground(4);
+                break;
+            case 3:
+                menu.showMenuBackground(3);
+                break;
+            case 4:
+                menu.showMenuBackground(2);
+                break;
+            case 5:
+                menu.showMenuBackground(1);
+                break;
+                case 6:
+                menu.showMenuBackground(0);
+                break;
+            default:
+                break;
+
+        }
+
         if (currentQuad > lastQuad) {
             //Check, ob gesprungen wird von 0 nach 3
-            if (currentQuad == 3 && lastQuad == 0) {
+            if (currentQuad == 6 && lastQuad == 0) {
                 content.changeContent(-1);
             } else {
                 content.changeContent(1);
             }
         } //Marker wird nach links gedreht, außer Sonderfall: Sprung 
         else {
-            if(currentQuad < lastQuad){
+            if (currentQuad < lastQuad) {
                 //Check, ob gesprungen wird von 3 nach 0
-                if(currentQuad == 0 && lastQuad == 3){
+                if (currentQuad == 0 && lastQuad == 6) {
                     content.changeContent(1);
-                }
-                else{
+                } else {
                     content.changeContent(-1);
                 }
             }
         }
-    } 
-
-    
+    }
 }
