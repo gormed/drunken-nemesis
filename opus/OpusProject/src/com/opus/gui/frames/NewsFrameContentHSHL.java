@@ -41,7 +41,7 @@ public class NewsFrameContentHSHL extends AbstractFrameContent {
 
     @Override
     public void createContent() {
-        System.out.println("newsID HSHL: " + newsID);
+        //System.out.println("newsID HSHL: " + newsID);
         Heading h1 = new Heading(false, new ColorRGBA(42f/255f, 101f/255f, 137f/255f,1f));
         //get(0) bedeutet, der erste Newseintrag - Überschrift
         String heading = NewsManager.getInstance().getUserNews(userID).get(newsID).getTitle();

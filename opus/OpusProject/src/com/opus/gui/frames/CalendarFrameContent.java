@@ -34,6 +34,8 @@ public class CalendarFrameContent extends AbstractFrameContent {
 
     private int userID = -1;
     private int actualDate = Integer.parseInt(getDate());
+    private int initValue;
+    
     private int dayID = 0;
     private int dayComponentNumber = 0;
     private ArrayList<String> propertiesDTSTART = new ArrayList<String>(0);
@@ -46,6 +48,7 @@ public class CalendarFrameContent extends AbstractFrameContent {
     public CalendarFrameContent(AbstractUserFrame parent) {
         super(parent);
         userID = parent.getCard().getCard().getOwner().getUserSessionID();
+        initValue = dayID;
     }
 
     @Override
@@ -110,6 +113,7 @@ public class CalendarFrameContent extends AbstractFrameContent {
     }
 
     public void initContent(Calendar calendar) {
+        System.out.println("dayID: " + dayID);
         //Iteriert die einzelnen Termine
         for (Iterator i = calendar.getComponents().iterator(); i.hasNext();) {
             Component component = (Component) i.next();
@@ -184,8 +188,27 @@ public class CalendarFrameContent extends AbstractFrameContent {
         return dayFormat.format(format.parse(inputDate));
     }
 
-    @Override
     public void changeContent(int rotation) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+            destroyContent();
+            switch(rotation){
+                case 1: 
+                    if(dayID == 7){
+                        dayID = initValue;
+                    } else{
+                        dayID++;
+                    }
+                    break;
+                case -1:
+                    if (dayID == initValue){
+                        dayID = 7;
+                    } else{
+                        dayID--;
+                    }
+                    break;
+                default:
+                    System.out.print("NewsFrameContentGoogle - changeContent: DEFAULT CASE" + "\n");
+                    break;
+            }
+            createContent();
+    } 
 }
