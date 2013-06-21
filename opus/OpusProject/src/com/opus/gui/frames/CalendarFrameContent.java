@@ -55,6 +55,7 @@ public class CalendarFrameContent extends AbstractFrameContent {
 
     @Override
     public void createContent() {
+        detachAllChildren();
         //Calendar auf der Console ausgeben
         //CalendarManager.getInstance().calendarOutput(CalendarManager.getInstance().getUserCalendar(userID));
         Calendar calendar = CalendarManager.getInstance().getUserCalendar(userID);
@@ -84,7 +85,7 @@ public class CalendarFrameContent extends AbstractFrameContent {
             String start = properties.get(dayID + i).getDTSTART();
             start = start.substring(9, 11) + ":" + start.substring(11, 13);
             String end = properties.get(dayID + i).getDTEND();
-            end = end.substring(9, 11) + ":" + end.substring(11, 13);;
+            end = end.substring(9, 11) + ":" + end.substring(11, 13);
             input = input + properties.get(dayID + i).getSUMMARY() + ":  " + start + " - " + end + " - " + properties.get(dayID + i).getLOCATION() + "\n";
         }
 
@@ -98,8 +99,10 @@ public class CalendarFrameContent extends AbstractFrameContent {
         attachChild(h1);
         Text message = new Text(false, new ColorRGBA(42f / 255f, 101f / 255f, 137f / 255f, 1f));
         message.setBox(new Rectangle(-100, 60, 200, 200));
-        System.out.println(input);
+        
+      
         message.setText(input);
+        System.out.println(dayComponentNumber + input);
         // message.setLocalTranslation(-message.getLineWidth()*0.5f, -message.getLineHeight()*message.getLineCount()*0.5f, 0);
         attachChild(message);
 

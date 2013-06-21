@@ -63,6 +63,7 @@ public class VisualCard extends Node implements Updateable {
 
     public void setFrame(AbstractUserFrame frame) {
         if (this.frame != null) {
+            
             this.detachChild(this.frame);
         }
         this.frame = frame;
