@@ -43,6 +43,7 @@ public class NewsUserFrameGoogle extends AbstractUserFrame implements QuadrantLi
     
     @Override
     public void createFrame() {
+        detachAllChildren();
         menu.createMenu();
         content.createContent();
         createSampleBackground();

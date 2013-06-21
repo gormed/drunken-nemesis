@@ -39,6 +39,7 @@ public class CalendarUserFrame extends AbstractUserFrame {
     
     @Override
     public void createFrame() {
+        detachAllChildren();
         menu.createMenu();
         content.createContent();
         createSampleBackground();
