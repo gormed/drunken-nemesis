@@ -40,7 +40,7 @@ public class BorderMenu extends Circle implements Clickable3D {
         //circle.setLocalTranslation(100, 100, 0);
         // use z-axis to rotate
 
-        setLocalTranslation(0, 80, 0.5f);
+        setLocalTranslation(0, 100, 0.5f);
     }
 
     @Override

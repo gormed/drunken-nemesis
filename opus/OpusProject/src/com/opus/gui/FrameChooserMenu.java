@@ -81,7 +81,7 @@ public class FrameChooserMenu extends Node implements Updateable {
                 interpolation = (1- (currentAnimationTime/animationTime));
                 ArrayList<BorderMenu> borderMenus = getBorderMenus();
                  for(BorderMenu bm :borderMenus ){
-                     bm.setLocalTranslation(0, interpolation * 90 + 80, 0.5f);
+                     bm.setLocalTranslation(0, interpolation * 70 + 100, 0.5f);
                  }
                  setLocalTranslation(0, interpolation * (-100), 0);
             }
@@ -89,7 +89,7 @@ public class FrameChooserMenu extends Node implements Updateable {
                 interpolation = currentAnimationTime/animationTime;
                 ArrayList<BorderMenu> borderMenus = getBorderMenus();
                  for(BorderMenu bm :borderMenus ){
-                     bm.setLocalTranslation(0, interpolation * 90 + 80, 0.5f);
+                     bm.setLocalTranslation(0, interpolation * 70 + 100, 0.5f);
                  }
                  setLocalTranslation(0, interpolation * (-100), 0);
             }           
