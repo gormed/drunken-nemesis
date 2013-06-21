@@ -64,7 +64,7 @@ public class CalendarFrameContent extends AbstractFrameContent {
 
     @Override
     public void createContent() {
-       
+        System.out.println("dayID: " + dayID);
         //Calendar auf der Console ausgeben
         //CalendarManager.getInstance().calendarOutput(CalendarManager.getInstance().getUserCalendar(userID));
         
@@ -180,7 +180,6 @@ public class CalendarFrameContent extends AbstractFrameContent {
     private String getDate() {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
         Date currentDate = new Date();
-        System.out.println("get DATE: " + formatter.format(currentDate));
         return formatter.format(currentDate);
     }
 
@@ -188,7 +187,6 @@ public class CalendarFrameContent extends AbstractFrameContent {
         SimpleDateFormat dayFormat = new SimpleDateFormat( "EEEE" );
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
         String inputDate = date;
-        System.out.println(inputDate + " was a " + dayFormat.format(format.parse(inputDate)));
         return dayFormat.format(format.parse(inputDate));
     }
 
