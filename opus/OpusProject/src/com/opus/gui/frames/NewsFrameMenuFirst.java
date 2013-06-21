@@ -37,6 +37,7 @@ public class NewsFrameMenuFirst extends AbstractFrameMenu {
     @Override
     public void createMenu() {
        
+        this.detachAllChildren();
         addMenuEntry(new AbstractFrameMenuEntry(this) {
 
             @Override
@@ -48,16 +49,15 @@ public class NewsFrameMenuFirst extends AbstractFrameMenu {
 
             @Override
             protected void createEntry() {
-                createRotated(this, (float) (0.6666f * Math.PI), "Google News");
+                createRotated(this, (float) (0.6666f * Math.PI), "HSHL News");
             }
         });
        getFrameMenuEntrys().get(0).setBackground(createBackground(0.333f, new Color(203, 75, 59)));
        getFrameMenuEntrys().get(1).setBackground(createBackground(0.666f, new Color(203, 75, 59)));
-       
-        
-      
-        
+       showMenuBackground(1);
     }
+    
+    
     
     private BitmapText createRotated(AbstractFrameMenuEntry menuentry, float angle, String title) {
         Text entry = new Text(false);

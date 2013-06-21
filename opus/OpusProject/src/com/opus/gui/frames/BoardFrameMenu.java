@@ -27,6 +27,7 @@ public class BoardFrameMenu extends AbstractFrameMenu {
 
     @Override
     public void createMenu() {
+        this.detachAllChildren();
         addMenuEntry(new AbstractFrameMenuEntry(this) {
 
             @Override

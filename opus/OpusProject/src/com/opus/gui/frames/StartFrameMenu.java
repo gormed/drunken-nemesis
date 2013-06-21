@@ -27,6 +27,7 @@ public class StartFrameMenu extends AbstractFrameMenu {
     @Override
     public void createMenu() {
         
+        this.detachAllChildren();
     }
 
     private BitmapText createRotated(AbstractFrameMenuEntry menuentry, float angle, String title) {
