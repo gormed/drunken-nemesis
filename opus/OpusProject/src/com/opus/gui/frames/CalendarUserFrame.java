@@ -23,12 +23,18 @@ import java.util.Random;
  */
 public class CalendarUserFrame extends AbstractUserFrame {
     public static final int diameter = 300;
+    private final CalendarFrameMenu calendarFrameMenu;
+    private final CalendarFrameContent calendarFrameContent;
    
 
     public CalendarUserFrame(VisualCard card) {
         super(card);
-        setMenu(new CalendarFrameMenu(this));
-        setContent(new CalendarFrameContent(this));
+        calendarFrameMenu = new CalendarFrameMenu(this);
+        calendarFrameContent = new CalendarFrameContent(this);
+        
+        
+        setMenu(calendarFrameMenu);
+        setContent(calendarFrameContent);
     }
     
     @Override

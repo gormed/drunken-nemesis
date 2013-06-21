@@ -38,7 +38,7 @@ public class StartUserFrame extends AbstractUserFrame {
         
         setContent(startFrameContent);
         setMenu(startFrameMenu);
-
+        createSampleBackground();
         
         
     }
@@ -59,7 +59,7 @@ public class StartUserFrame extends AbstractUserFrame {
     
     @Override
     public void createFrame() {
-       createSampleBackground();
+        this.detachAllChildren();
        this.attachChild(background);
         background.attachChild(content);
     }
