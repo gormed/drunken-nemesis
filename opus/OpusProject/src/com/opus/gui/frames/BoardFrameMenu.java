@@ -48,7 +48,7 @@ public class BoardFrameMenu extends AbstractFrameMenu {
 
         float[] angles1 = {0, 0, (float) -(Math.PI / 2)};
         entry.setLocalRotation(new Quaternion(angles1));
-        entry.setLocalTranslation(new Vector3f(0, entry.getLineWidth() * 0.5f, 1f));
+        entry.setLocalTranslation(new Vector3f(0, entry.getLineWidth() * 0.5f, 1.1f));
 
         Vector3f rot = getAngleCoords(angle, 140);
         menuentry.setLocalTranslation(rot);
