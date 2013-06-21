@@ -40,6 +40,7 @@ public class CalendarUserFrame extends AbstractUserFrame implements QuadrantList
     
     @Override
     public void createFrame() {
+        detachAllChildren();
         menu.createMenu();
         content.createContent();
         createSampleBackground();

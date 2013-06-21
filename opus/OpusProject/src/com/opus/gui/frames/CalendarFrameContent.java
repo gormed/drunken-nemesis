@@ -64,7 +64,7 @@ public class CalendarFrameContent extends AbstractFrameContent {
 
     @Override
     public void createContent() {
-        detachAllChildren();
+       
         //Calendar auf der Console ausgeben
         //CalendarManager.getInstance().calendarOutput(CalendarManager.getInstance().getUserCalendar(userID));
         
