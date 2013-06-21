@@ -62,7 +62,7 @@ public class NewsFrameContentGoogle extends AbstractFrameContent {
         
         String headingComplete = "      " + headingLine1 +" -\n" + headingLine2;
         h1.setText(headingComplete + "..");
-        h1.setLocalTranslation(-h1.getLineWidth()*0.5f, 100, 0);
+        h1.setLocalTranslation(-h1.getLineWidth()*0.5f, 80, 0);
         attachChild(h1);
         //Text message = new Text(false, new ColorRGBA(42f/255f, 101f/255f, 137f/255f,1f));
         //message.setBox(new Rectangle(-100, 60, 200, 200));
@@ -74,7 +74,7 @@ public class NewsFrameContentGoogle extends AbstractFrameContent {
         //attachChild(message);
         
         String inputSource = "qrcodes/" + (NewsManager.getInstance().getUserNews(userID).get(newsID).getQrSrc()) + ".png";
-        Vector2f vec = new Vector2f(-65f, -75f);
+        Vector2f vec = new Vector2f(-65f, -95f);
         Image qrTest = new Image(inputSource, vec);
         attachChild(qrTest);
     }
