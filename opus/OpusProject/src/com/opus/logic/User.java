@@ -59,7 +59,7 @@ public class User {
     }
     
     void restart() {
-        restart = true;
+        //restart = true;
     }
     
     void logout() {
@@ -75,7 +75,7 @@ public class User {
     }
 
     public void restarted() {
-        restart = false;
+        //restart = false;
     }
     
     

@@ -136,10 +136,10 @@ public class VisualCard extends Node implements Updateable {
     }
 
     public boolean isRestart() {
-        if (card.getOwner().isRestart()) {
-            card.getOwner().restarted();
-            return true;
-        }
+//        if (card.getOwner().isRestart()) {
+//            card.getOwner().restarted();
+//            return true;
+//        }
         return false;
     }
 
