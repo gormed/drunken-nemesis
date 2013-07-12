@@ -75,13 +75,13 @@ public class VisualCard extends Node implements Updateable {
 
         this.setLocalTransform(rotateUI(Xpos - card.getX(), Ypos - card.getY(), scale));
         if (isRestart()) {
-            this.getFrameChooser().setRestart(true);
-            frameChooser.animate = true;
-            if (!frame.equals(startUserFrame)) {
-                frame.animate = true;
-                this.setFrame(startUserFrame);
-                
-            }
+//            this.getFrameChooser().setRestart(true);
+//            frameChooser.animate = true;
+//            if (!frame.equals(startUserFrame)) {
+//                frame.animate = true;
+//                this.setFrame(startUserFrame);
+//                
+//            }
         }
         frameChooser.update(tpf);
         if (frame != null) {
@@ -130,9 +130,9 @@ public class VisualCard extends Node implements Updateable {
     }
 
     public void logout() {
-//        if (parent != null) {
-//            parent.detachChild(this);
-//        }
+        if (parent != null) {
+            parent.detachChild(this);
+        }
     }
 
     public boolean isRestart() {
