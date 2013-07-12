@@ -128,9 +128,9 @@ public class VisualCard extends Node implements Updateable {
         }
     
     public void logout() {
-        if (parent != null) {
-            parent.detachChild(this);
-        }
+//        if (parent != null) {
+//            parent.detachChild(this);
+//        }
     }
     
     public boolean isRestart() {
