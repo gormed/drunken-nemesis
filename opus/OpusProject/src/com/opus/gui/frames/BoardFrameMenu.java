@@ -27,13 +27,8 @@ public class BoardFrameMenu extends AbstractFrameMenu {
 
     @Override
     public void createMenu() {
-        addMenuEntry(new AbstractFrameMenuEntry(this) {
+        this.detachAllChildren();
 
-            @Override
-            protected void createEntry() {
-                createRotated(this, (float) (0.8f * Math.PI), "...");
-            }
-        });
         addMenuEntry(new AbstractFrameMenuEntry(this) {
 
             @Override
@@ -41,17 +36,9 @@ public class BoardFrameMenu extends AbstractFrameMenu {
                 createRotated(this, (float) (0.5f * Math.PI), "BlackBoard");
             }
         });
-        addMenuEntry(new AbstractFrameMenuEntry(this) {
 
-            @Override
-            protected void createEntry() {
-                createRotated(this, (float) (0.2f * Math.PI), "...");
-            }
-        });
         
-        createBackground(0.2f, new Color(120, 168, 199));
         createBackground(0.5f, new Color(120, 168, 199));
-        createBackground(0.8f, new Color(120, 168, 199));
     }
 
     private BitmapText createRotated(AbstractFrameMenuEntry menuentry, float angle, String title) {
@@ -61,7 +48,7 @@ public class BoardFrameMenu extends AbstractFrameMenu {
 
         float[] angles1 = {0, 0, (float) -(Math.PI / 2)};
         entry.setLocalRotation(new Quaternion(angles1));
-        entry.setLocalTranslation(new Vector3f(0, entry.getLineWidth() * 0.5f, 0));
+        entry.setLocalTranslation(new Vector3f(0, entry.getLineWidth() * 0.5f, 1.1f));
 
         Vector3f rot = getAngleCoords(angle, 140);
         menuentry.setLocalTranslation(rot);

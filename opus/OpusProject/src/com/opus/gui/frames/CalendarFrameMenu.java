@@ -28,47 +28,67 @@ public class CalendarFrameMenu extends AbstractFrameMenu  {
 
     @Override
     public void createMenu() {
-        addMenuEntry(new AbstractFrameMenuEntry(this) {
-
-            @Override
-            protected void createEntry() {
-                createRotated(this, (float) (0.16f * Math.PI), "Freitag");
-            }
-        });
-        addMenuEntry(new AbstractFrameMenuEntry(this) {
-
-            @Override
-            protected void createEntry() {
-                createRotated(this, (float) (0.32f * Math.PI), "Donnerstag");
-            }
-        });
-        addMenuEntry(new AbstractFrameMenuEntry(this) {
-
-            @Override
-            protected void createEntry() {
-                createRotated(this, (float) (0.48f * Math.PI), "Mittwoch");
-            }
-        });
-        addMenuEntry(new AbstractFrameMenuEntry(this) {
-
-            @Override
-            protected void createEntry() {
-                createRotated(this, (float) (0.64f * Math.PI), "Dienstag");
-            }
-        });
-        addMenuEntry(new AbstractFrameMenuEntry(this) {
-
-            @Override
-            protected void createEntry() {
-                createRotated(this, (float) (0.8f * Math.PI), "Montag");
-            }
-        });
         
-        createBackground(0.16f, new Color(227, 179, 80));
-        createBackground(0.32f, new Color(227, 179, 80));
-        createBackground(0.48f, new Color(227, 179, 80));
-        createBackground(0.64f, new Color(227, 179, 80));
-        createBackground(0.8f, new Color(227, 179, 80));
+        this.detachAllChildren();
+        addMenuEntry(new AbstractFrameMenuEntry(this) {
+
+            @Override
+            protected void createEntry() {
+                createRotated(this, (float) (0f * Math.PI), "Sonntag");
+            }
+        });
+        addMenuEntry(new AbstractFrameMenuEntry(this) {
+
+            @Override
+            protected void createEntry() {
+                createRotated(this, (float) (0.1666f * Math.PI), "Samstag");
+            }
+        });
+        addMenuEntry(new AbstractFrameMenuEntry(this) {
+
+            @Override
+            protected void createEntry() {
+                createRotated(this, (float) (0.333f * Math.PI), "Freitag");
+            }
+        });
+        addMenuEntry(new AbstractFrameMenuEntry(this) {
+
+            @Override
+            protected void createEntry() {
+                createRotated(this, (float) (0.5f * Math.PI), "Donnerstag");
+            }
+        });
+        addMenuEntry(new AbstractFrameMenuEntry(this) {
+
+            @Override
+            protected void createEntry() {
+                createRotated(this, (float) (0.6666f * Math.PI), "Mittwoch");
+            }
+        });
+        addMenuEntry(new AbstractFrameMenuEntry(this) {
+
+            @Override
+            protected void createEntry() {
+                createRotated(this, (float) (0.8333f * Math.PI), "Dienstag");
+            }
+        });
+        addMenuEntry(new AbstractFrameMenuEntry(this) {
+
+            @Override
+            protected void createEntry() {
+                createRotated(this, (float) (1.0f * Math.PI), "Montag");
+            }
+        });
+       getFrameMenuEntrys().get(0).setBackground(createBackground(0f, new Color(227, 179, 80)));
+       getFrameMenuEntrys().get(1).setBackground(createBackground(0.1666f, new Color(227, 179, 80)));
+       getFrameMenuEntrys().get(2).setBackground(createBackground(0.333f, new Color(227, 179, 80)));
+       getFrameMenuEntrys().get(3).setBackground(createBackground(0.5f, new Color(227, 179, 80)));
+       getFrameMenuEntrys().get(4).setBackground(createBackground(0.666f, new Color(227, 179, 80)));
+       getFrameMenuEntrys().get(5).setBackground(createBackground(0.8333f, new Color(227, 179, 80)));
+       getFrameMenuEntrys().get(6).setBackground(createBackground(1.0f, new Color(227, 179, 80)));
+       showMenuBackground(1);
+        
+      
     }
 
     private BitmapText createRotated(AbstractFrameMenuEntry menuentry, float angle, String title) {

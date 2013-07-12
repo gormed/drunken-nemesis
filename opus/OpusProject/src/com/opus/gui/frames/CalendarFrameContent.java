@@ -34,6 +34,8 @@ public class CalendarFrameContent extends AbstractFrameContent {
 
     private int userID = -1;
     private int actualDate = Integer.parseInt(getDate());
+    private int initValue;
+    
     private int dayID = 0;
     private int dayComponentNumber = 0;
     private ArrayList<String> propertiesDTSTART = new ArrayList<String>(0);
@@ -46,6 +48,13 @@ public class CalendarFrameContent extends AbstractFrameContent {
     public CalendarFrameContent(AbstractUserFrame parent) {
         super(parent);
         userID = parent.getCard().getCard().getOwner().getUserSessionID();
+        initValue = dayID;
+        Calendar calendar = CalendarManager.getInstance().getUserCalendar(userID);
+
+        initContent(calendar);
+        /*initDTSTARTint();*/
+        initProperties();
+        sortProperties();
     }
 
     @Override
@@ -55,14 +64,10 @@ public class CalendarFrameContent extends AbstractFrameContent {
 
     @Override
     public void createContent() {
+        System.out.println("dayID: " + dayID);
         //Calendar auf der Console ausgeben
         //CalendarManager.getInstance().calendarOutput(CalendarManager.getInstance().getUserCalendar(userID));
-        Calendar calendar = CalendarManager.getInstance().getUserCalendar(userID);
-
-        initContent(calendar);
-        /*initDTSTARTint();*/
-        initProperties();
-        sortProperties();
+        
         /*testOutput();*/
         //QuickSort.getInstance().sortArray(propertiesDTSTART, 0, propertiesDTSTART.size()-1);
 
@@ -84,7 +89,7 @@ public class CalendarFrameContent extends AbstractFrameContent {
             String start = properties.get(dayID + i).getDTSTART();
             start = start.substring(9, 11) + ":" + start.substring(11, 13);
             String end = properties.get(dayID + i).getDTEND();
-            end = end.substring(9, 11) + ":" + end.substring(11, 13);;
+            end = end.substring(9, 11) + ":" + end.substring(11, 13);
             input = input + properties.get(dayID + i).getSUMMARY() + ":  " + start + " - " + end + " - " + properties.get(dayID + i).getLOCATION() + "\n";
         }
 
@@ -98,8 +103,10 @@ public class CalendarFrameContent extends AbstractFrameContent {
         attachChild(h1);
         Text message = new Text(false, new ColorRGBA(42f / 255f, 101f / 255f, 137f / 255f, 1f));
         message.setBox(new Rectangle(-100, 60, 200, 200));
-        System.out.println(input);
+        
+      
         message.setText(input);
+        System.out.println(dayComponentNumber + input);
         // message.setLocalTranslation(-message.getLineWidth()*0.5f, -message.getLineHeight()*message.getLineCount()*0.5f, 0);
         attachChild(message);
 
@@ -110,6 +117,7 @@ public class CalendarFrameContent extends AbstractFrameContent {
     }
 
     public void initContent(Calendar calendar) {
+        System.out.println("dayID: " + dayID);
         //Iteriert die einzelnen Termine
         for (Iterator i = calendar.getComponents().iterator(); i.hasNext();) {
             Component component = (Component) i.next();
@@ -172,7 +180,6 @@ public class CalendarFrameContent extends AbstractFrameContent {
     private String getDate() {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
         Date currentDate = new Date();
-        System.out.println("get DATE: " + formatter.format(currentDate));
         return formatter.format(currentDate);
     }
 
@@ -180,7 +187,30 @@ public class CalendarFrameContent extends AbstractFrameContent {
         SimpleDateFormat dayFormat = new SimpleDateFormat( "EEEE" );
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
         String inputDate = date;
-        System.out.println(inputDate + " was a " + dayFormat.format(format.parse(inputDate)));
         return dayFormat.format(format.parse(inputDate));
     }
+
+    public void changeContent(int rotation) {
+            destroyContent();
+            switch(rotation){
+                case 1: 
+                    if(dayID == 7){
+                        dayID = initValue;
+                    } else{
+                        dayID++;
+                    }
+                    break;
+                case -1:
+                    if (dayID == initValue){
+                        dayID = 7;
+                    } else{
+                        dayID--;
+                    }
+                    break;
+                default:
+                    System.out.print("NewsFrameContentGoogle - changeContent: DEFAULT CASE" + "\n");
+                    break;
+            }
+            createContent();
+    } 
 }

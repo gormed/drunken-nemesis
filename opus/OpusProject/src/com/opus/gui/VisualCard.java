@@ -38,33 +38,24 @@ public class VisualCard extends Node implements Updateable {
     Geometry cardGeom;
 
     public VisualCard(Card card, AssetManager assetManager) {
-
-        cardGeom = new Geometry("Card_" + card.getOwner().getTuioSymbolID(), new Box(Vector3f.ZERO, 1, 1, 1));
-
+   
         this.card = card;
         quadrantControl = new QuadrantControl();
-        
+
         boardUserFrame = new BoardUserFrame(this);
         newsUserFrame = new NewsUserFrameFirst(this);
         calendarUserFrame = new CalendarUserFrame(this);
         startUserFrame = new StartUserFrame(this);
         this.setFrame(startUserFrame);
 
-        Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        mat.setColor("Color", ColorRGBA.Blue);
-        cardGeom.setMaterial(mat);
-        cardGeom.setLocalScale(10);
-
-        this.attachChild(cardGeom);
         frameChooser = new FrameChooserMenu(this);
         this.attachChild(frameChooser);
-        
+
     }
 
-    
-    
     public void setFrame(AbstractUserFrame frame) {
         if (this.frame != null) {
+            
             this.detachChild(this.frame);
         }
         this.frame = frame;
@@ -83,6 +74,15 @@ public class VisualCard extends Node implements Updateable {
         float scale = SCREEN_HEIGHT / (float) TuioInputListener.table_size;
 
         this.setLocalTransform(rotateUI(Xpos - card.getX(), Ypos - card.getY(), scale));
+        if (isRestart()) {
+            this.getFrameChooser().setRestart(true);
+            frameChooser.animate = true;
+            if (!frame.equals(startUserFrame)) {
+                frame.animate = true;
+                this.setFrame(startUserFrame);
+                
+            }
+        }
         frameChooser.update(tpf);
         if (frame != null) {
             if (frame.equals(startUserFrame)) {
@@ -93,6 +93,8 @@ public class VisualCard extends Node implements Updateable {
             frame.update(tpf);
         }
         quadrantControl.update(tpf);
+
+        
     }
 
     private Transform rotateUI(float x, float y, float scale) {
@@ -122,17 +124,17 @@ public class VisualCard extends Node implements Updateable {
     public AbstractUserFrame getFrame() {
         return frame;
     }
-    
-        public void setMaxQuadrants(int maxQuadrants) {
-            this.quadrantControl.setMaxQuadrants(maxQuadrants);
-        }
-    
+
+    public void setMaxQuadrants(int maxQuadrants) {
+        this.quadrantControl.setMaxQuadrants(maxQuadrants);
+    }
+
     public void logout() {
 //        if (parent != null) {
 //            parent.detachChild(this);
 //        }
     }
-    
+
     public boolean isRestart() {
         if (card.getOwner().isRestart()) {
             card.getOwner().restarted();
@@ -148,14 +150,14 @@ public class VisualCard extends Node implements Updateable {
 
     public interface QuadrantListener {
 
-        public void changeQuadrant(int quad);
+        public void changeQuadrant(int currentQuadrant, int lastQuadrant);
     }
 
     private class QuadrantControl {
 
         int maxQuadrants = 0;
-
         int currentQuadrant = 0;
+        int lastQuadrant = 0;
         ArrayList<QuadrantListener> quadrantListeners = new ArrayList<QuadrantListener>();
 
         public QuadrantControl() {
@@ -169,7 +171,7 @@ public class VisualCard extends Node implements Updateable {
         public void setMaxQuadrants(int maxQuadrants) {
             this.maxQuadrants = maxQuadrants;
         }
-        
+
         public void update(float tpf) {
             if (maxQuadrants <= 0) {
                 return;
@@ -179,11 +181,12 @@ public class VisualCard extends Node implements Updateable {
             int seg = 180 / maxQuadrants;
             for (int i = 1; i < maxQuadrants + 1; i++) {
                 //System.out.println("Quad: " + (i * seg) + " i: " + i);
-                if (deg <(i * seg) && deg >= ((i-1) * seg) && currentQuadrant != (i - 1)) {
+                if (deg < (i * seg) && deg >= ((i - 1) * seg) && currentQuadrant != (i - 1)) {
+                    lastQuadrant = currentQuadrant;
                     currentQuadrant = i - 1;
-                    System.out.println("quadrant change: " + currentQuadrant);
+                    System.out.println("quadrant change: " + currentQuadrant + " - lastQuadrant: " + lastQuadrant);
                     for (QuadrantListener l : quadrantListeners) {
-                        l.changeQuadrant(currentQuadrant);
+                        l.changeQuadrant(currentQuadrant, lastQuadrant);
                     }
                     break;
                 }
